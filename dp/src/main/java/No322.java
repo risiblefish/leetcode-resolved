@@ -29,7 +29,7 @@ public class No322 {
  * 从状态转移方程可以看到 dp(x)的值取决于dp(x - coins[i])，即x取决于比x小的值，所以要先算小的，再算大的，否则就可能出现重复计算的问题。
  * 即应当从dp(0),dp(1),...,dp(amount)这个顺序来计算
  */
-class Solution {
+class Solution322 {
     public int coinChange(int[] coins, int amount) {
         int[] dp = new int[amount + 1];
         dp[0] = 0;
