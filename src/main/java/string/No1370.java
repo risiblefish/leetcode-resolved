@@ -39,6 +39,7 @@ class Solution1370 {
         }
         char[] arr = s.toCharArray();
         Arrays.sort(arr);
+        //利用linkedlist可以两头取出的特点
         LinkedList<Character> list = new LinkedList();
         for (char c : arr) {
             list.add(c);
