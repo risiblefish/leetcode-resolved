@@ -29,6 +29,8 @@ public class No1370 {
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/increasing-decreasing-string
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ *
+ * 本题常规解法： 根据题意翻译成代码即可
  */
 class Solution1370 {
     public String sortString(String s) {
