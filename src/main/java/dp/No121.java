@@ -26,7 +26,7 @@ public class No121 {
  *   比如 5 3 4 2 1, 虽然最低点是1，但比如对4这天而言，1在4之后，所以要找在4之前的最低点，就是3。
  *
  */
-class Solution121_2 {
+class Solution121 {
     public int maxProfit(int[] prices) {
         if(prices == null || prices.length <= 1){
             return 0;
