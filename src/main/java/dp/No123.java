@@ -7,7 +7,7 @@ package dp;
  */
 public class No123 {
     public static void main(String[] args) {
-        System.out.println(new Solution123().maxProfit(new int[]{3, 3, 5, 0, 0, 3, 1, 4}));
+        System.out.println(new Solution123().maxProfit(new int[]{2,1,4,5,2,9,7}));
     }
 }
 
