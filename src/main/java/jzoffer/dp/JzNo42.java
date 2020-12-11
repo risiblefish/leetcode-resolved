@@ -1,4 +1,4 @@
-package jzoffer;
+package jzoffer.dp;
 
 /**
  * @author Sean Yu
