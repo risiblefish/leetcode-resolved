@@ -1,4 +1,4 @@
-package dp;
+package algorithms.dp;
 
 /**
  * @author Sean Yu
@@ -21,15 +21,15 @@ public class No322 {
  *
  * 3.确定状态
  * 假设dp(x) = 凑出总和恰好为x所用的最少硬币数量
- * 则有状态转移方程： dp(x) = min{ dp(x-coins[0])+1, dp(x-coins[1])+1, ... , dp(x-coins[n-1]) + 1 }
+ * 则有状态转移方程： algorithms.dp(x) = min{ algorithms.dp(x-coins[0])+1, algorithms.dp(x-coins[1])+1, ... , algorithms.dp(x-coins[n-1]) + 1 }
  *
  * 4.确定初始状态和边界条件
- * dp(0) = 0
- * dp(负数) = 正无穷（即无解），之所以用正无穷，是为了便于Math.min()方法
+ * algorithms.dp(0) = 0
+ * algorithms.dp(负数) = 正无穷（即无解），之所以用正无穷，是为了便于Math.min()方法
  *
  * 5.确定计算顺序
- * 从状态转移方程可以看到 dp(x)的值取决于dp(x - coins[i])，即x取决于比x小的值，所以要先算小的，再算大的，否则就可能出现重复计算的问题。
- * 即应当从dp(0),dp(1),...,dp(amount)这个顺序来计算
+ * 从状态转移方程可以看到 algorithms.dp(x)的值取决于dp(x - coins[i])，即x取决于比x小的值，所以要先算小的，再算大的，否则就可能出现重复计算的问题。
+ * 即应当从dp(0),algorithms.dp(1),...,algorithms.dp(amount)这个顺序来计算
  */
 class Solution322 {
     public int coinChange(int[] coins, int amount) {
@@ -38,7 +38,7 @@ class Solution322 {
         for(int i = 1 ; i <= amount ; i++) {
             //令MAX_VALUE表示正无穷
             dp[i] = Integer.MAX_VALUE;
-            //dp[i] = min {dp[i-coin[j]] + 1}
+            //algorithms.dp[i] = min {algorithms.dp[i-coin[j]] + 1}
             for(int j = 0 ; j < coins.length ; j++) {
                 if(i - coins[j] >= 0) {
                     int count = dp[i - coins[j]];

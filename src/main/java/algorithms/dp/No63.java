@@ -1,4 +1,4 @@
-package dp;
+package algorithms.dp;
 
 /**
  * @author Sean Yu
@@ -14,11 +14,11 @@ public class No63 {
  * <p>
  * 2.确定状态
  * 令m=行数 n=列数
- * 如果dp(m-1,n-1)走得通，则数量 = dp(m-1,n) + dp(m,n-1) //前提是上面和左面存在，否则为0
+ * 如果dp(m-1,n-1)走得通，则数量 = algorithms.dp(m-1,n) + algorithms.dp(m,n-1) //前提是上面和左面存在，否则为0
  * 如果dp(m-1,n-1)走不通，则数量 = 0
  * <p>
  * 3.确定初始条件和边界情况
- * dp(0,0) 或者 dp(m-1)(n-1)如果通则为1，否则直接返回0
+ * algorithms.dp(0,0) 或者 algorithms.dp(m-1)(n-1)如果通则为1，否则直接返回0
  * 如果上面或左边不存在，则为0
  * <p>
  * 4.计算顺序

@@ -1,4 +1,4 @@
-package dp;
+package algorithms.dp;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,12 +38,12 @@ public class No120 {
  * 所以对于当前层的某个节点t.get(i).get(k)而言，它的左父节点就是t.get(i-1).get(k-1),它的右父节点就是t.get(i-1).get(k) //前提是父节点存在
  * <p>
  * 用dp(i,k)表示第i层（i = 0,1,...）第k个节点（k = 0,1,...）的最小路径和，那么有
- * dp(i,k) = t.get(i).get(k) + min{ dp(i-1,k-1) , dp(i-1,k)}
+ * algorithms.dp(i,k) = t.get(i).get(k) + min{ algorithms.dp(i-1,k-1) , algorithms.dp(i-1,k)}
  * <p>
  * 最后的解，就是dp(最下一排里)最小的那个
  * <p>
  * 3. 确定初始条件和边界情况
- * dp(0,0) = t.get(0).get(0)
+ * algorithms.dp(0,0) = t.get(0).get(0)
  * <p>
  * 4. 计算顺序，从上到下
  * <p>

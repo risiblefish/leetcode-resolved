@@ -1,4 +1,4 @@
-package dp;
+package algorithms.dp;
 
 /**
  * @author Sean Yu
@@ -20,13 +20,13 @@ public class No746 {
  * <p>
  * 2. 确定状态转移方程
  * 若dp[i]表示最后一步是阶梯i的最低花费，则有：
- * dp[i] = cost[i] + min {dp[i-1],dp[i-2]} //如果i-1, i-2存在的话
- * 解就是min{dp[n-2],dp[n-1]} //因为从最后那个和倒数第2个阶梯都能走出去
+ * algorithms.dp[i] = cost[i] + min {algorithms.dp[i-1],algorithms.dp[i-2]} //如果i-1, i-2存在的话
+ * 解就是min{algorithms.dp[n-2],algorithms.dp[n-1]} //因为从最后那个和倒数第2个阶梯都能走出去
  * <p>
  * <p>
  * 3. 确定初始状态
- * dp[0] = cost[0]
- * dp[1] = cost[1]
+ * algorithms.dp[0] = cost[0]
+ * algorithms.dp[1] = cost[1]
  * <p>
  * 4. 确定计算顺序
  * 由小到大

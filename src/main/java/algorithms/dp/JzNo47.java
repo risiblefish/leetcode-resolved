@@ -1,4 +1,4 @@
-package jzoffer.dp;
+package algorithms.dp;
 
 /**
  * 礼物的最大价值
@@ -18,7 +18,7 @@ public class JzNo47 {
  * 子问题：求到达g[i-1][j],g[i][j-1]的最优解
  * <p>
  * 2. 确定状态转移方程
- * 令dp(i,j)表示最后到达g[i][j]的最大值，则dp(i,j) = max{dp(i-1,j), dp(i,j-1)}
+ * 令dp(i,j)表示最后到达g[i][j]的最大值，则dp(i,j) = max{algorithms.dp(i-1,j), algorithms.dp(i,j-1)}
  * <p>
  * 3. 初始状态 和 边界情况
  * 如果没有左边和上面，则不加

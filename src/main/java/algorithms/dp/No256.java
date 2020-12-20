@@ -1,4 +1,4 @@
-package dp;
+package algorithms.dp;
 
 /**
  * @author Sean Yu
@@ -16,18 +16,18 @@ public class No256 {
  * 对于这种不能确定的情况，可以把条件加到状态里（由求1个解，变成求多个解），即，求前n-1栋房子且最后那栋为红色/蓝色/绿色的最优解，如此一来，求前n栋房子的最优解，就可以根据前面固定的颜色，从容地选取
  * <p>
  * 2. 确定状态
- * 令dp[i][0],dp[i][1],dp[i][2]分别表示前i栋房子里最后那栋房子为红，蓝，绿情况下的最优解
+ * 令dp[i][0],algorithms.dp[i][1],algorithms.dp[i][2]分别表示前i栋房子里最后那栋房子为红，蓝，绿情况下的最优解
  * 那么有:
- * dp[i][0] = min{dp[i-1][1],dp[i-1][2]} + costs[i-1][0]
- * dp[i][1] = min{dp[i-1][0],dp[i-1][2]} + costs[i-1][1]
- * dp[i][0] = min{dp[i-1][0],dp[i-1][1]} + costs[i-1][2]
+ * algorithms.dp[i][0] = min{algorithms.dp[i-1][1],algorithms.dp[i-1][2]} + costs[i-1][0]
+ * algorithms.dp[i][1] = min{algorithms.dp[i-1][0],algorithms.dp[i-1][2]} + costs[i-1][1]
+ * algorithms.dp[i][0] = min{algorithms.dp[i-1][0],algorithms.dp[i-1][1]} + costs[i-1][2]
  * <p>
  * 3. 确定边界条件和初始状态
  * 初始状态：
- * dp[0][0] = dp[0][1] = dp[0][2] = 0 //前0栋房子，即没有房子的最少价格为0
- * dp[1][0] = costs[0][0]
- * dp[1][1] = costs[0][1]
- * dp[1][2] = costs[0][2]
+ * algorithms.dp[0][0] = algorithms.dp[0][1] = algorithms.dp[0][2] = 0 //前0栋房子，即没有房子的最少价格为0
+ * algorithms.dp[1][0] = costs[0][0]
+ * algorithms.dp[1][1] = costs[0][1]
+ * algorithms.dp[1][2] = costs[0][2]
  * 边界条件：
  * 无
  * <p>

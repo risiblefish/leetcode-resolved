@@ -1,4 +1,4 @@
-package string;
+package algorithms.string;
 
 import java.util.Arrays;
 import java.util.LinkedList;

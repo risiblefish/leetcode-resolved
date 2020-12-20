@@ -1,4 +1,4 @@
-package ms;
+package algorithms.ms;
 
 /**
  * @author Sean Yu
@@ -23,11 +23,11 @@ public class No17_16 {
  * 对于a[i]而言，除了a[i-1]，可以选择其他任意的时间作为它的相邻点
  * <p>
  * 2. 确认状态转移方程
- * 令dp[i]表示包含下标为i的最优集合，那么有dp[i] = a[i] + max{dp[0],dp[1],...dp[i-2]}
+ * 令dp[i]表示包含下标为i的最优集合，那么有dp[i] = a[i] + max{algorithms.dp[0],algorithms.dp[1],...algorithms.dp[i-2]}
  * 最后就是找出所有dp[i]中最大的那个
  * <p>
  * 3. 初始状态
- * dp[0] = a[0]
+ * algorithms.dp[0] = a[0]
  * <p>
  * 4.计算顺序
  * 从小到大，保存计算结果，避免重复计算

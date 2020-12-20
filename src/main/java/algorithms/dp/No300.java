@@ -1,4 +1,4 @@
-package dp;
+package algorithms.dp;
 
 /**
  * @author Sean Yu
@@ -26,11 +26,11 @@ public class No300 {
  * 2.确定状态转移方程
  * 令dp[i]表示下标从0到i且包含a[i]的数组里的最长上升子序列的长度，则有：
  * 对于 k ∈ [0,i),
- * 如果a[k] < a[i]，dp[i] = max { dp[k] + 1 },
- * 如果a[k] >= a[i]，dp[i] = 1
+ * 如果a[k] < a[i]，algorithms.dp[i] = max { algorithms.dp[k] + 1 },
+ * 如果a[k] >= a[i]，algorithms.dp[i] = 1
  * <p>
  * 3.确定初始状态和边界条件
- * dp[0] = 1
+ * algorithms.dp[0] = 1
  * <p>
  * 4.计算顺序
  * 因为dp[i]依赖于dp[i-1]，所以从小到大计的顺序来计算

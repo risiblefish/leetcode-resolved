@@ -1,4 +1,4 @@
-package jzoffer;
+package algorithms.dp;
 
 /**
  * @author Sean Yu
@@ -18,12 +18,12 @@ public class JzNo42 {
  * 2. 确定状态转移方程：
  *
  * 假设dp(i)是【包含第i个数】的连续最大和,所以dp(i)至少包含了nums[i]
- * 如果dp[i-1] <= 0, dp[i] = nums[i]
- * 如果dp[i-1] > 0， dp[i] = nums[i] + dp[i-1]
+ * 如果dp[i-1] <= 0, algorithms.dp[i] = nums[i]
+ * 如果dp[i-1] > 0， algorithms.dp[i] = nums[i] + algorithms.dp[i-1]
  *
  *
  * 3. 确定初始状态和边界条件
- * dp(0) = nums[0]
+ * algorithms.dp(0) = nums[0]
  *
  * 4. 确定计算顺序
  * 从小到大能够避免重复计算

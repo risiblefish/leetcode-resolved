@@ -1,4 +1,4 @@
-package dp;
+package algorithms.dp;
 
 /**
  * No.213 打家劫舍II
@@ -18,10 +18,10 @@ public class No213 {
  * 2. 确定状态转移方程
  * 由于首尾连续，所以这里要把数组分成2个子数组来求解，[0，n-2]和[1,n-1]
  *
- * 令dp(i)表示长度为i的数组，则dp(i) = max{ nums[i]+dp(i-2), dp(i-1)}
+ * 令dp(i)表示长度为i的数组，则dp(i) = max{ nums[i]+algorithms.dp(i-2), algorithms.dp(i-1)}
  *
  * 3. 确定边界条件和初始情况
- * dp(0) = 0
+ * algorithms.dp(0) = 0
  *
  * 4. 计算顺序
  * 由小到大

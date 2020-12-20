@@ -1,4 +1,4 @@
-package dp;
+package algorithms.dp;
 
 /**
  * @author Sean Yu
@@ -59,11 +59,11 @@ class Solution1025_1 {
  * 假设dp(i) = true/false 表示在i范围内A先手是否获胜
  * 如果A能先手获胜，那么表示A能找到一种策略，先手取k，令B在i-k的范围内先手必然失败，其中k的范围是 [1,i-1] 且满足 i % k = 0
  * 假设(0,i)内能整除i的数是k1,k2,...kj
- * 那么有 dp(i) = ![ dp(i-k1) && dp(i-k2) && .. && dp(i-kj) ] //即只要有1个(i-k)满足先手必败，那么i就能先手必胜
+ * 那么有 algorithms.dp(i) = ![ algorithms.dp(i-k1) && algorithms.dp(i-k2) && .. && algorithms.dp(i-kj) ] //即只要有1个(i-k)满足先手必败，那么i就能先手必胜
  * <p>
  * 3. 初始条件和边界情况
- * dp(1) = false
- * dp(2) = true
+ * algorithms.dp(1) = false
+ * algorithms.dp(2) = true
  * <p>
  * 4. 计算顺序
  * 从小到大以保证计算结果

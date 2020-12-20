@@ -1,4 +1,4 @@
-package dp;
+package algorithms.dp;
 
 import java.util.Arrays;
 
@@ -15,8 +15,8 @@ public class No164 {
 /**
  * 常规解法：
  * 排序后逐个比较，记录当前最大差值
- * dp[i]表示长度为i（i > 1）的数组里找出的最大值
- * 那么有dp[i] = max( dp[i-1], nums[i-1] - nums[i-2] )
+ * algorithms.dp[i]表示长度为i（i > 1）的数组里找出的最大值
+ * 那么有dp[i] = max( algorithms.dp[i-1], nums[i-1] - nums[i-2] )
  */
 class Solution164 {
     public int maximumGap(int[] nums) {

@@ -1,4 +1,4 @@
-package ms;
+package algorithms.ms;
 
 /**
  * @author Sean Yu
@@ -16,13 +16,13 @@ public class No08_01 {
  * 其中，1步走完的前提是走完了前面n-1步，2步走完的前提是走完了前面n-2步，3步走完的前提是走完了前面n-3步
  * <p>
  * 2. 确定状态转移方程
- * 令dp[n] = dp[n-1] + dp[n-2] + dp[n-3]
+ * 令dp[n] = algorithms.dp[n-1] + algorithms.dp[n-2] + algorithms.dp[n-3]
  * <p>
  * 3. 确定初始状态
- * dp[0] = 0
- * dp[1] = 1
- * dp[2] = 2 // 2次1步或者1次2步
- * dp[3] = 4 //dp[1] + dp[2] + 直接3步走出去
+ * algorithms.dp[0] = 0
+ * algorithms.dp[1] = 1
+ * algorithms.dp[2] = 2 // 2次1步或者1次2步
+ * algorithms.dp[3] = 4 //algorithms.dp[1] + algorithms.dp[2] + 直接3步走出去
  * <p>
  * 4. 计算顺序
  * 从小到大避免重复计算

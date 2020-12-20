@@ -1,4 +1,4 @@
-package dp;
+package algorithms.dp;
 
 /**
  * no.361 轰炸敌人 bomb enemy

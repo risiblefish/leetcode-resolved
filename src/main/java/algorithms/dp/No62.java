@@ -1,4 +1,4 @@
-package dp;
+package algorithms.dp;
 
 /**
  * @author Sean Yu
@@ -21,10 +21,10 @@ public class No62 {
  * 走到右下角上方的路径数量就是dp(m-1,n)
  * 走到右下角左方的路径数量就是dp(m,n-1)
  * <p>
- * 所以dp(m,n) = dp(m-1,n) + dp(m,n-1)
+ * 所以dp(m,n) = algorithms.dp(m-1,n) + algorithms.dp(m,n-1)
  * <p>
  * 3. 确定初始条件和边界情况
- * dp(1,y) = 1 和 dp(x,1) = 1
+ * algorithms.dp(1,y) = 1 和 algorithms.dp(x,1) = 1
  * 上方不存在： 横坐标 < 0
  * 左方不存在： 纵坐标 < 0
  * m,n均要大于0
