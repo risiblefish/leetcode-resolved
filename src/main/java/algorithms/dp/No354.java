@@ -15,7 +15,7 @@ public class No354 {
 }
 
 /**
- * 首先注意题目的前置条件： 不允许旋转信封
+ * 首先注意题目的前置条件： 不允许旋转信封，这意味着每个信封的长和宽不能进行身份转换
  * <p>
  * 思路:
  * <p>
@@ -30,10 +30,10 @@ public class No354 {
  * <p>
  * 求最长上升子序列的长度：
  * dp(i)表示包含第i个信封的最长上升子序列长度，那么
- * dp(i)初始化为1
+ * dp(i)初始化为1，因为至少包含它本身
  * 当有 第i-1个的信封的宽度 > 第k-1个信封宽度 时，
  * dp(i) = max{1, dp(k)+ 1 && 0 <= k < i}
- * max{dp(i) | 0 <= i < n}
+ * 最后 max{dp(i) | 0 <= i < n} 就是最终的解
  */
 class Solution354 {
     public int maxEnvelopes(int[][] envelopes) {
@@ -58,6 +58,7 @@ class Solution354 {
         for (int i = 0; i < n; i++) {
             dp[i] = 1;
             for (int k = 0; k < i; k++) {
+                //只有当第i个信封的宽比第k个信封的宽大时，才能把第k个信封塞进第i个信封
                 if (envelopes[i][1] > envelopes[k][1]) {
                     dp[i] = Math.max(dp[i], dp[k] + 1);
                 }
