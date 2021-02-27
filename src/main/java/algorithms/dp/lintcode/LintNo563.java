@@ -1,10 +1,11 @@
 package algorithms.dp.lintcode;
 
 /**
+ * 563. 背包问题V
  * @author Sean Yu
  * @date 2020/12/24 12:17
  */
-public class No563 {
+public class LintNo563 {
     public static void main(String[] args) {
         System.out.println(new Solution563().backPackV(new int[]{1, 2, 3, 3, 7}, 7));
     }
