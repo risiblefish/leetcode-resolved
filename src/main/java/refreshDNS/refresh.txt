@@ -1,0 +1,3 @@
+使用了代理之后，windows系统需要在CMD中执行来刷新DNS缓存，避免OpenSSL SSL_connect: Connection was reset in connection to github.com:443
+指令：
+ipconfig/flushdns
