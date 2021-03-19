@@ -1,8 +1,12 @@
+package algorithms.dualpointer;
+
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 
 /**
  * 16. 最接近的三数之和
- * 
+ *
  * @author Sean Yu
  */
 public class No16 {
@@ -26,6 +30,8 @@ public class No16 {
  */
 class Solution16 {
     public int threeSumClosest(int[] nums, int target) {
+        Deque<Integer> q = new ArrayDeque(10);
+        
         Arrays.sort(nums);
         int n = nums.length;
         int res = nums[0] + nums[1] + nums[2];
