@@ -1,3 +1,4 @@
+-- 177. 第N高的薪水
 CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
 BEGIN
 --由于起始下标为0，所以这里要将N处理为N-1
