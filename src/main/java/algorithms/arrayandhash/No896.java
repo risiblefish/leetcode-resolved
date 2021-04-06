@@ -1,4 +1,4 @@
-package algorithms.array;
+package algorithms.arrayandhash;
 
 /**
  * 896. 单调数列
