@@ -46,7 +46,7 @@ class Solution59 {
                     c--;
                 }
             } else {
-                if (r - 1 < 0 || ((r - 1 >= 0) && matrix[r - 1][c] != 0)) {
+                if (r - 1 < 0 || (matrix[r - 1][c] != 0)) {
                     currDir = 0;
                     dirCount++;
                 } else {
