@@ -1,4 +1,4 @@
-package algorithms.arrayandhash;
+package algorithms.hashtable;
 
 /**
  * 27. 移除元素

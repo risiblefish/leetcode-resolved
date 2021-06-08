@@ -1,4 +1,4 @@
-package algorithms.arrayandhash;
+package algorithms.hashtable;
 
 /**
  * 209. 长度最小的子数组

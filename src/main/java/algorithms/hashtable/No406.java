@@ -1,4 +1,4 @@
-package algorithms.arrayandhash;
+package algorithms.hashtable;
 
 import java.util.Arrays;
 import java.util.LinkedList;
