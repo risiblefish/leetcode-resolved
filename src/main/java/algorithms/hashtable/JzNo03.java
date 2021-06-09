@@ -1,4 +1,4 @@
-package algorithms.arrayandhash;
+package algorithms.hashtable;
 
 /**
  * 剑指 Offer 03. 数组中重复的数字
