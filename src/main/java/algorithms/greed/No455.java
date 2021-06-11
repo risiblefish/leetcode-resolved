@@ -15,7 +15,7 @@ public class No455 {
  *
  * 用满足孩子胃口的最小的那个饼干去喂食
  */
-class Solution {
+class Solution455 {
     public int findContentChildren(int[] g, int[] s) {
         Arrays.sort(g);
         Arrays.sort(s);
