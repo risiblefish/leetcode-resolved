@@ -51,3 +51,31 @@ class Solution42 {
         return shorter - height[i];
     }
 }
+
+/**
+ * 优化：
+ * 每个柱子能接的雨量 = min(左边最高的柱子，右边最高的柱子) - 自己的高度，如果为负数，则记0
+ * 只需记录每根柱子右边最大的值，在计算出左边最大值之后，其实已经不用再存到数组里，因为这时已经可以求出它能承接的最大雨量了
+ */
+class Solution42_2 {
+    public int trap(int[] height) {
+        if (height == null || height.length == 0) {
+            return 0;
+        }
+        int n = height.length;
+        int[] rmax = new int[n];
+        int max = 0;
+        for (int i = n - 1; i >= 0; i--) {
+            max = Math.max(height[i], max);
+            rmax[i] = max;
+        }
+        max = 0;
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            max = Math.max(height[i], max);
+            int count = Math.min(max, rmax[i]) - height[i];
+            sum = count <= 0 ? sum : sum + count;
+        }
+        return sum;
+    }
+}

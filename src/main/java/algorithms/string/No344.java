@@ -4,6 +4,10 @@ package algorithms.string;
  * 344. 反转字符串
  */
 public class No344 {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder();
+        sb.reverse();
+    }
 }
 
 /**
