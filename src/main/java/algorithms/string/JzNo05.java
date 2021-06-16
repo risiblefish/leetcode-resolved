@@ -8,6 +8,10 @@ package algorithms.string;
 public class JzNo05 {
 }
 
+/**
+ * 时间：O(n)
+ * 空间：O(n)
+ */
 class SolutionJzNo05 {
     public String replaceSpace(String s) {
         StringBuilder sb = new StringBuilder();
