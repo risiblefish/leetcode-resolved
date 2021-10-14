@@ -8,11 +8,12 @@ import java.util.List;
 import java.util.Queue;
 
 /**
- * No.102 树的层序遍历
+ * No.199 二叉树的右视图
  * @author Sean Yu
  */
-public class No102 {
+public class No199 {
 }
+
 
 /**
  * Definition for a binary tree node.
@@ -31,23 +32,23 @@ public class No102 {
  */
 
 /**
- * 思路：
- * 利用队列 和 计数
+ * 思路： 利用queue进行层序遍历，只记录 每层的最后一个节点 的值
  */
-class Solution102 {
-    public List<List<Integer>> levelOrder(TreeNode root) {
-        Queue<TreeNode> q = new LinkedList();
-        List<List<Integer>> res = new ArrayList();
+class Solution199 {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
         if (root == null) {
             return res;
         }
+        Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
         while (!q.isEmpty()) {
             int count = q.size();
-            List<Integer> list = new ArrayList();
             while (count > 0) {
                 TreeNode curr = q.poll();
-                list.add(curr.val);
+                if (count == 1) {
+                    res.add(curr.val);
+                }
                 if (curr.left != null) {
                     q.add(curr.left);
                 }
@@ -56,7 +57,6 @@ class Solution102 {
                 }
                 count--;
             }
-            res.add(list);
         }
         return res;
     }

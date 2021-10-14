@@ -2,17 +2,14 @@ package algorithms.tree.traversal;
 
 import algorithms.tree.TreeNode;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
- * No.102 树的层序遍历
  * @author Sean Yu
  */
-public class No102 {
+public class No107 {
 }
+
 
 /**
  * Definition for a binary tree node.
@@ -31,16 +28,15 @@ public class No102 {
  */
 
 /**
- * 思路：
- * 利用队列 和 计数
+ * 思路： 同102，最后将存储结果的list反转即可
  */
-class Solution102 {
-    public List<List<Integer>> levelOrder(TreeNode root) {
-        Queue<TreeNode> q = new LinkedList();
+class Solution107 {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
         List<List<Integer>> res = new ArrayList();
         if (root == null) {
             return res;
         }
+        Queue<TreeNode> q = new LinkedList();
         q.add(root);
         while (!q.isEmpty()) {
             int count = q.size();
@@ -58,6 +54,9 @@ class Solution102 {
             }
             res.add(list);
         }
+        Collections.reverse(res);
         return res;
     }
+
+
 }
