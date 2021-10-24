@@ -10,11 +10,11 @@ public class No28 {
     public static void main(String[] args) {
 //        System.out.println(new Solution28().strStr("ababcaababcaabc", "ababcaabc"));
 //        System.out.println(new Solution28().strStr("mississippi", "issip"));
-        System.out.println(new Solution28().strStr("aabaabaaf", "aabaaf"));
+//        System.out.println(new Solution28().strStr("aabaabaaf", "aabaaf"));
 //        System.out.println(new Solution28().strStr("hello", "ll"));
 //        System.out.println(new Solution28().strStr("ababcaababcaabc", "ababcaabc"));
-        LinkedBlockingQueue lbq = new LinkedBlockingQueue();
-        LinkedBlockingDeque deque = new LinkedBlockingDeque();
+        System.out.println(new Solution28().strStr("hello", "ll"));
+
     }
 }
 

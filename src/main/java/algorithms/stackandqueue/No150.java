@@ -1,10 +1,10 @@
 package algorithms.stackandqueue;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.Stack;
 
 /**
  * 150. 逆波兰表达式求值
+ *
  * @Author: Sean Yu
  * @Date: 2021/3/20 17:37
  */
@@ -23,65 +23,31 @@ public class No150 {
  */
 class Solution150 {
     public int evalRPN(String[] tokens) {
-        Deque<Integer> numStack = new ArrayDeque();
-        for (String s : tokens) {
-            if (s.length() == 1) {
-                char c = s.charAt(0);
-                if (Character.isDigit(c)) {
-                    numStack.push(c - '0');
-                } else if (c == '+' || c == '-' || c == '*' || c == '/') {
-                    int num2 = numStack.pop();
-                    int num1 = numStack.pop();
-                    int res = calculate(num1, num2, c);
-                    numStack.push(res);
-                }
+        Stack<Integer> stack = new Stack();
+        for (int i = 0; i < tokens.length; i++) {
+            String s = tokens[i];
+            if (isOperator(s)) {
+                int num2 = stack.pop();
+                int num1 = stack.pop();
+                stack.push(op(num1, num2, s));
             } else {
-                Integer num = getNum(s);
-                if(num!= null){
-                    numStack.push(num);
-                }else {
-                    numStack.push(calculate(s));
-                }
+                stack.push(Integer.parseInt(s));
             }
         }
-        return numStack.pop();
+        return stack.pop();
     }
 
-    private Integer getNum(String s) {
-        for (int i = 0; i < s.length(); i++) {
-            if(i == 0 && s.charAt(i) == '-'){
-                continue;
-            }
-            if (!Character.isDigit(s.charAt(i))) {
-                return null;
-            }
-        }
-        return Integer.parseInt(s);
+    private boolean isOperator(String s) {
+        return s.equals("+") || s.equals("-") || s.equals("*") || s.equals("/");
     }
 
-    private int calculate(String s) {
-        Deque<Integer> numStack = new ArrayDeque();
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (Character.isDigit(c)) {
-                numStack.push(c - '0');
-            } else if (c == '+' || c == '-' || c == '*' || c == '/') {
-                int num2 = numStack.pop();
-                int num1 = numStack.pop();
-                int res = calculate(num1, num2, c);
-                numStack.push(res);
-            }
-        }
-        return numStack.pop();
-    }
-
-    private int calculate(int num1, int num2, char op) {
+    private int op(int num1, int num2, String op) {
         switch (op) {
-            case '+':
+            case "+":
                 return num1 + num2;
-            case '-':
+            case "-":
                 return num1 - num2;
-            case '*':
+            case "*":
                 return num1 * num2;
             default:
                 return num1 / num2;

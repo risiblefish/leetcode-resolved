@@ -73,4 +73,21 @@ class Solution142 {
         }
         return null;
     }
+
+    public ListNode detectCycle_3(ListNode head) {
+        ListNode slow = head, fast = head, third = head;
+        do {
+            if (fast == null || fast.next == null) {
+                return null;
+            }
+            fast = fast.next.next;
+            slow = slow.next;
+        } while (fast != slow);
+
+        while (third != slow) {
+            third = third.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
 }
