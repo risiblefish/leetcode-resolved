@@ -33,14 +33,25 @@ class Solution144 {
 
 /**
  * 思路2：迭代（借助栈）
+ *
+ * 最开始先把头结点入栈
+ * 迭代过程（针对栈）：
+ * 当栈不为空时，
+ * 每次弹出一个节点记为node,
+ * 记录node.val
+ * 如果node有右节点，则压栈右节点
+ * 如果node有左节点，则压栈左节点
+ *
+ *
+ * 如此往复，直到栈空
  */
 class Solution_II {
     public List<Integer> preorderTraversal(TreeNode root) {
-        Deque<TreeNode> stack = new ArrayDeque();
         List<Integer> res = new ArrayList();
         if(root == null){
             return res;
         }
+        Deque<TreeNode> stack = new ArrayDeque();
         stack.push(root);
         while(!stack.isEmpty()){
             TreeNode node = stack.pop();
@@ -51,23 +62,6 @@ class Solution_II {
             if(node.left != null){
                 stack.push(node.left);
             }
-        }
-        return res;
-    }
-
-    public List<Integer> preorderTraversal1(TreeNode root) {
-        Deque<TreeNode> stack = new ArrayDeque();
-        List<Integer> res = new ArrayList();
-        stack.push(root);
-        while(root != null || !stack.isEmpty()){
-            TreeNode node = stack.pop();
-            if(node.right != null){
-                stack.push(node.right);
-            }
-            if(node.left != null){
-                stack.push(node.left);
-            }
-            res.add(root.val);
         }
         return res;
     }
