@@ -9,7 +9,7 @@ import java.util.LinkedList;
 public class No406 {
 }
 
-class Solution {
+class Solution406 {
     public int[][] reconstructQueue(int[][] people) {
         Arrays.sort(people, (p1, p2) -> {
             if (p1[0] != p2[0]) {
