@@ -9,7 +9,6 @@ import java.util.*;
  */
 public class No1345 {
     public static void main(String[] args) {
-        int[] arr = new int[]{100, -23, -23, 404, 100, 23, 23, 23, 3, 404};
     }
 }
 
