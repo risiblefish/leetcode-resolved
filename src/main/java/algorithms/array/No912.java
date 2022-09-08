@@ -11,7 +11,7 @@ import java.util.Random;
 public class No912 {
     public static void main(String[] args) {
 //        int[] nums = new int[]{-7, -5, -4, -1, -1, 4, 0, 7, 0, 9};
-        int[] nums = new int[]{9,8,7,6,5,4,1,2,3};
+        int[] nums = new int[]{9, 8, 7, 6, 5, 4, 1, 2, 3};
         System.out.println(Arrays.toString(new Solution912_QuickSort().sortArray(nums)));
     }
 }
@@ -91,11 +91,11 @@ class Solution912_HeapSort {
 
 /**
  * 快排：
- *
+ * <p>
  * 核心思路： 划分partition
- *
+ * <p>
  * 从数组中选出一个数target，将比target小的放到target左边，将比target大的放到target右边， 将和target一样大的放中间
- *
+ * <p>
  * 具体操作：
  * （1）我们令L,R上最后一个数为target，即arr[R], 然后在L到R范围上进行划分
  * （2）用cur记录当前下标，从L开始，然后维护2个边界，
@@ -106,13 +106,13 @@ class Solution912_HeapSort {
  * （3）开始划分
  * I. 如果arr[cur] < target， 那么将arr[cur]和lessBound下一个数交换，然后扩大lessBound
  * e.g. ) 3, 1, 2, (5  cur一开始指向3， 3比5小，3和)下一个数交换（和自己交换），然后 小于边界扩大， cur也后移， 变成 3),1,2,(5
- *
+ * <p>
  * II. 如果arr[cur] == target, 那么直接将cur往后移
- *
+ * <p>
  * III. 如果arr[cur] > target, 将arr[cur]和 大于边界 前1个数交换，然后扩大 大于边界， 但cur不变，因为交换过后的数还没有进行比较
- *
+ * <p>
  * 当cur 撞上 大于边界时， 说明此时已经划分完成
- *
+ * <p>
  * 随机的重要性：
  * 因为我们选择了L,R上最后一个数作为target，最坏的情况下，比如1,2,3,4,5 ,每次划分，右边界都是不动的，所以复杂度变成o(n^2)
  * 为了降低这种概率，我们每次在划分之前，在L,R区间上随机选出一个数，与最后一个数做交换
@@ -120,14 +120,15 @@ class Solution912_HeapSort {
 class Solution912_QuickSort {
     int[] arr;
     Random rand = new Random();
+
     public int[] sortArray(int[] nums) {
         arr = nums;
-        sort(0,arr.length - 1);
+        sort(0, arr.length - 1);
         return nums;
     }
 
-    private void sort(int l, int r){
-        if(l >= r){
+    private void sort(int l, int r) {
+        if (l >= r) {
             return;
         }
         int randIdx = l + rand.nextInt(r - l + 1);
@@ -137,27 +138,25 @@ class Solution912_QuickSort {
         sort(eq[1] + 1, r);
     }
 
-    private int[] partition(int l, int r){
-        if(l > r){
+    private int[] partition(int l, int r) {
+        if (l > r) {
             return new int[]{-1, -1};
         }
-        if(l == r){
+        if (l == r) {
             return new int[]{l, r};
         }
         int cur = l;
         int lessBound = l - 1;
         int moreBound = r;
         int target = arr[moreBound];
-        while(cur < moreBound){
-            if(arr[cur] == target){
+        while (cur < moreBound) {
+            if (arr[cur] == target) {
                 cur++;
-            }
-            else if(arr[cur] < target){
+            } else if (arr[cur] < target) {
                 swap(cur, lessBound + 1);
                 cur++;
                 lessBound++;
-            }
-            else{
+            } else {
                 swap(cur, moreBound - 1);
                 moreBound--;
             }
@@ -168,12 +167,55 @@ class Solution912_QuickSort {
     }
 
 
-    private void swap(int i , int j){
-        if(i == j) {
+    private void swap(int i, int j) {
+        if (i == j) {
             return;
         }
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
+    }
+}
+
+
+/**
+ * 归并排序 - 递归版本：
+ *
+ * 思路：每次将数组不断地划分成左右2部分，使左右2部分有序，然后再merge
+ */
+class Solution_MergeSort_Recursion {
+    int[] arr;
+
+    public int[] sortArray(int[] nums) {
+        arr = nums;
+        sort(0, nums.length - 1);
+        return nums;
+    }
+
+    private void sort(int l, int r) {
+        if (l == r) {
+            return;
+        }
+        int mid = l + (r - l) / 2;
+        sort(l, mid);
+        sort(mid + 1, r);
+        merge(l, mid, r);
+    }
+
+    private void merge(int l, int m, int r) {
+        int[] help = new int[r - l + 1];
+        int i = 0, p1 = l, p2 = m + 1;
+        while (p1 <= m && p2 <= r) {
+            help[i++] = arr[p1] <= arr[p2] ? arr[p1++] : arr[p2++];
+        }
+        while (p1 <= m) {
+            help[i++] = arr[p1++];
+        }
+        while (p2 <= r) {
+            help[i++] = arr[p2++];
+        }
+        for (int cur = l; cur <= r; cur++) {
+            arr[cur] = help[cur - l];
+        }
     }
 }
