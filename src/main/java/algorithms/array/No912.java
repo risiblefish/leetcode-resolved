@@ -179,17 +179,50 @@ class Solution912_QuickSort {
 
 
 /**
- * 归并排序 - 递归版本：
+ * 归并排序
  *
  * 思路：每次将数组不断地划分成左右2部分，使左右2部分有序，然后再merge
  */
-class Solution_MergeSort_Recursion {
+class Solution912_MergeSort {
     int[] arr;
 
     public int[] sortArray(int[] nums) {
         arr = nums;
+        //递归版本
         sort(0, nums.length - 1);
+        //非递归版本
+        //sort();
         return nums;
+    }
+
+    /**
+     * 非递归版本
+     * @return
+     */
+    public int[] sort() {
+        int mergeSize = 1;
+        //从步长1开始merge
+        while(mergeSize < arr.length){
+            //在当前步长下，从左往右依次merge
+            int l = 0;
+            while(l < arr.length){
+                //m可以理解为merge的左半部分的最后一个数
+                int m = l + mergeSize - 1;
+                //如果左半部分最后一个数越界，则跳过本次merge，因为步长是从小到大，所以没merge的这部分仍然是有序的
+                if(m >= arr.length){
+                    break;
+                }
+                //r可以理解为右半部分的最后一个数，右半部分可能长度不足步长，所以要动态选择
+                int r = Math.min(m + mergeSize, arr.length - 1);
+                //将[l,m]和[m+1,r]部分merge
+                merge(l, m ,r);
+                //更新l
+                l = r + 1;
+            }
+            //更新步长
+            mergeSize *= 2;
+        }
+        return arr;
     }
 
     private void sort(int l, int r) {
