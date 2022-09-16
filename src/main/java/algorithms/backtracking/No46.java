@@ -15,7 +15,7 @@ public class No46 {
 
 
 /**
- * 思路： 回溯
+ * 思路： 递归
  * times指的是寻找的次数，全排列n个数 表示 一共要寻找n次
  * 脑子里可以先开始画一颗n叉树，
  * 比如求[1,2,3]的全排列
@@ -35,10 +35,6 @@ class Solution46 {
      * 回溯的通用模板：
      * （1）先确定出口条件，将结果保存，然后返回
      * （2）剪枝：如果当前遍历的数，已经记录了，就跳过
-     * @param res
-     * @param list
-     * @param times
-     * @param nums
      */
     private void backTracking(List<List<Integer>> res, List<Integer> list, int times, int[] nums) {
         if (times == nums.length) {
