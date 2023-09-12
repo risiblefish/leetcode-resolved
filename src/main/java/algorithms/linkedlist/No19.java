@@ -8,38 +8,36 @@ public class No19 {
 }
 
 /**
- * Definition for singly-linked list.
- * public class ListNode {
- * int val;
- * ListNode next;
- * ListNode() {}
- * ListNode(int val) { this.val = val; }
- * ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
-
-/**
  * 思路：
  * 一遍扫描。 通过手动debug得知，使用虚拟头 + 快慢指针
  */
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
 class Solution19 {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode dh = new ListNode(1);
-        dh.next = head;
-        ListNode fast = dh;
-        ListNode slow = dh;
-
-        for (int i = 0; i < n; i++) {
+        //因为有可能被删除的节点是头结点，所以要使用虚拟头结点
+        ListNode vh = new ListNode();
+        vh.next = head;
+        ListNode fast = vh;
+        while(n > 0){
             fast = fast.next;
+            n--;
         }
-
-        while (fast.next != null) {
+        ListNode slow = vh;
+        while(fast.next != null){
             fast = fast.next;
             slow = slow.next;
         }
-
-        ListNode newNext = slow.next.next;
-        slow.next = newNext;
-        return dh.next;
+        //此时slow.next就是要删除的节点
+        slow.next = slow.next.next;
+        return vh.next;
     }
 }

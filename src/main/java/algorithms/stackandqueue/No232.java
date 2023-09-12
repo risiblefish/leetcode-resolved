@@ -16,44 +16,40 @@ public class No232 {
 }
 
 class MyQueue {
-    Stack<Integer> curr,backup;
+    Stack<Integer> input;
+    Stack<Integer> output;
 
-    /** Initialize your data structure here. */
     public MyQueue() {
-        curr = new Stack();
-        backup = new Stack();
+        input = new Stack<Integer>();
+        output = new Stack<Integer>();
     }
 
-    /** Push element x to the back of queue. */
     public void push(int x) {
-        curr.push(x);
+        input.push(x);
     }
 
-    /** Removes the element from in front of queue and returns that element. */
     public int pop() {
-        if(!backup.isEmpty()){
-            return backup.pop();
+        if(!output.isEmpty()){
+            return output.pop();
         }
-        while(!curr.isEmpty()){
-            backup.push(curr.pop());
+        while(!input.isEmpty()){
+            output.push(input.pop());
         }
-        return backup.pop();
+        return output.pop();
     }
 
-    /** Get the front element. */
     public int peek() {
-        if(!backup.isEmpty()){
-            return backup.peek();
+        if(!output.isEmpty()){
+            return output.peek();
         }
-        while(!curr.isEmpty()){
-            backup.push(curr.pop());
+        while(!input.isEmpty()){
+            output.push(input.pop());
         }
-        return  backup.peek();
+        return output.peek();
     }
 
-    /** Returns whether the queue is empty. */
     public boolean empty() {
-        return curr.isEmpty() && backup.isEmpty();
+        return input.isEmpty() && output.isEmpty();
     }
 }
 

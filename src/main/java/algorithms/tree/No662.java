@@ -1,6 +1,8 @@
 package algorithms.tree;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 
 /**
@@ -64,3 +66,33 @@ class Solution662 {
         }
     }
 }
+
+/**
+ * 思路2 ： 深度优先搜索
+ *
+ * 这里用了前序遍历， 每个节点，都和该节点同一层最左边的节点进行距离计算，然后最大的举例就是题解
+ * 所以需要求出每层最左边节点的position，由于是深度优先遍历，所以每到下一层，第一个被记录的非空节点的position就是该层最左边的位置
+ */
+class Solution662_II {
+    int maxWidth = 0;
+    Map<Integer,Integer> map;
+    public int widthOfBinaryTree(TreeNode root) {
+        map = new HashMap();
+        dfs(root, 0,0);
+        return maxWidth;
+    }
+
+    private void dfs(TreeNode root, int depth, int position){
+        if(root == null) {
+            return;
+        }
+        map.putIfAbsent(depth, position);
+        maxWidth = Math.max(maxWidth, position - map.get(depth) + 1);
+        dfs(root.left, depth + 1, 2 * position);
+        dfs(root.right, depth + 1, 2 * position + 1);
+    }
+}
+
+/**
+ * 复杂度分析： 由于2种方式都是每个节点遍历一次，所以时间是O（N），空间也是O（N）
+ */

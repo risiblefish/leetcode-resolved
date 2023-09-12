@@ -1,12 +1,15 @@
 package algorithms.stackandqueue;
 
 import java.util.ArrayDeque;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Queue;
 
 public class No393 {
     public static void main(String[] args) {
         int[] data = {228,189,160,229,165,189,13,10};
         System.out.println(new Solution255().validUtf8(data));
+        System.out.println(100000 | 100000 | 100000 | 100000 | 100000);
     }
 }
 

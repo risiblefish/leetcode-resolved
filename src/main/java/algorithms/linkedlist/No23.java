@@ -13,10 +13,8 @@ public class No23 {
         /**
          * lists = [[1,4,5],[1,3,4],[2,6]]
          */
-//        ListNode[] listNodes = generate(Arrays.asList(Arrays.asList(1, 4, 5), Arrays.asList(1, 3, 4), Arrays.asList(2, 6)));
-//        ListNode res = new Solution23().mergeKLists(listNodes);
-//        System.out.println(res);
-        System.out.println(System.currentTimeMillis());
+        ListNode[] listNodes = generate(Arrays.asList(Arrays.asList(1, 4, 5), Arrays.asList(1, 3, 4), Arrays.asList(2, 6)));
+        new Solution23().mergeKLists(listNodes);
     }
 
     /**
@@ -46,59 +44,56 @@ public class No23 {
 /**
  * Definition for singly-linked list.
  * public class ListNode {
- * int val;
- * ListNode next;
- * ListNode() {}
- * ListNode(int val) { this.val = val; }
- * ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
 class Solution23 {
     public ListNode mergeKLists(ListNode[] lists) {
-        ListNode dummyHead = new ListNode(0);
-        Map<Integer, List<Integer>> map = new HashMap();
-        boolean isEmpty = false;
-        ListNode curr = null;
-        ListNode insert = dummyHead;
-        int min;
-        while (!isEmpty) {
-            isEmpty = true;
-            min = Integer.MAX_VALUE;
-            for (int i = 0; i < lists.length; i++) {
-                curr = lists[i];
-                if (curr == null) {
-                    continue;
-                } else {
-                    isEmpty = false;
-                    if (curr.val <= min) {
-                        if (map.containsKey(curr.val)) {
-                            List<Integer> idxList = map.get(curr.val);
-                            idxList.add(i);
-                        } else {
-                            map.clear();
-                            ArrayList<Integer> idxList = new ArrayList<>();
-                            idxList.add(i);
-                            map.put(curr.val, idxList);
-                        }
-                        min = curr.val;
-                    }
-                }
-            }
-            if (!isEmpty) {
-                insert = combine(insert, map.get(min), lists);
-                map.clear();
-            }
-        }
-        return dummyHead.next;
+        //这个if如果这里不写，那么65行的if(l > r)就要打开
+        if(lists == null || lists.length == 0) return null;
+        return devideAndConquer(lists, 0, lists.length - 1);
     }
 
-    private ListNode combine(ListNode head, List<Integer> idxList, ListNode[] lists) {
-        for (Integer index : idxList) {
-            ListNode node = lists[index];
-            lists[index] = node.next;
-            head.next = node;
-            head = head.next;
+    private ListNode devideAndConquer(ListNode[] lists, int l, int r){
+        if(l == r){
+            return lists[l];
         }
-        return head;
+        // if(l > r){
+        //     return null;
+        // }
+        int mid = l + (r - l) / 2;
+        //先分到不能再分
+        ListNode lhead= devideAndConquer(lists, l, mid);
+        ListNode rhead = devideAndConquer(lists, mid+1, r);
+        //再治
+        return mergeTwoOrderedLists(lhead, rhead);
+    }
+
+    private ListNode mergeTwoOrderedLists(ListNode h1, ListNode h2){
+        ListNode vh = new ListNode();
+        ListNode cur = vh;
+        while(h1 != null && h2 != null){
+            if(h1.val <= h2.val){
+                cur.next = h1;
+                h1 = h1.next;
+            }
+            else {
+                cur.next = h2;
+                h2 = h2.next;
+            }
+            cur = cur.next;
+        }
+        //now h1 == null or h2 == null
+        if(h1 == null){
+            cur.next = h2;
+        }else{
+            cur.next = h1;
+        }
+        return vh.next;
     }
 }
+

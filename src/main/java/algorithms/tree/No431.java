@@ -1,13 +1,18 @@
 package algorithms.tree;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 431. 将 N 叉树编码为二叉树
  * @author Sean Yu
  */
 public class No431 {
+    public static void main(String[] args) {
+
+    }
 }
 
 

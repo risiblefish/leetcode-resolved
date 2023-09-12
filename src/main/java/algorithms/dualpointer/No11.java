@@ -18,7 +18,7 @@ public class No11 {
  * 要从短板方向上进行移动，
  * 如果短板移动后，高度比之前的短板更小，则可跳过计算，因为宽度和高度都变小了
  */
-class Solution {
+class Solution11 {
     public int maxArea(int[] height) {
         int l = 0, r = height.length - 1;
         int max = Math.min(height[l], height[r]) * (r - l);

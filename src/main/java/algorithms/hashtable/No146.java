@@ -10,18 +10,19 @@ import java.util.Map;
  */
 public class No146 {
     public static void main(String[] args) {
-        /**
-         * ["LRUCache","get", "put",  "get",   "put",     "put",   "get"   ,"get"]
-         * [[2]        ,[2]  ,[2,6]  ,[1],      [1,5]    ,[1,2]    ,[1]    ,[2]]
-         */
-        LRUCache lRUCache = new LRUCache(2);
-        System.out.println(lRUCache.get(2));
-        lRUCache.put(2, 6);
-        System.out.println(lRUCache.get(1));
-        lRUCache.put(1, 5);
-        lRUCache.put(1, 2);
-        System.out.println(lRUCache.get(1));
-        System.out.println(lRUCache.get(2));
+        System.out.println("yodn".compareTo("ewqz"));
+//        /**
+//         * ["LRUCache","get", "put",  "get",   "put",     "put",   "get"   ,"get"]
+//         * [[2]        ,[2]  ,[2,6]  ,[1],      [1,5]    ,[1,2]    ,[1]    ,[2]]
+//         */
+//        LRUCache lRUCache = new LRUCache(2);
+//        System.out.println(lRUCache.get(2));
+//        lRUCache.put(2, 6);
+//        System.out.println(lRUCache.get(1));
+//        lRUCache.put(1, 5);
+//        lRUCache.put(1, 2);
+//        System.out.println(lRUCache.get(1));
+//        System.out.println(lRUCache.get(2));
     }
 }
 

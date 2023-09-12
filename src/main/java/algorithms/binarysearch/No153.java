@@ -1,10 +1,18 @@
 package algorithms.binarysearch;
 
+import java.util.ArrayList;
+
 /**
  * 153. 寻找旋转排序数组中的最小值
  * @author Sean Yu
  */
 public class No153 {
+    public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<String>();
+        list.add("a");
+        list.remove("b");
+
+    }
 }
 
 /**

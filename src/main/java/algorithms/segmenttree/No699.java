@@ -93,12 +93,9 @@ class Solution699 {
         private void spreadLazy(int rootIdx) {
             if(update[rootIdx]){
                 update[rootIdx] = false;
-                update[rootIdx * 2] = true;
-                update[rootIdx * 2 + 1] = true;
-                change[rootIdx * 2] = change[rootIdx];
-                change[rootIdx * 2 + 1] = change[rootIdx];
-                max[rootIdx * 2] = change[rootIdx];
-                max[rootIdx * 2 + 1] = change[rootIdx];
+                update[rootIdx * 2] = update[rootIdx * 2 + 1] = true;
+                change[rootIdx * 2] = change[rootIdx * 2 + 1] = change[rootIdx];
+                max[rootIdx * 2] = max[rootIdx * 2 + 1] = change[rootIdx];
             }
         }
 
@@ -107,7 +104,7 @@ class Solution699 {
         }
 
         private int query(int missionL, int missionR, int rootL, int rootR, int rootIdx) {
-            if (missionL <= rootL && missionR >= rootR) {
+            if (missionL <= rootL && rootR <= missionR) {
                 return max[rootIdx];
             } else {
                 int mid = rootL + (rootR - rootL) / 2;

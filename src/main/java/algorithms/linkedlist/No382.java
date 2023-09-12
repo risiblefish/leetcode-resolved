@@ -7,6 +7,9 @@ import java.util.Random;
  * @author Sean Yu
  */
 public class No382 {
+    public static void main(String[] args) {
+        System.out.println(System.currentTimeMillis());
+    }
 }
 
 /**

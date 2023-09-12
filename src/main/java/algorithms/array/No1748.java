@@ -7,6 +7,8 @@ import java.util.Arrays;
  * @author Sean Yu
  */
 public class No1748 {
+    public static void main(String[] args) {
+    }
 }
 
 class Solution1748 {

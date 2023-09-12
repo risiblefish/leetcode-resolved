@@ -9,7 +9,14 @@ import java.util.Deque;
  */
 public class No71 {
     public static void main(String[] args) {
-        System.out.println(new Solution71().simplifyPath("/a/./b/../../c/"));
+//        System.out.println(new Solution71().simplifyPath("/a/./b/../../c/"));
+        System.out.println(Long.MAX_VALUE);
+        System.out.println(Long.MAX_VALUE / 1000000L);
+        long res = 1;
+        for (int i = 0; i < 63; i++) {
+            System.out.println(String.format("2的%s次方：%sM",i,res/1000000));
+            res *= 2;
+        }
     }
 }
 
@@ -23,7 +30,7 @@ public class No71 {
  *  (1) str 就是/ 说明i的下一个字符也是/，所以跳过本次i的处理
  *  (2) str 是/. 说明是当前目录本身，也跳过本次处理
  *  (3) str 是/.. 说明返回上级目录， 这个时候如果栈非空，就把栈顶的目录弹出
- *  (4) 其他情况，str是一个目录， 我们将它压栈
+ *  (4) 其他情况，str是一个目录， 将它压栈
  *
  *  3. 将i更新到j位置
  *

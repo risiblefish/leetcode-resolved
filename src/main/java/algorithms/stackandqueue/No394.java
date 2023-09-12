@@ -1,5 +1,7 @@
 package algorithms.stackandqueue;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 /**
@@ -9,6 +11,7 @@ import java.util.Stack;
  */
 public class No394 {
     public static void main(String[] args) {
+        Map<Integer,int[]> map = new HashMap<>();
         System.out.println(new Solution394().decodeString("3[a]2[bc]"));
     }
 }

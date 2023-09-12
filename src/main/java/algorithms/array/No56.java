@@ -30,28 +30,33 @@ public class No56 {
  */
 class Solution56 {
     public int[][] merge(int[][] intervals) {
-        Arrays.sort(intervals, (arr1, arr2) -> {
-            return arr1[0] - arr2[0];
+        Arrays.sort(intervals, (in1, in2) -> {
+            return in1[0] - in2[0];
         });
-        Deque<int[]> q = new ArrayDeque();
-        q.offer(intervals[0]);
+        Deque<int[]> stack = new ArrayDeque();
+        stack.push(intervals[0]);
         for(int i = 1; i < intervals.length ; i++){
-            int[] pre = q.peek();
+            //pre不用出栈，如果有交集，只需要更新pre的右边界，因为已经按左边界排序，所以pre的左边界一定是最小的
+            int[] pre = stack.peek();
             int[] cur = intervals[i];
+            //如果pre右边界 >= cur左边界 说明有交集
             if(pre[1] >= cur[0]){
-                int newL = Math.min(pre[0], cur[0]);
-                int newR = Math.max(pre[1], cur[1]);
-                q.pollFirst();
-                q.addFirst(new int[]{newL, newR});
-            }else{
-                q.addFirst(cur);
+                //
+                pre[1] = Math.max(pre[1], cur[1]);
+            }
+            //否则没有交集，把cur入栈
+            else{
+                stack.push(cur);
             }
         }
-        int len = q.size();
-        int[][] ans = new int[len][2];
-        for(int i = 0 ; i < len ; i++){
-            ans[i] = q.poll();
+        int len = stack.size();
+        int[][] res = new int[len][2];
+        //由于栈是后进先出，所以转化为数组的时候，从数组的最后一个下标开始向前更新
+        for(int i = len - 1; i >= 0 ; i--){
+            int[] cur = stack.pop();
+            res[i][0] = cur[0];
+            res[i][1] = cur[1];
         }
-        return ans;
+        return res;
     }
 }

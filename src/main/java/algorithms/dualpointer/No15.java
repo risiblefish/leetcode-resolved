@@ -40,11 +40,11 @@ class Solution15 {
                     //找到一个解之后，需要继续l++, r--， 比如 -5 0 1 2 3 4, 1+4是解, 2+3也是解
                     ans.add(Arrays.asList(nums[a], nums[l++], nums[r--]));
                     //去重
-                    while (l < nums.length && nums[l] == nums[l - 1]) {
+                    while (l < r && nums[l] == nums[l - 1]) {
                         l++;
                     }
                     //去重
-                    while (r >= 0 && nums[r] == nums[r + 1]) {
+                    while (r > l && nums[r] == nums[r + 1]) {
                         r--;
                     }
                 } else if (sum < target) {
