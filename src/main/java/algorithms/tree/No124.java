@@ -48,72 +48,72 @@ public class No124 {
  *
  *  我们将这些需要即时知道的信息，封装到一个自定义的类Info里，然后进行递归
  */
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution124 {
     public int maxPathSum(TreeNode root) {
-        if(root == null){
-            return 0;
-        }
-        return f(root).max;
+        return search(root).max;
     }
 
-    private Info f(TreeNode root){
-        if(root == null) {
+    private Info search(TreeNode root){
+        if(root == null){
             return null;
         }
-        //初始化3个属性值为合理的值
+        //init
         int max = root.val;
         int selfLeftMax = root.val;
         int selfRightMax = root.val;
 
-        //求左右子树的信息
-        Info leftInfo = f(root.left);
-        Info rightInfo = f(root.right);
-
-        //如果左子树信息不为空，需要更新root的2个属性：selfLeftMax 和 max
+        Info leftInfo = search(root.left);
         if(leftInfo != null){
-            //从左孩子出发的最大值
+            //更新【一定经过root的】到左子树的最大路径和
+            //先求出【一定经过root左子节点】的最大路径和m， 这里m不能用leftInfo.max，因为这个值不一定经过左子节点
             int m = Math.max(leftInfo.selfLeftMax, leftInfo.selfRightMax);
-            //如果从左孩子出发的最大值 > 0，则加上，否则就是root本身的值
-            if(m > 0) {
+            //如果m > 0，说明对root的贡献为正
+            if(m > 0){
                 selfLeftMax += m;
+                //可能性1 : max可能是从root出发（经过root）到其左子树的一段和
+                max = Math.max(max, selfLeftMax);
             }
-            //将max和左子树的max进行比较更新
+            //可能性2 : max可能在root的左子树里（不经过root）
             max = Math.max(max, leftInfo.max);
         }
-
-        //如果右子树信息不为空，需要更新root的2个属性：selfRightMax 和 max
+        Info rightInfo = search(root.right);
         if(rightInfo != null){
-            //从右孩子出发的最大值
+            //同理左子树
             int m = Math.max(rightInfo.selfLeftMax, rightInfo.selfRightMax);
             if(m > 0){
                 selfRightMax += m;
+                //可能性3 : max可能是从root出发（经过root）到其右子树的一段和
+                max = Math.max(max, selfRightMax);
             }
-            //将max和右子树的max进行比较更新
+            //可能性4 : max可能在root的右子树里（不经过root）
             max = Math.max(max, rightInfo.max);
         }
-
-        //判断情况（5）
-        int sum = root.val;
-        if(selfLeftMax > 0){
-            sum = sum + selfLeftMax - root.val; //因为selfLeftMax此前已包含root.val，所以需要减掉
-        }
-
-        if(selfRightMax > 0){
-            sum = sum + selfRightMax - root.val;
-        }
-        //更新root的max
-        max = Math.max(max, sum);
+        //可能性5 : max可能是 从左子树经过root到右子树的一段和
+        max = Math.max(max, selfLeftMax + selfRightMax - root.val);
         return new Info(max, selfLeftMax, selfRightMax);
     }
 
-    /**
-     * 还有一种做法是，将selfLeftMax和selfRightMax改为从左孩子和右孩子出发的最大路径和
-     */
+
     class Info{
         int max;
         int selfLeftMax;
         int selfRightMax;
-        public Info(int m , int l ,int r){
+        public Info(int m, int l, int r){
             max = m;
             selfLeftMax = l;
             selfRightMax = r;

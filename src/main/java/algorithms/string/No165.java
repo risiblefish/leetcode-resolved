@@ -21,8 +21,8 @@ class Solution165 {
         int len = Math.min(arr1.length, arr2.length);
         String[] l = arr1.length >= arr2.length ? arr1 : arr2;
         for(int i = 0 ; i < len ; i++){
-            Integer i1 = Integer.parseInt(arr1[i]);
-            Integer i2 = Integer.parseInt(arr2[i]);
+            int i1 = Integer.parseInt(arr1[i]);
+            int i2 = Integer.parseInt(arr2[i]);
             if(i1 > i2){
                 return 1;
             }

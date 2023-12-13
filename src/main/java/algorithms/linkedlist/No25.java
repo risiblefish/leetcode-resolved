@@ -39,7 +39,7 @@ class Solution25 {
         }
         ListNode curHead = head;
         ListNode curTail = head;
-        //定位curTail ： 从curHead后移k-1个长度
+        //定位curTail ：一开始curHead和curTail指向同一个位置，因为k个一组，所以从curHead后移k-1步
         for (int i = 0; i < k - 1; i++) {
             curTail = curTail.next;
             //如果后移过程中出现空，说明长度小于k，不用反转，直接返回curHead

@@ -5,7 +5,7 @@ package ih.awake;
  */
 public class AwakeHeroCountSimulator {
     public static void main(String[] args) {
-        sim(1920);
+        sim(4400);
         System.out.println(1.0 + (1.0 / (20.0/5.92 - 1.0)));
     }
 

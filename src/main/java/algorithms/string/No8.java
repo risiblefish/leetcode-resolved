@@ -28,67 +28,91 @@ public class No8 {
  */
 class Solution8 {
 
+    private boolean isNeg;
+    StringBuilder builder;
+    String s;
+    int curIndex;
+
     public int myAtoi(String s) {
-        return getNum(getNumStr(s));
+        init(s);
+        //step 1 : left trim
+        curIndex = leftTrim();
+        if(curIndex == s.length()) return 0;
+        //step 2 : check pos or neg
+        isNeg = isNegative();
+        //step 3 : build num string
+        buildNumString();
+        if(builder.length() == 0) return 0;
+        //step 4 : parse int
+        return parseInt();
     }
 
-    /**
-     * 先将原s提取为 符号+数字 的格式
-     */
-    private StringBuilder getNumStr(String s) {
-        //如果为空，直接返回
-        if (s == null || s.length() == 0) {
-            return null;
-        }
-        int n = s.length();
-        char[] arr = s.toCharArray();
-        //根据题意，不以空格，+，-，数字 开头一律返回0
-        boolean isValid = (arr[0] == ' ' || arr[0] == '+' || arr[0] == '-' || Character.isDigit(arr[0]));
-        if (!isValid) {
-            return null;
-        }
-        int cur = 0;
-        //处理字符开头的空格，注意越界
-        while (cur < n && arr[cur] == ' ') {
-            cur++;
-        }
-        StringBuilder sb = new StringBuilder();
-        //处理完空格之后，处理符号位，注意越界
-        if (cur < n && (arr[cur] == '-' || arr[cur] == '+')) {
-            sb.append(arr[cur++]);
-        } else {
-            sb.append('+');
-        }
-        //处理完符号位之后，处理前导零，e.g. +000000123 -> +123
-        while (cur < n && arr[cur] == '0') {
-            cur++;
-        }
-        //处理完前导零之后，将[连续的数字]加入 e.g. 123hello456 -> 123, 后面的456要抛弃，因为算法要求遇到第一个非数字字符就要停止读取
-        while (cur < n && Character.isDigit(arr[cur])) {
-            sb.append(arr[cur]);
-            cur++;
-        }
-        return sb;
-    }
-
-    private int getNum(StringBuilder sb) {
-        if (sb == null || sb.length() == 0) {
-            return 0;
-        }
-        boolean isNeg = sb.charAt(0) == '-';
-        //int最大长度是10，加上符号位就是11位，所以超过这个长度的数，直接返回最大或者最小值
-        if (sb.length() > 11) {
+    private int parseInt(){
+        int len = builder.length();
+        //这里需要注意: 比如一个很长的数字字符串，连long类型都装不下，需要提前判定，int最大是10位，带符号位是11位
+        if(len > 11){
             return isNeg ? Integer.MIN_VALUE : Integer.MAX_VALUE;
         }
-        int cur = 1;
         long sum = 0;
-        while (cur < sb.length()) {
-            sum = sum * 10 + (sb.charAt(cur) - '0');
-            cur++;
+        for(int i = 0 ; i < builder.length() ; i++){
+            sum = sum * 10 + (builder.charAt(i) - '0');
         }
-        if (sum > Integer.MAX_VALUE) {
-            return isNeg ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+        if(isNeg){
+            sum = -sum;
         }
-        return isNeg ? (int) -sum : (int) sum;
+        //这里之所以需要再判断一次，是考虑10位的情况下，是否有溢出
+        if(sum > Integer.MAX_VALUE){
+            return Integer.MAX_VALUE;
+        }
+        if(sum < Integer.MIN_VALUE){
+            return Integer.MIN_VALUE;
+        }
+        return (int)sum;
+    }
+
+    private void buildNumString(){
+        //ignore pre-0
+        while(curIndex < s.length() && s.charAt(curIndex) == '0'){
+            curIndex++;
+        }
+
+        while(curIndex < s.length()){
+            char ch = s.charAt(curIndex);
+            if(ch >= '0' && ch <= '9'){
+                builder.append(ch);
+                curIndex++;
+            }else{
+                break;
+            }
+        }
+    }
+
+    private boolean isNegative(){
+        char ch = s.charAt(curIndex);
+        if(ch == '-'){
+            curIndex++;
+            return true;
+        }
+        else if(ch == '+'){
+            curIndex++;
+            return false;
+        }
+        return false;
+    }
+
+    private int leftTrim(){
+        int i;
+        for(i = 0 ; i < s.length() ; i++){
+            if(s.charAt(i) != ' '){
+                break;
+            }
+        }
+        return i;
+    }
+
+    private void init(String input){
+        this.s = input;
+        isNeg = false;
+        builder = new StringBuilder();
     }
 }
