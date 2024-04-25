@@ -1,4 +1,4 @@
-class Solution3:
+class Solution_3:
     def lengthOfLongestSubstring(self, s: str) -> int:
         occur = set()
         n = len(s)
