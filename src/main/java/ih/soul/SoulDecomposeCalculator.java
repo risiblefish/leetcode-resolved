@@ -5,19 +5,28 @@ package ih.soul;
  */
 public class SoulDecomposeCalculator {
     public static void main(String[] args) {
-        int val = 97;
-        cal(val);
+        int val = 63;
+        String type = "c-";
+        cal(type, val);
     }
 
-    private static void cal(int v) {
-        double p = 450.0 / v;
-        System.out.println(String.format("当市场价c-单价为[%s]时，每点魂能价值[%.2f]活钻", v, p));
-        System.out.println("保持性价比不变的话");
-        System.out.println(String.format("对应的c单价[%.2f]", 600 / p));
-        System.out.println(String.format("对应的c+单价[%.2f]", 800 / p));
-        System.out.println(String.format("对应的b-单价[%.2f]", 1000 / p));
-        System.out.println(String.format("对应的b单价[%.2f]", 1800 / p));
-        System.out.println(String.format("对应的b+单价[%.2f]", 6000 / p));
-        System.out.println(String.format("对应的a-单价[%.2f]", 30000 / p));
+    private static void cal(String type, int v) {
+        System.out.println(String.format("褰撳墠鍩轰簬浠锋牸涓篬%s]鐨刐%s]锛屽緱鍒板搴旂殑", v, type));
+        double p = switch (type){
+            case "c-" -> 450.0 / v;
+            case "c" -> 600.0 / v;
+            case "c+" -> 800.0 / v;
+            case "b-" -> 1000.0 / v;
+            case "b" -> 1800.0 / v;
+            case "b+" -> 6000.0 / v;
+            default -> 30000.0 / v;
+        };
+        System.out.println(String.format("c-[%.2f]", 450 / p));
+        System.out.println(String.format("c[%.2f]", 600 / p));
+        System.out.println(String.format("c+[%.2f]", 800 / p));
+        System.out.println(String.format("b-[%.2f]", 1000 / p));
+        System.out.println(String.format("b[%.2f]", 1800 / p));
+        System.out.println(String.format("b+[%.2f]", 6000 / p));
+        System.out.println(String.format("a-[%.2f]", 30000 / p));
     }
 }
