@@ -1,10 +1,33 @@
 package algorithms.linkedlist;
 
+import java.util.Arrays;
+
 /**
  * 25. K 个一组翻转链表
+ *
  * @author Sean Yu
  */
 public class No25 {
+    public static void main(String[] args) {
+        ListNode n1 = new ListNode(1);
+//        ListNode n2 = new ListNode(2);
+//        ListNode n3 = new ListNode(3);
+//        ListNode n4 = new ListNode(4);
+//        ListNode n5 = new ListNode(5);
+        int k = 1;
+        Solution25 test = new Solution25();
+        System.out.println(test.reverseKGroup(connect(n1), k));
+    }
+
+    private static ListNode connect(ListNode... nodes) {
+        ListNode vh = new ListNode();
+        ListNode cur = vh;
+        for (ListNode each : nodes) {
+            cur.next = each;
+            cur = cur.next;
+        }
+        return vh.next;
+    }
 }
 
 /**
