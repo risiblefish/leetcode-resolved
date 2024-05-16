@@ -94,7 +94,8 @@ class Solution912_HeapSort {
  * <p>
  * 核心思路： 划分partition
  * <p>
- * 从数组中选出一个数target，将比target小的放到target左边，将比target大的放到target右边， 将和target一样大的放中间
+ * 重点，重点，重点 ： 从数组中选出一个数target，将比target小的放到target左边，将比target大的放到target右边， 将和target一样大的放中间
+ * 复习的时候就记住上面这个思路即可
  * <p>
  * 具体操作：
  * （1）我们令L,R上最后一个数为target，即arr[R], 然后在L到R范围上进行划分
@@ -111,7 +112,8 @@ class Solution912_HeapSort {
  * <p>
  * III. 如果arr[cur] > target, 将arr[cur]和 大于边界 前1个数交换，然后扩大 大于边界， 但cur不变，因为交换过后的数还没有进行比较
  * <p>
- * 当cur 撞上 大于边界时， 说明此时已经划分完成
+ * 当cur 撞上 大于边界时， 说明此时已经划分完成,
+ * 此时cur与moreBound均指向同一个大于target的数，而r指向的是target，需要将这2个数位置交换，从而达到moreBound及之后均是大于target的数这个要求
  * <p>
  * 随机的重要性：
  * 因为我们选择了L,R上最后一个数作为target，最坏的情况下，比如1,2,3,4,5 ,每次划分，右边界都是不动的，所以复杂度变成o(n^2)
