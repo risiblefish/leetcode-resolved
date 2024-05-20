@@ -1,4 +1,4 @@
-package algorithms.array;
+package algorithms.array.no912;
 
 import java.util.Arrays;
 import java.util.Random;

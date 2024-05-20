@@ -1,4 +1,4 @@
-package algorithms.dualpointer;
+package algorithms.dualpointer.no15;
 
 import java.util.ArrayList;
 import java.util.Arrays;
