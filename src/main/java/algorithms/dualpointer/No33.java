@@ -5,6 +5,12 @@ package algorithms.dualpointer;
  * @author Sean Yu
  */
 public class No33 {
+    public static void main(String[] args) {
+        Solution33 test = new Solution33();
+        int[] nums = {3,1};
+        int target = 4;
+        System.out.println(test.search(nums, target));
+    }
 }
 
 class Solution33 {
@@ -26,7 +32,8 @@ class Solution33 {
                 }
             }
             //否则，即nums[m] < nums[r], 中点到右侧一定是有序的
-            //不难证明，如果m,r之间有波谷，而r又>m， 那么势必从0 ~ r会再次产生1个m，而题目保证每个数只出现1次
+            //不难证明，如果m,r之间有波谷，而r又>m，
+            //那么一定m->0是下降的，从0->r是上升的，而m<r，所以在0上升到r的过程中，一定会再产生1个m，题目保证每个数唯一，矛盾
             else {
                 //如果target落在有序区间，即右区间
                 if (nums[m] < target && target <= nums[r]) {
