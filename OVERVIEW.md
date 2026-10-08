@@ -91,7 +91,7 @@ Agent 每次调水位 / 换难度，必须在 OVERVIEW 和 Session 开场**说�
 
 | 类别 | 水位 | 必做进度 | 近期信号 |
 |---|---|---|---|
-| 数组与哈希 `array-hash` | **L1** | 2/15 | #1 一遍过（let→const 瑕疵），#121 顺序正确、命名清晰 |
+| 数组与哈希 `array-hash` | **L1** | 2/15 | #1 一遍过（let→const 瑕疵）；#121 顺序正确、命名贴题；**已 solve commit，2026-10-09 r1 到期** |
 | 双指针 `two-pointers` | L0 | 0/? | 未开始 |
 | 滑动窗口 `sliding-window` | L0 | 0/? | 未开始 |
 | 二分 `binary-search` | L0 | 0/? | 未开始 |
@@ -133,28 +133,27 @@ Agent 每次调水位 / 换难度，必须在 OVERVIEW 和 Session 开场**说�
 **当前主练**：数组与哈希（`array-hash`）
 **水位**：L1（2/15）
 **累计 TS 卡**：2 张
-**待复习**：无
+**待复习**：2 道（2026-10-09 r1：#1 + #121）
+**本天已开 Session**：2 份
 
-### 下一份建议
+### 下一份建议（**Session 2 已追加，进行中**）
 
-**判断依据**：
-- array-hash L1，近期信号稳（代码干净、顺序正确、能讲清核心）
-- TS 侧已沉淀：类型收窄 + 变量绑定
-- **结论**：水位维持 L1，继续 Easy 必做；选题刻意暴露新算法套路（Boyer-Moore / XOR），顺带开 TS 新维度
+**已排进 `ts/docs/daily/2026-10-08.md` 末尾 Session 2**：
 
-**选题**：
-- **#169** 多数元素 / Majority Element（Easy · 必做）
-- **#136** 只出现一次的数字 / Single Number（Easy · 必做）
+- **#169** 多数元素 / Majority Element（Easy · 必做）—— 带回 **Boyer-Moore 投票法**
+- **#136** 只出现一次的数字 / Single Number（Easy · 必做）—— 带回 **XOR 异或技巧**
+
+**选题依据**：
+- array-hash L1，近期信号稳 → 水位维持不升不降，难度档 Easy 不变
+- Session 1 用户反馈「Easy 没学到新东西」→ 这两道是自带新套路的高质量 Easy
+- 跳过 #242/#217「哈希计数」重复模板的题（跟 #1 重合度高）
 
 **本份目标**：
 - AC 两道
-- 带回 ≥1 条新算法套路（Boyer-Moore 投票 / XOR 异或）或新 TS 维度
+- 带回 Boyer-Moore + XOR 两条新算法套路
+- 可选：#169 改泛型 `<T>` 版本（TS 泛型入门）
 
-**启动命令**：
-```bash
-cd ts
-npm run day
-```
+**启动**：打开 `ts/docs/daily/2026-10-08.md` 滑到 Session 2 → `npm run new -- 169 ...` → 写 solution → AC → `npm run solve -- 169 --first --min <耗时>`。
 
 ---
 
@@ -187,4 +186,4 @@ npm run day
 
 | 日期 | 事件 |
 |---|---|
-| 2026-10-08 | 建立本文件；废弃 STATE.md / ts/PROGRESS.md；完成 array-hash 2/15；心流 + 二维水位模型落地 |
+| 2026-10-08 | 建立本文件；废弃 STATE.md / ts/PROGRESS.md；心流 + 二维水位模型落地；**Session 1** (#1 + #121) solve 完成；**Session 2** 追加 (#169 + #136 带新套路)；`day.mjs` 支持同日 Session 追加 |
