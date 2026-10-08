@@ -1,0 +1,17 @@
+{
+  "id": 121,
+  "slug": "best-time-to-buy-and-sell-stock",
+  "title": "买卖股票的最佳时机",
+  "titleEn": "Best Time to Buy and Sell Stock",
+  "url": "https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/",
+  "difficulty": "Easy",
+  "patterns": [
+    "array-hash"
+  ],
+  "source": "new",
+  "status": "solved",
+  "solvedOn": "2026-10-08",
+  "firstTry": true,
+  "timeSpentMin": 8,
+  "complexity": ""
+}
