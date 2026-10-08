@@ -1,0 +1,17 @@
+{
+  "id": 1,
+  "slug": "two-sum",
+  "title": "两数之和",
+  "titleEn": "Two Sum",
+  "url": "https://leetcode.cn/problems/two-sum/",
+  "difficulty": "Easy",
+  "patterns": [
+    "array-hash"
+  ],
+  "source": "new",
+  "status": "solved",
+  "solvedOn": "2026-10-08",
+  "firstTry": true,
+  "timeSpentMin": 8,
+  "complexity": ""
+}
