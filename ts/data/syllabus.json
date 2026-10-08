@@ -1,0 +1,510 @@
+{
+  "version": 2,
+  "note": "课程大纲。**不按日期排程**：由 plan.mjs 拆成编号的「份」（drill / primer / problem）。primer 是 10–15 分钟的预习卡（先看，再凭记忆默写模板）。classics 是策展的必做经典题号；不足时由 plan.mjs 按 tags 从真实题库补充。",
+  "drills": [
+    {
+      "id": "drill-heap",
+      "order": 3,
+      "title": "手写小顶堆 + 堆排序",
+      "pattern": "heap-greedy",
+      "learn": [
+        "堆是完全二叉树，用数组表示：节点 i 的左孩子 2i+1、右孩子 2i+2、父 (i-1)/2",
+        "上浮 siftUp：新元素与父比较，小了就换，直到不需要换",
+        "下沉 siftDown：根与较小/较大孩子换，直到父子有序",
+        "堆排序：先原地建堆 O(n)，再反复把堆顶交换到末尾并收缩堆 O(n log n)"
+      ],
+      "checklist": [
+        "手写 MinHeap 类：push(x) / pop() / peek()",
+        "用堆排序把一个随机数组升序排好（原地，不用 sort）",
+        "说清 siftDown 的循环终止条件与父子索引"
+      ]
+    },
+    {
+      "id": "drill-quicksort",
+      "order": 4,
+      "title": "手写快速排序（分治 + partition）",
+      "pattern": "advanced-mixed",
+      "learn": [
+        "选 pivot，把数组分成『小于 pivot / 大于 pivot』两半",
+        "对两半递归排序；原地 partition（Lomuto 或 Hoare）",
+        "平均 O(n log n)，最坏 O(n²)（已排序 + 固定取端点是常见坑）"
+      ],
+      "checklist": [
+        "手写 partition 函数并返回分界下标",
+        "手写递归快排，跑通随机数组",
+        "说出什么输入会退化成 O(n²)，怎么缓解（随机取 pivot / 三数取中）"
+      ]
+    },
+    {
+      "id": "drill-mergesort",
+      "order": 5,
+      "title": "手写归并排序（分治 + merge，顺带求逆序对）",
+      "pattern": "advanced-mixed",
+      "learn": [
+        "分：从中间切开递归；治：把两个有序段合并",
+        "merge 需要额外 O(n) 空间；稳定排序",
+        "在 merge 时统计『右边先于左边被取走』的次数 = 逆序对"
+      ],
+      "checklist": [
+        "手写 merge 两个有序数组",
+        "手写递归归并排序",
+        "说出为什么归并排序能求逆序对，复杂度是多少"
+      ]
+    },
+    {
+      "id": "drill-binary-search",
+      "order": 2,
+      "title": "手写二分模板（精确 / 左边界 / 右边界）",
+      "pattern": "binary-search",
+      "learn": [
+        "闭区间模板：while(lo<=hi)，mid = lo+((hi-lo)>>1)",
+        "找左边界：等于时收缩右界 hi=mid-1；找右边界：等于时 lo=mid+1",
+        "二分答案：把『可行性随 x 单调』的问题转成对答案二分"
+      ],
+      "checklist": [
+        "默写精确查找模板",
+        "默写『第一个 >= target』与『最后一个 <= target』",
+        "用二分答案手写一个『最小可行容量』类问题"
+      ]
+    },
+    {
+      "id": "drill-reverse-list",
+      "order": 1,
+      "title": "手写链表反转（迭代 + 递归）",
+      "pattern": "linked-list",
+      "learn": [
+        "迭代：prev/cur，先存 next，再改 cur.next，最后整体前移",
+        "递归：反转 n.next 之后，让 n.next.next = n，并断开 n.next",
+        "画图确认每一步指针指向"
+      ],
+      "checklist": [
+        "默写迭代版反转",
+        "默写递归版反转",
+        "说出反转后新的头节点是谁"
+      ]
+    },
+    {
+      "id": "drill-lru",
+      "order": 6,
+      "title": "手写 LRU 缓存（哈希 + 双向链表）",
+      "pattern": "advanced-mixed",
+      "learn": [
+        "哈希表实现 O(1) 定位节点，双向链表实现 O(1) 移动/删除",
+        "用哑结点 head/tail 简化边界；最近使用的挂 head，淘汰 tail.prev",
+        "get 命中要移到 head，put 超容量要删 tail.prev"
+      ],
+      "checklist": [
+        "手写双向链表节点与 addToHead/removeNode/moveToHead",
+        "实现 get/put 达到 O(1)",
+        "说清容量为 1、更新已有 key 时的行为"
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "id": "array-hash",
+      "name": "数组与哈希",
+      "tags": ["array", "hash-table", "string"],
+      "poolTags": ["hash-table"],
+      "signals": [
+        "题目要你判断『是否出现过』『两数之和』『分组』→ 哈希",
+        "要求 O(n) 但暴力是 O(n²) → 用哈希/前缀和降复杂度",
+        "需要统计次数/去重/求交集 → Map / Set"
+      ],
+      "primer": {
+        "what": "数组是连续内存、支持 O(1) 随机访问；哈希表用『键』直接定位，平均 O(1) 查找/插入。两者都是最基础的容器，几乎所有题的输入载体。",
+        "core": "用 O(n) 的额外空间（Map/Set）把『查找/计数』从 O(n) 降到 O(1)。遍历时边读边把已经见过的信息存起来。",
+        "test": "考你能不能想到『空间换时间』，以及把问题建模成键值对/频次表（分组、去重、找配对）。",
+        "template": "const seen = new Map<number, number>();\nfor (let i = 0; i < nums.length; i++) {\n  const need = target - nums[i];\n  if (seen.has(need)) return [seen.get(need)!, i];\n  seen.set(nums[i], i);\n}",
+        "variants": [
+          "配对（两数之和）",
+          "分组（键 = 某种特征，如排序后的字符串）",
+          "去重 / 求交并集（Set）",
+          "频次 Top K（Map 计数 + 排序/堆）",
+          "前缀和 + 哈希（和为 K 的子数组）"
+        ],
+        "pitfalls": [
+          "空数组 / 单元素",
+          "有重复元素时返回下标还是值",
+          "TS 里字符串不可变，改字符要先拆成数组",
+          "Map 的键是值语义（对象当键要注意引用）"
+        ]
+      },
+      "classics": [1, 121, 217, 242, 49, 347, 128, 238, 53, 56, 169, 136, 189, 350, 448]
+    },
+    {
+      "id": "two-pointers",
+      "name": "双指针",
+      "tags": ["two-pointers", "array"],
+      "poolTags": ["two-pointers"],
+      "signals": [
+        "有序数组 + 找一对/一段 → 左右指针",
+        "原地删除/过滤且要保持相对顺序 → 快慢指针",
+        "去重/排序后再找组合 → 排序 + 双指针"
+      ],
+      "primer": {
+        "what": "用两个下标代替两层嵌套循环。两种形态：同向快慢指针（读写位置）、相向左右指针（从两端夹）。",
+        "core": "每一步移动都『排除掉一批不可能的答案』，从而把 O(n²) 降到 O(n)。关键是利用有序/单调这个前提。",
+        "test": "考你能否识别『有序』这个可利用条件，以及推理该移动哪一边。",
+        "template": "let l = 0, r = nums.length - 1;\nwhile (l < r) {\n  const s = nums[l] + nums[r];\n  if (s === target) return [l, r];\n  if (s < target) l++;\n  else r--;\n}",
+        "variants": [
+          "快慢指针：原地删除/去重/移动零",
+          "相向指针：有序两数之和、盛最多水",
+          "排序 + 固定一个 + 双指针：三数之和/四数之和",
+          "快慢判环、找中点（也是双指针）"
+        ],
+        "pitfalls": [
+          "三数之和去重要跳过相同值",
+          "循环条件是 l<r 还是 l<=r",
+          "快慢指针写位置不可回退",
+          "先排序会丢失原始下标（需要下标就别排序）"
+        ]
+      },
+      "classics": [167, 125, 344, 26, 27, 283, 11, 15, 16, 18, 75, 88, 977, 42]
+    },
+    {
+      "id": "sliding-window",
+      "name": "滑动窗口",
+      "tags": ["sliding-window", "hash-table", "string"],
+      "poolTags": ["sliding-window"],
+      "signals": [
+        "题目问『连续子数组/子串』的最大/最小/最长 → 滑动窗口",
+        "关键词：满足某条件、至多 K、恰好包含、连续",
+        "窗口内容可用计数表示（字符数、不同元素数）"
+      ],
+      "primer": {
+        "what": "一个可伸缩的区间 [l, r]，在移动过程中维护区间内的统计量（和、频次表、不同元素数）。",
+        "core": "右界负责扩张、左界负责收缩，每个下标最多进出窗口一次 → 总复杂度 O(n)。",
+        "test": "考你能不能识别『连续子串/子数组』并把它转化成维护窗口状态。",
+        "template": "let l = 0;\nconst cnt = new Map<string, number>();\nfor (let r = 0; r < s.length; r++) {\n  // 把 s[r] 加入窗口\n  while (/* 窗口不满足条件 */) {\n    // 把 s[l] 移出窗口\n    l++;\n  }\n  // 此时窗口合法，更新答案\n}",
+        "variants": [
+          "定长窗口（先进满再滑动）",
+          "可变长窗口（最长/最小）",
+          "恰好 K：用『至多 K』减去『至多 K-1』",
+          "滑动窗口最大值（单调双端队列）"
+        ],
+        "pitfalls": [
+          "先扩后缩 vs 先缩后扩的答案更新时机",
+          "字符计数移出时要清理 0 计数",
+          "窗口左界移动用 while 而不是 if"
+        ]
+      },
+      "classics": [3, 209, 438, 567, 76, 643, 1456, 219, 904, 239]
+    },
+    {
+      "id": "stack-queue",
+      "name": "栈与队列",
+      "tags": ["stack", "monotonic-stack", "queue", "design"],
+      "poolTags": ["stack", "monotonic-stack", "queue", "design"],
+      "signals": [
+        "遇到『下一个更大元素 / 柱状图最大矩形 / 每日温度』→ 单调栈",
+        "括号匹配、嵌套结构、逆序处理 → 栈",
+        "需要 O(1) 取最小/最大，并支持 push/pop → 辅助栈"
+      ],
+      "primer": {
+        "what": "栈是后进先出（LIFO），队列是先进先出（FIFO）。单调栈在入栈时弹掉『破坏单调性』的元素，是栈的进阶用法。",
+        "core": "栈擅长处理『最近的、可回退的』嵌套与配对；单调栈把『找下一个更大/更小』从 O(n²) 降到 O(n)。",
+        "test": "考你对嵌套/配对结构的识别，以及单调栈的『存下标、弹栈算距离』套路。",
+        "template": "const st: number[] = [];\nfor (let i = 0; i < nums.length; i++) {\n  while (st.length > 0 && nums[st[st.length - 1]] < nums[i]) {\n    const j = st.pop()!; // i 就是 j 右边第一个更大的下标\n  }\n  st.push(i);\n}",
+        "variants": [
+          "括号匹配 / 表达式求值",
+          "单调栈：下一个更大、每日温度、柱状图矩形",
+          "辅助栈：最小栈",
+          "双端队列：滑动窗口最大值"
+        ],
+        "pitfalls": [
+          "单调栈存下标还是存值（要算距离就存下标）",
+          "循环数组要遍历两遍并取模",
+          "栈空判断，避免 pop 越界"
+        ]
+      },
+      "classics": [20, 155, 232, 225, 739, 150, 394, 84, 496, 503, 1047, 71]
+    },
+    {
+      "id": "binary-search",
+      "name": "二分查找",
+      "tags": ["binary-search", "array"],
+      "poolTags": ["binary-search"],
+      "signals": [
+        "有序 + 查找/插入位置 → 二分",
+        "题目问『最小能满足的 x』且可行性随 x 单调 → 二分答案",
+        "旋转/峰值/第一个出错版本 → 二分变体"
+      ],
+      "primer": {
+        "what": "在有序或单调的空间里，每次比较后排除一半。不只是『在有序数组里查数』，也包括对答案二分。",
+        "core": "维持循环不变量（比如闭区间 [lo, hi] 始终是候选范围），每次排除一半 → O(log n)。",
+        "test": "考边界控制（最容易写死循环/越界），以及能否发现『答案具有单调性』。",
+        "template": "let lo = 0, hi = n - 1;\nwhile (lo <= hi) {\n  const mid = lo + ((hi - lo) >> 1); // 防溢出\n  if (ok(mid)) hi = mid - 1; // 找左边界\n  else lo = mid + 1;\n}\nreturn lo;",
+        "variants": [
+          "精确查找 / 插入位置",
+          "找第一个/最后一个满足条件的位置",
+          "旋转排序数组",
+          "二分答案（最小速度、最小容量）"
+        ],
+        "pitfalls": [
+          "mid 计算用 lo+(hi-lo)/2 防溢出",
+          "lo/hi 更新写错导致死循环",
+          "返回 lo 还是 mid 还是 -1",
+          "边界条件是 <= 还是 <"
+        ]
+      },
+      "classics": [704, 35, 34, 33, 153, 162, 69, 74, 278, 875, 4, 852]
+    },
+    {
+      "id": "linked-list",
+      "name": "链表",
+      "tags": ["linked-list", "design"],
+      "poolTags": ["linked-list"],
+      "signals": [
+        "反转 / 合并 / 删除节点 / 找倒数 → 哑结点 + 双指针",
+        "判环 / 找中点 → 快慢指针",
+        "需要 O(1) 插删且最近最少使用 → 哈希 + 双向链表（LRU）"
+      ],
+      "primer": {
+        "what": "链表由节点和指针串起来，不能随机访问；插入/删除只改指针 O(1)，但访问第 k 个要 O(k)。",
+        "core": "用哑结点 dummy 消除头节点特判；改指针前一定先保存 next；用画图代替脑补。",
+        "test": "考指针操作的严谨与细心，几乎是纯『手写基本功』题。",
+        "template": "let prev: ListNode | null = null;\nlet cur = head;\nwhile (cur) {\n  const nxt = cur.next;\n  cur.next = prev;\n  prev = cur;\n  cur = nxt;\n}\nreturn prev;",
+        "variants": [
+          "反转（整体 / k 个一组 / 区间）",
+          "合并两个/多个有序链表",
+          "删除倒数第 n 个（哑结点 + 快慢）",
+          "判环 / 找环入口 / 找中点",
+          "LRU（双向链表 + 哈希）"
+        ],
+        "pitfalls": [
+          "先改指针再保存 next 导致丢链",
+          "删除头节点没特判（用 dummy）",
+          "TS strict 下 null 检查",
+          "快慢指针循环终止条件"
+        ]
+      },
+      "classics": [206, 21, 141, 142, 19, 24, 143, 2, 160, 234, 25, 146]
+    },
+    {
+      "id": "tree-recursion",
+      "name": "树与递归",
+      "tags": ["tree", "binary-tree", "binary-search-tree", "depth-first-search", "recursion"],
+      "poolTags": ["binary-tree", "binary-search-tree"],
+      "signals": [
+        "树/二叉树/子树/路径/深度 → 递归 DFS",
+        "BST + 有序 / 第 k 小 → 中序遍历",
+        "要按层处理 → BFS"
+      ],
+      "primer": {
+        "what": "树本身就是递归结构：一棵树 = 根 + 左子树 + 右子树。二叉搜索树（BST）额外满足：左子树都小于根、右子树都大于根，因此中序遍历是升序。",
+        "core": "递归三步：①定义函数语义 ②终止条件（null） ③用左右子树的结果拼出当前答案。",
+        "test": "考递归思维——信息可以通过『返回值 / 参数 / 全局变量』三种方式在递归里传递。",
+        "template": "function dfs(node: TreeNode | null): number {\n  if (!node) return 0;\n  const l = dfs(node.left);\n  const r = dfs(node.right);\n  return 1 + Math.max(l, r);\n}",
+        "variants": [
+          "前/中/后序遍历",
+          "深度 / 直径 / 平衡",
+          "路径和 / 最大路径和",
+          "LCA（最近公共祖先）",
+          "BST：验证、第 k 小、插入删除",
+          "由遍历序列构造树"
+        ],
+        "pitfalls": [
+          "返回值到底代表什么（单值 vs 信息包）",
+          "需要跨子树聚合时用全局变量或返回多个值",
+          "验证 BST 不能只比较父子，要用上下界"
+        ]
+      },
+      "classics": [94, 144, 145, 104, 226, 101, 112, 543, 98, 102, 236, 105, 124, 230, 199]
+    },
+    {
+      "id": "bfs-graph",
+      "name": "BFS 与网格图",
+      "tags": ["breadth-first-search", "graph", "depth-first-search", "matrix"],
+      "poolTags": ["breadth-first-search", "topological-sort"],
+      "signals": [
+        "网格中求最短路径/最少步数/腐烂时间 → BFS",
+        "求连通块个数/面积 → DFS/BFS + visited",
+        "依赖顺序 / 能否完成 → 拓扑排序",
+        "克隆/遍历整张图 → 邻接表 + visited"
+      ],
+      "primer": {
+        "what": "BFS 用队列一层层向外扩展；DFS 用递归或栈一条路走到底；图/网格遍历都必须用 visited 防重复。",
+        "core": "BFS 天然求『无权图最短步数』（因为按层扩展）；『入队即标记 visited』避免重复入队；网格用四方向数组 + 边界判断。",
+        "test": "考把现实问题建模成图/网格并选对遍历方式（最短用 BFS、连通块用 DFS/BFS）。",
+        "template": "// 多源 BFS\nconst q: number[] = [...sources];\nconst seen = new Set(q);\nlet steps = 0;\nfor (let head = 0; head < q.length; ) {\n  const size = q.length;\n  while (head < size) {\n    const cur = q[head++];\n    // 返回条件 / 扩展邻居并 push + seen.add\n  }\n  steps++;\n}",
+        "variants": [
+          "连通块（岛屿数量/面积）",
+          "最短路（二进制矩阵/单词接龙）",
+          "多源 BFS（腐烂的橘子 / 01 矩阵）",
+          "拓扑排序（课程表）",
+          "克隆图"
+        ],
+        "pitfalls": [
+          "入队时机：入队时就标记，别等出队",
+          "网格边界与越界判断",
+          "层数统计用 size 快照",
+          "用数组当队列时别用 shift（O(n)），用 head 指针"
+        ]
+      },
+      "classics": [200, 695, 133, 207, 210, 994, 542, 1091, 127, 130, 417, 733, 797]
+    },
+    {
+      "id": "backtracking",
+      "name": "回溯",
+      "tags": ["backtracking", "depth-first-search"],
+      "poolTags": ["backtracking"],
+      "signals": [
+        "求所有方案 / 所有组合 / 所有排列 / 分割方案 → 回溯",
+        "N 皇后、数独、括号生成 → 回溯 + 剪枝",
+        "关键词：枚举所有可能、返回全部结果"
+      ],
+      "primer": {
+        "what": "在『决策树』上做 DFS：每层做一个选择，进入下一层递归，返回时撤销选择。",
+        "core": "路径 path + 选择列表 + 结束条件。组合用 start 往后走，排列用 used 标记；排序后同层跳过重复值来去重。",
+        "test": "考你能否把『枚举所有方案』系统地写成递归，并用剪枝砍掉无效分支。",
+        "template": "const res: number[][] = [];\nfunction dfs(start: number, path: number[]) {\n  if (/* 结束条件 */) { res.push([...path]); return; }\n  for (let i = start; i < nums.length; i++) {\n    if (i > start && nums[i] === nums[i - 1]) continue; // 去重\n    path.push(nums[i]);\n    dfs(i + 1, path);\n    path.pop(); // 撤销选择\n  }\n}",
+        "variants": [
+          "子集 / 子集 II",
+          "组合 / 组合总和 / 组合总和 II",
+          "全排列 / 全排列 II",
+          "分割（回文串分割）",
+          "棋盘（N 皇后、数独）",
+          "网格搜索（单词搜索）"
+        ],
+        "pitfalls": [
+          "加入结果要拷贝 [...path]，否则是引用",
+          "组合用 start、排列用 used，别混",
+          "去重条件 i>start && nums[i]===nums[i-1]",
+          "能剪枝就剪枝（比如剩余和不够）"
+        ]
+      },
+      "classics": [46, 47, 78, 90, 39, 40, 77, 17, 22, 79, 131, 51]
+    },
+    {
+      "id": "heap-greedy",
+      "name": "堆与贪心",
+      "tags": ["heap-priority-queue", "greedy"],
+      "poolTags": ["heap-priority-queue", "greedy"],
+      "signals": [
+        "第 K 大/前 K 个高频 → 堆",
+        "合并 k 个有序 → 堆",
+        "区间调度 / 找最少数量 / 能否到达 → 排序 + 贪心"
+      ],
+      "primer": {
+        "what": "堆是完全二叉树，通常用数组表示，能在 O(log n) 内插入/删除，O(1) 取极值。贪心是每一步都取当前看起来最优的选择。",
+        "core": "堆靠上浮/下沉维持父子序；贪心要靠排序 + 一个『可证明』的局部最优选择（说不清为什么就可能是错的）。",
+        "test": "考『Top K / 合并 / 调度』用堆，『区间 / 跳跃 / 股票』用贪心，以及贪心的正确性直觉。",
+        "template": "// JS 没有内置堆，常用排序/数组近似；手写堆见 drill-heap\nconst a = [...nums].sort((x, y) => x - y);\n// 或维护一个大小不超过 k 的集合，每次去掉最差的",
+        "variants": [
+          "Top K（小顶堆 / 快速选择）",
+          "合并 k 个有序链表/数组",
+          "双堆求数据流中位数",
+          "区间贪心（按结束时间排序）",
+          "跳跃游戏（维护最远可达）",
+          "股票/加油站"
+        ],
+        "pitfalls": [
+          "堆的父子索引与 siftDown 终止条件",
+          "贪心必须能说清为什么局部最优导出全局最优",
+          "区间题排序键选开始还是结束",
+          "JS 无内置堆，需手写或排序近似"
+        ]
+      },
+      "classics": [215, 23, 703, 1046, 621, 55, 45, 122, 435, 452, 763, 134]
+    },
+    {
+      "id": "dp",
+      "name": "动态规划（拆分推进）",
+      "tags": ["dynamic-programming", "memoization"],
+      "poolTags": ["dynamic-programming", "memoization"],
+      "signals": [
+        "求最大/最小/方案数 + 有重叠子问题 → DP",
+        "能写出递归但有大量重复计算 → 加 memo",
+        "涉及两个序列对比 → 二维 DP"
+      ],
+      "primer": {
+        "what": "把问题拆成『重叠子问题』，用一张表把子问题的答案记下来，避免重复计算。本质是带记忆的递归。",
+        "core": "四步：①定义 dp 状态的含义（最难）②写转移方程 ③确定初始化 ④确定遍历顺序。建议先写记忆化递归，再改自底向上。",
+        "test": "考状态设计能力，不是背题。DP 题千变万化，但套路就这四步。",
+        "template": "// 记忆化递归（推荐先写这个）\nconst memo = new Map<number, number>();\nfunction f(i: number): number {\n  if (i <= 1) return i;\n  if (memo.has(i)) return memo.get(i)!;\n  const v = f(i - 1) + f(i - 2);\n  memo.set(i, v);\n  return v;\n}",
+        "variants": [
+          "线性 DP（爬楼梯/打家劫舍）",
+          "子序列（LIS / LCS / 编辑距离）",
+          "背包（0/1 与完全）",
+          "区间 DP",
+          "树形 DP",
+          "股票系列 / 状态机 DP"
+        ],
+        "pitfalls": [
+          "状态定义含糊 → 转移推不出来",
+          "初始化与边界（dp[0] 是什么）",
+          "01 背包容量倒序、完全背包正序",
+          "不要一次学太多，DP 专题必须拆开、别连续硬啃"
+        ]
+      },
+      "classics": [70, 198, 213, 322, 279, 300, 1143, 72, 416, 139, 152, 62, 64, 5, 32, 309, 337, 494, 518]
+    },
+    {
+      "id": "graph-unionfind",
+      "name": "图进阶与并查集",
+      "tags": ["graph", "union-find", "topological-sort", "shortest-path"],
+      "poolTags": ["union-find", "shortest-path", "topological-sort"],
+      "signals": [
+        "『是否连通 / 合并集合 / 连通块个数』→ 并查集",
+        "带权最短路径 → Dijkstra",
+        "多源最短/传递闭包 → Floyd",
+        "依赖顺序 + 无环判定 → 拓扑排序"
+      ],
+      "primer": {
+        "what": "并查集（Union-Find）维护一组元素的连通分组，支持『查根』和『合并』。最短路有 Dijkstra（单源非负权）、Floyd（多源）。",
+        "core": "并查集 = parent 数组 + find（路径压缩）+ union（按秩/大小合并），近 O(1)。Dijkstra = 小顶堆 + 贪心松弛。",
+        "test": "考『动态连通性』建模（并查集）和带权最短路（Dijkstra/Kruskal）。",
+        "template": "const parent = Array.from({ length: n }, (_, i) => i);\nfunction find(x: number): number {\n  return parent[x] === x ? x : (parent[x] = find(parent[x]));\n}\nfunction union(a: number, b: number) {\n  const ra = find(a), rb = find(b);\n  if (ra !== rb) parent[ra] = rb;\n}",
+        "variants": [
+          "连通分量 / 省份数量",
+          "冗余连接（环检测）",
+          "账户合并",
+          "最小生成树（Kruskal = 排序边 + 并查集）",
+          "Dijkstra / Floyd",
+          "拓扑排序（有向图判环）"
+        ],
+        "pitfalls": [
+          "初始化 parent[i] = i 别忘了",
+          "路径压缩与按秩合并",
+          "有向图判环要用拓扑排序，不能直接套并查集",
+          "Dijkstra 不能处理负权边"
+        ]
+      },
+      "classics": [547, 684, 721, 399, 743, 787, 1584, 1202, 1971, 802, 1334]
+    },
+    {
+      "id": "advanced-mixed",
+      "name": "综合冲刺与高频",
+      "tags": ["design", "prefix-sum", "bit-manipulation", "divide-and-conquer", "sorting", "stack"],
+      "poolTags": ["design", "prefix-sum", "bit-manipulation", "divide-and-conquer"],
+      "signals": [
+        "频繁求区间和 → 前缀和",
+        "只出现一次 / 位计数 / 子集枚举 → 位运算",
+        "实现缓存 / 前缀树 → 设计题",
+        "周赛前 2 题通常是数组/哈希/字符串的快速实现"
+      ],
+      "primer": {
+        "what": "综合运用：前缀和/差分把区间操作 O(1) 化，位运算找巧解，设计题（Trie/LRU）考结构组合，分治（快排/归并）考递归组织。",
+        "core": "前缀和 pre[i+1] = pre[i] + nums[i]，区间和 = pre[r+1]-pre[l]；位运算 n&(n-1) 清零最低位、异或抵消重复。",
+        "test": "考限时下的综合实现能力，接近周赛节奏（前两题要又快又稳）。",
+        "template": "const pre = new Array(nums.length + 1).fill(0);\nfor (let i = 0; i < nums.length; i++) pre[i + 1] = pre[i] + nums[i];\n// 区间 [l, r] 的和：\nconst sum = pre[r + 1] - pre[l];",
+        "variants": [
+          "前缀和 + 哈希（和为 K）",
+          "差分（区间批量加减）",
+          "位运算（只出现一次、状态压缩）",
+          "设计（Trie / LRU / LFU / 中位数）",
+          "分治（快排 / 归并 / 逆序对）",
+          "单调栈（接雨水 / 最大矩形）"
+        ],
+        "pitfalls": [
+          "前缀和下标偏移（长度 n+1）",
+          "位运算运算符优先级低，要加括号",
+          "递归深度过大会栈溢出",
+          "设计题别漏更新内部状态"
+        ]
+      },
+      "classics": [146, 295, 42, 239, 4, 208, 297, 460, 912, 10, 44, 301, 560]
+    }
+  ]
+}

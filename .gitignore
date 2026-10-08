@@ -34,3 +34,12 @@ Temporary Items
 *.iml
 out
 gen
+
+# Node / TS workspace
+ts/node_modules/
+node_modules/
+*.log
+
+# 每日生成的计划与看板（用 npm run next / dash 随时重生成）
+ts/NEXT.md
+ts/PROGRESS.md
