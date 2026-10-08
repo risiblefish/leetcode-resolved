@@ -1,16 +1,17 @@
 #!/usr/bin/env node
 /**
- * 生成「今日任务文档」`ts/docs/daily/<YYYY-MM-DD>.md` —— 每次新会话的起点。
+ * 生成 / 追加「本份 Session 文档」`ts/docs/daily/<YYYY-MM-DD>.md`。
  *
- * 文档包含：今日主题 / 今日讲解 / 要做的题 / 练习反馈(留白) / 今日复习 / 复盘与计划调整。
- * 脚本只生成**骨架 + 数据**；「今日主题」「讲解」「识别信号」由 AI 读预习卡后补全。
- * 练完把反馈回填留白，AI 再据今日情况更新 ROADMAP / STATE。
+ * - 当日文件不存在 → 创建完整文档（含 Session 1 + 讲解区 + 后续必做 + 收尾）
+ * - 当日文件已存在 → 追加 Session N 到文末（轻量：不重复讲解；切 pattern 由 AI 补讲解）
+ * - --force → 覆盖整个文件重建
  *
  * 用法：
- *   npm run day                    # 默认 plan.dailyMin 道新题 + 到期复习
- *   npm run day -- --units 3       # 今天想多做
- *   npm run day -- --pattern dp    # 今天专攻某类型
- *   npm run day -- --force         # 覆盖已存在的今日文档
+ *   npm run day                    # 新建或追加 Session
+ *   npm run day -- --units 3       # 本份想多做
+ *   npm run day -- --preview 10    # 多展示本类型后续必做
+ *   npm run day -- --pattern dp    # 本份专攻某类型
+ *   npm run day -- --force         # 覆盖重建整个文件
  */
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
@@ -28,6 +29,7 @@ import {
 const argv = process.argv.slice(2);
 const unitsFlag = numberArg("--units");
 const patternArg = stringArg("--pattern");
+const previewCount = numberArg("--preview") ?? 6;
 const force = argv.includes("--force");
 const today = localDate();
 
@@ -42,48 +44,109 @@ const currentPattern = pickCurrentPattern(plan, queues, solvedIds, patternArg);
 const units = Math.max(1, unitsFlag ?? plan.dailyMin);
 const pool = unsolvedOf(queues, currentPattern.id, solvedIds);
 const selected = pool.slice(0, units);
-const pendingDrills = plan.drills.filter((id) => !isDrillDone(manualDone, id));
+const preview = pool.slice(units, units + previewCount);
+const pendingDrills = (plan.drills ?? [])
+  .filter((id) => !isDrillDone(manualDone, id))
+  .filter((id) => drillById.get(id)?.pattern === currentPattern.id);
 
 const dir = join(tsRoot, "docs", "daily");
 mkdirSync(dir, { recursive: true });
 const path = join(dir, `${today}.md`);
 
+let mode;
 if (existsSync(path) && !force) {
-  console.log(`· 今日文档已存在：${rel(path)}`);
-  console.log("  AI 直接在上面补全 / 回填即可；要重建加 --force（会覆盖已写内容）。");
+  // 已有文件 → 追加 Session N
+  const existing = readFileSync(path, "utf8");
+  const sessionMarks = existing.match(/^## Session \d+/gm) || [];
+  // 若原文件没有 "## Session N" 标记（旧结构），视为 Session 1，追加为 Session 2
+  const nextN = sessionMarks.length === 0 ? 2 : sessionMarks.length + 1;
+  writeFileSync(path, existing.trimEnd() + "\n\n" + renderSession(nextN));
+  mode = `追加 Session ${nextN}`;
 } else {
-  writeFileSync(path, render());
-  console.log(`✅ 已生成：${rel(path)}`);
+  writeFileSync(path, renderInitial());
+  mode = force && existsSync(path) ? "覆盖重建" : "新建";
 }
 
+console.log(`✅ ${mode}：${rel(path)}`);
 console.log("");
-console.log(`  今日类型：${currentPattern.name}（${currentPattern.id}）`);
-console.log(`  新题 ${selected.length} 道 · 到期复习 ${due.length} 道 · 未完成手写热身 ${pendingDrills.length} 个`);
-console.log("  下一步：AI 读 ROADMAP / STATE / 最近 daily，补全「今日主题」「讲解」「识别信号」。");
+console.log(`  本份类型：${currentPattern.name}（${currentPattern.id}）`);
+console.log(`  本份新题 ${selected.length} 道 · 本类型后续预览 ${preview.length} 道 · 到期复习 ${due.length} 道 · 本类型 drill ${pendingDrills.length} 个`);
+console.log("  下一步：AI 读 OVERVIEW / 最近 daily / git log，补全「选题依据」「本份目标」「主题/讲解」「识别信号」。");
 
-function render() {
+/**
+ * 完整文档（首个 Session，含文件头 + 讲解区）。
+ */
+function renderInitial() {
   const L = [];
   const weekday = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"][new Date(`${today}T00:00:00`).getDay()];
-  L.push(`# 今日任务 · ${today} ${weekday}`);
+  L.push(`# Session · ${today} ${weekday}`);
   L.push("");
-  L.push(`> 会话起点：\`npm run day\` 生成骨架；AI 补全「今日主题 / 讲解」，你练完回填反馈，AI 据今日情况更新 ROADMAP。`);
-  L.push(`> 现状：累计 **${solvedIds.size} 道** · 已内化 ${masteredCount} · 当前类型 **${currentPattern.name}**`);
-  L.push("");
-
-  L.push("## 今日主题");
-  L.push("");
-  L.push("<!-- AI：一句话——今天练什么、为什么是它 -->");
+  L.push(`> 本文件记录 ${today} 这一天的所有 Session（按起始顺序追加）。多次 \`npm run day\` 会追加 Session 2 / 3 ……到文末；要覆盖整个文件加 \`--force\`。`);
+  L.push(`> AI 补全「选题依据 / 本份目标 / 主题 / 讲解」，你练完回填反馈，AI 收尾时刷新 OVERVIEW。`);
+  L.push(`> 现状：累计 **${solvedIds.size} 道** · 已内化 ${masteredCount} · 本份类型 **${currentPattern.name}**`);
   L.push("");
 
-  L.push("## 今日学习内容（讲解）");
+  L.push("## Session 1");
   L.push("");
-  L.push(`<!-- AI：用「${currentPattern.id}」预习卡 + 题目背景，写 5–10 分钟能读完的讲解。`);
-  L.push("     给：是什么 / 核心思想 / TS 模板骨架 / 易错边界。");
-  L.push("     红线：读完立刻动代码；超过 20 分钟没写代码就跳过。 -->");
+
+  pushSessionBody(L, { headingLevel: 3, includeTeaching: true });
+  return L.join("\n") + "\n";
+}
+
+/**
+ * 追加的 Session（轻量，不重复讲解）。
+ */
+function renderSession(n) {
+  const L = [];
+  L.push("---");
   L.push("");
+  L.push(`## Session ${n}`);
+  L.push("");
+  L.push(`> 本份类型 **${currentPattern.name}**（${currentPattern.id}）。切类型的话让 AI 在「本份学习内容」小节补讲解。`);
+  L.push("");
+
+  pushSessionBody(L, { headingLevel: 3, includeTeaching: false });
+  return L.join("\n") + "\n";
+}
+
+/**
+ * 共用的 Session 主体。
+ */
+function pushSessionBody(L, { headingLevel, includeTeaching }) {
+  const h = "#".repeat(headingLevel);
+  const subh = "#".repeat(headingLevel + 1);
+
+  L.push(`${h} 选题依据`);
+  L.push("");
+  L.push(`<!-- AI 必填（透明可反驳）：`);
+  L.push(`     - 本份类型：${currentPattern.id}（当前水位 L? · 必做进度 X/Y）`);
+  L.push(`     - 近期信号：最近 2-3 道的 AC/质量/讨论卡点、TS 侧覆盖哪些`);
+  L.push(`     - 结论：本份做什么，为什么是这个难度档，为什么是这几道 -->`);
+  L.push("");
+
+  L.push(`${h} 本份目标`);
+  L.push("");
+  L.push("<!-- AI 必填：具体可验证的成果。例：");
+  L.push("     - AC 两道");
+  L.push("     - 带回 ≥1 条新 X（新算法套路 / 新 TS 维度 / 新模板肉感） -->");
+  L.push("");
+
+  if (includeTeaching) {
+    L.push(`${h} 本份主题`);
+    L.push("");
+    L.push("<!-- AI：一句话——本份练什么、为什么是它 -->");
+    L.push("");
+
+    L.push(`${h} 本份学习内容（讲解）`);
+    L.push("");
+    L.push(`<!-- AI：用「${currentPattern.id}」预习卡 + 题目背景，写 5–10 分钟能读完的讲解。`);
+    L.push("     给：是什么 / 核心思想 / TS 模板骨架 / 易错边界。");
+    L.push("     红线：读完立刻动代码；超过 20 分钟没写代码就跳过。 -->");
+    L.push("");
+  }
 
   if (pendingDrills.length > 0) {
-    L.push("## 可选热身（手写 drill，穿插做）");
+    L.push(`${h} 可选热身（本类型手写 drill）`);
     L.push("");
     for (const id of pendingDrills) {
       const d = drillById.get(id);
@@ -92,54 +155,70 @@ function render() {
     L.push("");
   }
 
-  L.push(`## 今日要做的题（新题 ${selected.length} 道）`);
+  L.push(`${h} 本份要做的题（${selected.length} 道）`);
   L.push("");
   if (selected.length === 0) {
-    L.push("本类型已刷完，`npm run next -- --pattern <id>` 换个类型。");
+    L.push("本类型已刷完，`npm run day -- --pattern <id>` 换个类型。");
     L.push("");
   }
   selected.forEach((x, i) => {
     const p = bank.get(x.id);
     const en = p.title !== p.titleCn ? ` / ${p.title}` : "";
     const tag = x.classic ? "必做" : "备选";
-    L.push(`### ${i + 1}. #${p.id} ${p.titleCn}${en}（${p.difficulty} · ${tag} · ${currentPattern.name}）`);
+    L.push(`${subh} ${i + 1}. #${p.id} ${p.titleCn}${en}（${p.difficulty} · ${tag}）`);
     L.push("");
     L.push(`- 链接：https://leetcode.cn/problems/${p.slug}/`);
     L.push(`- 建目录：\`npm run new -- ${p.id} ${p.slug} ${p.difficulty} ${currentPattern.id}\``);
-    L.push(`- 识别信号：<!-- AI 可补：看到什么关键词想到这个套路 -->`);
+    L.push(`- 识别信号：<!-- AI 可补 -->`);
     L.push(`- 我的思路（先写再做）：`);
     L.push(`- 结果：☐ 卡住　☐ AC　☐ 看了题解`);
     L.push("");
   });
 
-  L.push("## 练习过程 · 反馈与讨论（留白）");
+  L.push(`${h} 反馈与讨论（留白）`);
   L.push("");
-  L.push("<!-- 卡在哪 / 怎么讨论的 / 怎么解决；顺利就不必硬写。AI 在这里补全。 -->");
+  L.push("<!-- 卡在哪 / 怎么讨论 / 怎么解决；顺利就不必硬写。");
+  L.push("     碰到反直觉 TS 问题 → 这里记「我以为 X + 实际 Y + TODO: PF」，收尾时统一落 pitfall 卡。 -->");
   L.push("");
 
-  L.push("## 今日要复习的题");
+  if (preview.length > 0) {
+    L.push(`${h} 📚 本类型后续必做（按顺序的下一批）`);
+    L.push("");
+    L.push(`> **不是「可选加码」，是你最终都要做的**，只是本份没排进「要做的题」。精力好直接往下做；下一份 \`npm run day -- --units N\` 批量排。`);
+    L.push("");
+    for (const x of preview) {
+      const p = bank.get(x.id);
+      const en = p.title !== p.titleCn ? ` / ${p.title}` : "";
+      const tag = x.classic ? "必做" : "备选";
+      L.push(`- [ ] **#${p.id} ${p.titleCn}**${en}（${p.difficulty} · ${tag}）`);
+      L.push(`  - https://leetcode.cn/problems/${p.slug}/`);
+      L.push(`  - \`npm run new -- ${p.id} ${p.slug} ${p.difficulty} ${currentPattern.id}\``);
+    }
+    L.push("");
+  }
+
+  L.push(`${h} 本份要复习的题`);
   L.push("");
   if (due.length === 0) {
-    L.push("今天没有到期复习。");
+    L.push("本份没有到期复习。");
   } else {
     for (const d of due) {
-      const en = "";
-      L.push(`### #${d.id} ${d.title}${en}（第 ${d.stage} 次复习，到期 ${d.next}${d.overdue > 0 ? `，逾期 ${d.overdue} 天` : ""}）`);
+      L.push(`${subh} #${d.id} ${d.title}（第 ${d.stage} 次复习，到期 ${d.next}${d.overdue > 0 ? `，逾期 ${d.overdue} 天` : ""}）`);
       L.push("");
       L.push(`- 回刷后记录：\`npm run solve -- ${d.id} --min <耗时>\``);
       L.push(`- 闭卷重写结果（写不出再看旧代码）：`);
       L.push("");
     }
-    L.push("> 复习前先看对应 `problems/<编号>-<slug>/notes.md` 的「可改进点 / 标准要点」。");
   }
   L.push("");
 
-  L.push("## 复盘 & 对计划的调整");
+  L.push(`${h} 本份收尾（agent 做完时填）`);
   L.push("");
-  L.push("<!-- 太轻松→加量/进阶；吃力→AI 主动问是否放慢加深（例：原计划 3 次过，现吃力→延长到 5 次、减新题、加复习）。");
-  L.push("     确认后记在这里，并更新 STATE.md / ROADMAP.md 与该类型的推进节奏。 -->");
+  L.push("- **感觉**：☐ 爽　☐ 一般　☐ 卡");
+  L.push("- **带回**：<!-- 本份带走了什么。例：PF-xxxx · 新套路 X · 模板肉感 -->");
+  L.push("- **水位判断**：<!-- 本类型水位 升/保/降，依据是什么。用户可反驳。 -->");
+  L.push("- **下一份建议**：<!-- 并在 OVERVIEW 刷新。 -->");
   L.push("");
-  return L.join("\n");
 }
 
 function rel(p) {
