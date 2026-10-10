@@ -1,0 +1,17 @@
+{
+  "id": 136,
+  "slug": "single-number",
+  "title": "只出现一次的数字",
+  "titleEn": "Single Number",
+  "url": "https://leetcode.cn/problems/single-number/",
+  "difficulty": "Easy",
+  "patterns": [
+    "array-hash"
+  ],
+  "source": "new",
+  "status": "solved",
+  "solvedOn": "2026-10-10",
+  "firstTry": true,
+  "timeSpentMin": 0,
+  "complexity": ""
+}
