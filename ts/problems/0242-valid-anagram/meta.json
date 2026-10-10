@@ -1,0 +1,17 @@
+{
+  "id": 242,
+  "slug": "valid-anagram",
+  "title": "有效的字母异位词",
+  "titleEn": "Valid Anagram",
+  "url": "https://leetcode.cn/problems/valid-anagram/",
+  "difficulty": "Easy",
+  "patterns": [
+    "array-hash"
+  ],
+  "source": "new",
+  "status": "solved",
+  "solvedOn": "2026-10-10",
+  "firstTry": true,
+  "timeSpentMin": 0,
+  "complexity": ""
+}
