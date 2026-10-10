@@ -67,7 +67,9 @@ if (isFirst) {
 
 if (minutes > 0) meta.timeSpentMin = (meta.timeSpentMin ?? 0) + minutes;
 
-const activityCount = priorDates.length + 1; // 含本次
+// 口径与 state.mjs 一致：按**不同日期**计数（同一天做完首版又复习 = 一个活动日，不算一次间隔重复）。
+// 例：10-10 当天 solve --first + r1 → 活动日只有 10-10 → 下次 +1 天，而不是 +3。
+const activityCount = priorDates.includes(today) ? priorDates.length : priorDates.length + 1;
 if (activityCount >= MASTERED_ACTIVITY_COUNT) meta.status = "mastered";
 
 writeFileSync(metaPath, `${JSON.stringify(meta, null, 2)}\n`);

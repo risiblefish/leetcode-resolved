@@ -2,6 +2,8 @@
 /**
  * 给出「下一批题」——按类型分库、由易到难，不设上限。
  *
+ * 同时是**欠账视图**（`AGENTS.md` §1.6）：必做进度 X/Y + 还欠的必做 + 到期复习 + 周日清账提醒。
+ *
  * 用法：
  *   npm run next                       # 当前类型的下一批（默认 plan.dailyMin 道）
  *   npm run next -- --units 5          # 多来几道
@@ -35,7 +37,7 @@ const plan = JSON.parse(readFileSync(join(dataDir, "plan.json"), "utf8"));
 const bank = new Map(JSON.parse(readFileSync(join(dataDir, "problems.json"), "utf8")).map((p) => [p.id, p]));
 const drillById = new Map((syllabus.drills ?? []).map((d) => [d.id, d]));
 
-const { solvedIds, manualDone, startedPatterns, metas, masteredCount } = loadState();
+const { solvedIds, manualDone, startedPatterns, metas, masteredCount, due } = loadState();
 const queues = buildQueues(plan);
 const currentPattern = pickCurrentPattern(plan, queues, solvedIds, patternArg);
 
@@ -48,6 +50,8 @@ const selected = pool.slice(0, unitsToShow);
 const preview = pool.slice(selected.length, selected.length + 4);
 const classics = queues.get(currentPattern.id).filter((x) => x.classic);
 const classicsSolved = classics.filter((x) => solvedIds.has(x.id)).length;
+const classicsLeft = classics.filter((x) => !solvedIds.has(x.id));
+const isSunday = new Date(`${today}T00:00:00`).getDay() === 0;
 
 const md = `# 下一批题  ${today}\n\n${render()}`;
 writeFileSync(join(tsRoot, "NEXT.md"), md);
@@ -75,6 +79,22 @@ function render() {
   L.push(`> 换类型：\`npm run next -- --pattern <id>\`；看全部类型：\`npm run dash\`。`);
   L.push("");
 
+  // 欠账视图（AGENTS.md §1.6）：必做会欠账，拓展不会；周日必须清零。
+  if (due.length > 0) {
+    L.push(`## ⏰ 到期复习（${due.length} 道）`);
+    for (const d of due) {
+      const od = d.overdue > 0 ? ` · 逾期 ${d.overdue} 天` : "";
+      L.push(
+        `- [ ] **#${d.id} ${d.title}**（第 ${d.stage} 次，到期 ${d.next}${od}）→ \`npm run solve -- ${d.id} --min <耗时>\``,
+      );
+    }
+    L.push("");
+  }
+  if (isSunday) {
+    L.push(`> 🔔 **今天是周日 · 清账日**：先把「复习队列 + 必做剩余」清零；拓展题不参与清账。`);
+    L.push("");
+  }
+
   if (pendingDrills.length > 0) {
     L.push(`## 🔧 手写热身未完成（${pendingDrills.length} 个，建议穿插做）`);
     for (const id of pendingDrills) {
@@ -86,6 +106,15 @@ function render() {
 
   L.push(`## 📚 当前类型：${currentPattern.name}（\`${currentPattern.id}\`）`);
   L.push(`必做 **${classicsSolved}/${classics.length}** · 本类型已刷 **${queues.get(currentPattern.id).length - pool.length}** · 备选池 ${queues.get(currentPattern.id).length - classics.length} 道`);
+  if (classicsLeft.length > 0) {
+    L.push(
+      `还欠的必做：${classicsLeft
+        .map((x) => `#${x.id} ${bank.get(x.id)?.titleCn ?? ""}`)
+        .join(" · ")}`,
+    );
+  } else {
+    L.push("还欠的必做：无 ✅（下面是备选加练，多多益善）");
+  }
   L.push(`预习卡：${isPrimerDone(manualDone, startedPatterns, currentPattern.id) ? "✅ 已看" : `⬜ 未看 → \`npm run learn -- ${currentPattern.id}\``}`);
   L.push("");
 

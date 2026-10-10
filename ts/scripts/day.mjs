@@ -51,6 +51,12 @@ const pendingDrills = (plan.drills ?? [])
   .filter((id) => !isDrillDone(manualDone, id))
   .filter((id) => drillById.get(id)?.pattern === currentPattern.id);
 
+// 必做欠账（classics）：唯一「会欠账」的清单；周日必须清零。
+const classics = queues.get(currentPattern.id).filter((x) => x.classic);
+const classicsSolved = classics.filter((x) => solvedIds.has(x.id)).length;
+const classicsLeft = classics.filter((x) => !solvedIds.has(x.id));
+const isSunday = new Date(`${today}T00:00:00`).getDay() === 0;
+
 const dir = join(tsRoot, "docs", "daily");
 mkdirSync(dir, { recursive: true });
 const path = join(dir, `${today}.md`);
@@ -117,6 +123,24 @@ function renderSession(n) {
 function pushSessionBody(L, { headingLevel, includeTeaching }) {
   const h = "#".repeat(headingLevel);
   const subh = "#".repeat(headingLevel + 1);
+
+  L.push(`${h} 欠账与清账（先看这个）`);
+  L.push("");
+  L.push(`- **必做进度**：本类型 \`${currentPattern.id}\` **${classicsSolved}/${classics.length}**`);
+  if (classicsLeft.length > 0) {
+    L.push(
+      `- **还欠的必做**：${classicsLeft
+        .map((x) => `#${x.id} ${bank.get(x.id)?.titleCn ?? ""}`)
+        .join(" · ")}`,
+    );
+  } else {
+    L.push("- **还欠的必做**：无 ✅（下面都是备选加练，多多益善）");
+  }
+  L.push(`- **顺延规则**：没做完的必做顺延到下一份（不惩罚）；**周日必须清零**（清账日）`);
+  if (isSunday) {
+    L.push(`- 🔔 **今天是周日 · 清账日**：先把「复习队列 + 必做剩余」清零；拓展题不参与清账，账清完随便加练`);
+  }
+  L.push("");
 
   L.push(`${h} 选题依据`);
   L.push("");
@@ -198,6 +222,13 @@ function pushSessionBody(L, { headingLevel, includeTeaching }) {
     }
     L.push("");
   }
+
+  L.push(`${h} ⏭️ 顺延清单（上一份没做完的）`);
+  L.push("");
+  L.push(`<!-- AI 必填：把上一份 daily 的顺延项抄过来（题目 + 链接 + 为什么没做）；没有就写「无」。`);
+  L.push(`     顺延无限期 = 欠账不还 → 硬闸是周日；周日这一天要把本表 + 复习队列清空。 -->`);
+  L.push("- [ ] 无");
+  L.push("");
 
   L.push(`${h} 本份要复习的题`);
   L.push("");
