@@ -42,17 +42,19 @@ https://leetcode.cn/problems/intersection-of-two-arrays-ii/  ·  难度：Easy  
 
 ## 卡点（卡在哪 / 看了什么提示）
 
-**算法侧**：没卡。双指针 → 唯一要注意的是「相等时两个指针都要走」，只走一个会重复计数。
+**算法侧**：没卡。r1 复习时**主动换了路子**：不再写双指针，改成哈希计数（题目进阶追问真正想问的那条路）。
 
-**TS 侧**：`let shorter = undefined, longer = undefined;` 这两行能过编译，靠的是 TS 的 **evolving any**（`let` 无注解 + 初值 `undefined` 时，类型会随赋值「演化」）。
-这很脆 —— 同族的坑见 [PF-0003](../../docs/knowledge/language/PF-0003-no-late-assignment-in-strict-ts.md)（`let x;` 在 strict 下不是 Java 的 `int x;`）。正式写法建议直接给类型或一步到位赋值。
+**TS 侧（之前踩过、这次改掉了）**：`let shorter = undefined, longer = undefined;` 靠 **evolving any** 才过编译，很脆 —— 见 [PF-0003](../../docs/knowledge/language/PF-0003-no-late-assignment-in-strict-ts.md)。
+本次改用三元表达式一步赋值（`const longer = nums1.length >= nums2.length ? nums1 : nums2`）就不存在这个问题。
+
+**PF-0004 没有重现**：r1 写扣额度时**把减完的值 `set` 回去了**（`else seen.set(val, cnt)`）—— 同一个坑刚跳过，#242 上栽的账算还了。
 
 ## 提交结果
 
-- 是否一次过：**是**（之前裸写时 AC）
-- 耗时（分钟）：未单独计时（转正，`--min` 未传）
-- 复杂度：时间 **O(n log n + m log m)**（排序占主导）/ 空间 **O(n + m)**（两份复制，原数组不动）
-- 另一条路：哈希计数 **O(n + m)** / O(min(n,m))
+- 是否一次过：**是**（之前裸写时 AC；r1 换哈希版后重跑测试仍全绿）
+- 耗时（分钟）：未计时
+- 复杂度：时间 **O(n + m)** / 空间 **O(min(n, m))**（哈希计数版，**r1 换掉的**）
+- 旧路线（双指针）：O(n log n + m log m) / O(n + m) —— 保留在 notes，留给 `two-pointers` 类型
 
 ## AI 复盘（AC 之后也值得看）
 
@@ -63,38 +65,28 @@ https://leetcode.cn/problems/intersection-of-two-arrays-ii/  ·  难度：Easy  
 - 复制后排序，不动入参
 
 **可改进**：
-- **哈希计数版**（题目进阶追问：「如果 `nums1` 很小、`nums2` 巨大怎么办？」）—— 用小数组建表，再扫大数组扣减：
-
-  ```ts
-  const cnt = new Map<number, number>();
-  for (const x of nums1) cnt.set(x, (cnt.get(x) ?? 0) + 1);
-  const ans: number[] = [];
-  for (const x of nums2) {
-    const c = cnt.get(x) ?? 0;
-    if (c > 0) { ans.push(x); cnt.set(x, c - 1); }
-  }
-  return ans;
-  ```
-
-  复杂度 O(n + m)，空间 O(min(n,m))（把小的那份拿来建表）
-- `let ans: number[] = []` → `const ans: number[] = []`（`push` 不改绑定）
-- `let shorter = undefined, longer = undefined` → 直接写 `const shorter = ..., longer = ...`（或标 `number[]`），别依赖 evolving any
-- 排序是两次 `O(n log n)`；如果已经知道**输入有序**，双指针就是 O(n + m) 的最优解（题目第一个进阶追问）
+- **哈希计数版** ✅ **r1 已做到**（见上「卡点」）：用小数组建表 + 扣额度，O(n + m)
+- 写法上 agent 做了两处规范化（透明披露）：
+  - `seen.has(v)` + `seen.get(v)!` → `quota.get(v) ?? 0`（同 [PF-0004](../../docs/knowledge/language/PF-0004-map-value-is-a-copy.md) 推荐的「读-改-写一行」风格）
+  - `const ans = []` → `const ans: number[] = []`（不依赖演化型数组推断，更明确）
+- 排序是两次 `O(n log n)`；如果已经知道**输入有序**，双指针就是 O(n + m)、额外空间 O(1) 的最优解（题目第一个进阶追问的答案）
 
 **没应改**：
-- 双指针本身没错，且在「输入已排序」的前提下就是最优解
+- 「用小的一边建表」这个习惯好（空间 O(min(n,m))），保留
 
 ## 可改进点 / 标准要点
 
-1. **钩子**：逐位对齐 —— 小的走，相等一起走、各消耗一次
-2. **识别信号**：两个数组求交集 + **结果要带重复** → 计数（哈希）或排序双指针；复杂度取决于「输入是否已排序」
-3. **核心不变式**：「相等时两个指针都前进」= 取两边出现次数的**较小值**；只走一个就变成「去重交集」了
-4. **两条路怎么选**：输入未排序、内存宽裕 → 哈希计数 O(n+m)；输入已排序 / 不许额外空间 → 双指针；一边远小于另一边 → 用小的一边建表
-5. **边界**：无交集 → `[]`；单元素相同 → `[x]`；`[2,2,2]` vs `[2,2]` → `[2,2]`
-6. **结果顺序**：题目允许任意顺序，但**测试必须排序后再比较**（否则会误报失败）
-7. **TS 关联**：[PF-0003](../../docs/knowledge/language/PF-0003-no-late-assignment-in-strict-ts.md)（`let x = undefined` 的 evolving any 很脆）
+1. **钩子（哈希版）**：小表存额度，大数组来花；花完即止
+2. **钩子（双指针版，待练）**：逐位对齐 —— 小的走，相等一起走、各消耗一次
+3. **识别信号**：两个数组求交集 + **结果要带重复** → 哈希计数；**输入已排序 / 要 O(1) 额外空间** → 双指针
+4. **核心不变式**：两边都只能消耗一次 = 取出现次数的**较小值**（哈希靠 `left - 1`，双指针靠两指针同走）
+5. **两条路怎么选**：未排序 + 内存宽裕 → 哈希 O(n+m)；已排序 / 不许额外空间 → 双指针；一边远小于另一边 → 用小的一边建表
+6. **边界**：无交集 → `[]`；单元素相同 → `[x]`；`[2,2,2]` vs `[2,2]` → `[2,2]`；`[1,1,1]` vs `[1,1,1,1]` → `[1,1,1]`（**同一值要扣多次**，抓 PF-0004 那种忘写回）
+7. **结果顺序**：题目允许任意顺序，但**测试必须排序后再比较**（否则会误报失败）
+8. **TS 关联**：[PF-0003](../../docs/knowledge/language/PF-0003-no-late-assignment-in-strict-ts.md) · [PF-0004](../../docs/knowledge/language/PF-0004-map-value-is-a-copy.md)
 
-**复习时要达到**：闭卷写出双指针版，并说清「为什么相等时两个指针都要动」；再能现场切到哈希计数版。
+**复习时要达到**：闭卷写出哈希计数版，说清「为什么要取次数较小值」；**双指针版留到 `two-pointers` 类型再练**（那是那道类型的主课，不是本题的欠账）。
+→ ✅ **r1 哈希版已达标**
 
 > 透明说明：本份测试断言（7 例）由 agent 代写；`--first` 也由 agent 代传（之前裸写时即 AC）。r1 复习时请以自己的话复述边界与反例。
 
@@ -102,4 +94,4 @@ https://leetcode.cn/problems/intersection-of-two-arrays-ii/  ·  难度：Easy  
 
 | 日期 | 第几次 | 是否闭卷写出 | 备注 |
 |------|--------|-------------|------|
-|      | 1      |             |      |
+| 2026-10-10 | 1 | ✅ 是（未计时） | **主动换哈希计数 O(n+m)**（不再用排序双指针）；扣额度时把新值写回表（没重现 PF-0004）；换成三元 `const` 赋值后不再依赖 evolving any |
