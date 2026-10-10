@@ -151,14 +151,15 @@ Agent 每次调水位 / 换难度，必须在 OVERVIEW 和 Session 开场**说�
 
 **已处理**：
 
-- ✅ XOR + Boyer-Moore 原理落档到 `ts/docs/tasks/pattern-array-hash.md` 底部「番外」章节
+- ✅ XOR + Boyer-Moore 原理落档到 `ts/docs/tasks/pattern-array-hash.md` 底部「番外 A / B」
+- ✅ 「原地标记法」补齐学习卡（同文件「番外 C」，含三前提 / #442 完整例 / TS 越界坑 / 自测反问）
 - ✅ Session 2 文档收尾已更新（反馈与讨论 · 水位判断正在其中）
 
 **未处理（下一份要做）**：
 
 1. 读完预习卡「番外 A · XOR」→ **闭卷**重写 #136 → `npm run new -- 136 single-number Easy array-hash` → `npm run solve -- 136 --first --min <耗时>`
 2. 读完预习卡「番外 B · Boyer-Moore」→ **闭卷**重写 #169 → scaffold + solve
-3. 学「原地标记法」（数值范围 1..n，用符号当标记位）→ **闭卷**重写 #448 → scaffold + solve
+3. 读预习卡「番外 C · 原地标记」→ **闭卷**重写 #448（重点：两个循环的分工，别在第一个循环里找答案）→ scaffold + solve
 4. ☆可选：#217 / #350 走正式 scaffold（是否重写看心情；解法没大问题，没入复习循环是唯一损失）
 5. ☆可选：#242 小优化（先判 `s.length !== t.length`、`s[i]` 替 `s.charAt(i)`）+ scaffold
 
