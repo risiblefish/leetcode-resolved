@@ -67,7 +67,7 @@ https://leetcode.cn/problems/majority-element/  ·  难度：Easy  ·  pattern�
 - 用 `for...of` 遍历 —— 循环边界天然正确（这正是当初那个 typo 的根治办法）
 - `cnt` 归零换人的时机选对了（先判 `cnt === 0` 再比较）
 - 收尾用 `let candidate = nums[0]` 当种子，和自己在 #0136 的 `let ans = nums[0]` 同一个模式
-- **自己造出反例**——反例是理解深度的体检，这是本份最有价值的产出
+- **反例是本份最有价值的产出**（本轮由 agent 现场构造出 `[1,2,2,2,2]` 等三组，已写进测试）—— r1 复习时你要能**自己**说出这三组，能说出来才算真懂循环边界
 
 **可改进**：
 - `if/else { if/else }` 可折叠成 `else if`，少一层嵌套
@@ -87,6 +87,8 @@ https://leetcode.cn/problems/majority-element/  ·  难度：Easy  ·  pattern�
 6. **TS 坑**：`let candidate;` / `let candidate = undefined;` 在 strict 下都会变成 `number | undefined`，必须给初值或显式声明 + `!`（PF-0003）
 
 **复习时要达到**：闭卷从空白写出 BM，并**主动说出** `[1,2,2,2,2]` 这类反例（能说出来 = 真懂了循环边界为什么不能跟 `candidate` 有关）。
+
+> 透明说明：本份测试断言（7 例，含三组反例）由 agent 在收尾时代写，用户未逐条确认。r1 复习时请以自己的话复述反例。
 
 ## 复习记录
 
