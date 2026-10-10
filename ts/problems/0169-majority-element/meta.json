@@ -1,0 +1,17 @@
+{
+  "id": 169,
+  "slug": "majority-element",
+  "title": "多数元素",
+  "titleEn": "Majority Element",
+  "url": "https://leetcode.cn/problems/majority-element/",
+  "difficulty": "Easy",
+  "patterns": [
+    "array-hash"
+  ],
+  "source": "new",
+  "status": "solved",
+  "solvedOn": "2026-10-10",
+  "firstTry": true,
+  "timeSpentMin": 0,
+  "complexity": ""
+}
