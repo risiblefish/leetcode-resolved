@@ -32,4 +32,8 @@ describe("0448 找到所有数组中消失的数字 / Find All Numbers Disappear
   it("反例：重复元素出现在后面时，abs 必须加（否则 idx 变负、越界）", () => {
     expect(solve([3, 3, 3])).toEqual([1, 2]);
   });
+
+  it("反例：最小的「漏 abs」翻车例 —— [2,1] 该是空数组", () => {
+    expect(solve([2, 1])).toEqual([]);
+  });
 });
