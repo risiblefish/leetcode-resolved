@@ -22,9 +22,9 @@ https://leetcode.cn/problems/valid-anagram/  ·  难度：Easy  ·  pattern：ar
 
 ## 目标（Definition of Done）
 
-- [x] `npm test` 全绿：8 个用例（2 示例 + 2 边界 + 4 反例）
+- [x] `npm test` 全绿：**10 个用例**（2 示例 + 2 边界 + 6 反例）—— 其中 2 例是 r1 复习时把 bug 抓出来的那两组
 - [x] `npm run typecheck` 无错
-- [x] LeetCode 提交 Accepted（Session 2 当场裸写即 AC；本份走转正流程）
+- [x] LeetCode 提交 Accepted（之前裸写时已 AC；这次走完正式流程）
 - [x] 本文档「思路 / 结果 / 复盘」填完
 - [x] `npm run solve -- 242 --first`（自动 commit，计入进度与复习）
 
@@ -40,15 +40,23 @@ https://leetcode.cn/problems/valid-anagram/  ·  难度：Easy  ·  pattern：ar
 
 ## 卡点（卡在哪 / 看了什么提示）
 
-**算法侧**：没卡（Session 2 当场写出并 AC）。
+**算法侧**：没卡。
 
-**TS 侧**：`Map.get` 在键不存在时返回 `undefined`，所以得显式分流
-（`if (cnt === undefined) cnt = 0;`）。这正是 [PF-0001](../../docs/knowledge/language/PF-0001-map-has-get-narrowing.md) 讲的那件事的**正确写法**：不要指望「先 `has` 再 `get`」能收窄类型。
+**r1 复习时自己写出的 bug（真实踩坑，已立卡 [PF-0004](../../docs/knowledge/language/PF-0004-map-value-is-a-copy.md)）**：
+
+- 第二圈拿 `let cnt = cntMap.get(curChar)!;` 出来 `cnt--`，**只在减到 0 时 `delete`，减到非 0 时忘了把新值 `set` 回表** → 计数永远减不下去
+- **为什么没马上发现**：`("aab","abb")` 这类用例会**碰巧返回正确结果**（第一次就减到 0 直接删了）→ 示例全过，自己的直觉也对，但本质上是错的
+- **怎么抓出来**：造一个「同一个字符要减多次」的用例 —— `("aaab","baaa")` 应该 `true`，当时返回 `false`；`("aabb","bbaa")` 同理
+- **根因**：[PF-0004](../../docs/knowledge/language/PF-0004-map-value-is-a-copy.md) —— `Map.get` 拿到的是值的**副本**（number/string 这类原始值），对副本做加减不会影响表；必须 `set` 回去。**同一句话在「值是数组/对象」时反过来**（`map.get(k)!.push(x)` 能生效）—— 这个不一致就是坑的来源
+
+**TS 侧（另一件事）**：`Map.get` 在键不存在时返回 `undefined`，所以得显式分流。参考 [PF-0001](../../docs/knowledge/language/PF-0001-map-has-get-narrowing.md)：不要指望「先 `has` 再 `get`」能收窄类型（用 `!` 或 `?? 0` 都是明的选择，别假笑）。
+
+踩坑：PF-0004
 
 ## 提交结果
 
-- 是否一次过：**是**（Session 2 裸写 AC）
-- 耗时（分钟）：未单独计时（转正，`--min` 未传）
+- 是否一次过：**是**（之前裸写时 AC）；**r1 复习时不是一次过** —— 写出了「没写回计数」的 bug，自己 debug 后修正
+- 耗时（分钟）：未单独计时
 - 复杂度：时间 **O(n + m)** / 空间 **O(k)**（k = 字符种类数；小写字母时是常数 26）
 
 ## AI 复盘（AC 之后也值得看）
@@ -59,10 +67,10 @@ https://leetcode.cn/problems/valid-anagram/  ·  难度：Easy  ·  pattern：ar
 - 两个字符串各扫一遍，没有嵌套循环，复杂度已到位
 
 **可改进**：
-- **开头先判 `s.length !== t.length` 直接 `false`**：最便宜的短路（长度不等必然不是异位词），还能省掉一大类反例
+- **开头先判 `s.length !== t.length` 直接 `false`** ✅ **r1 已做到**（最便宜的短路）
+- **计数一定要写回表**（r1 的 bug，见 [PF-0004](../../docs/knowledge/language/PF-0004-map-value-is-a-copy.md)）：更省事的写法是「读-改-写」合并成一步：`cntMap.set(c, (cntMap.get(c) ?? 0) + 1)`（建表）/ `cntMap.set(c, (cntMap.get(c) ?? 0) - 1)`（抵消，再判 0 删）—— 一行内完成，就不会忘写回
 - `s.charAt(i)` → `s[i]`：TS 里字符串可以直接索引，更惯用（`s[i]` 类型是 `string`）
 - 字符集固定为小写字母时，`new Array(26).fill(0)` 比 `Map` 更快也更省；`Map` 的优势是能处理任意字符集 —— **选择依据是「字符集是否已知」**
-- `let cnt` 后立刻要改，必须 `let`；但可以在取值处一步到位写成 `const cnt = map.get(...) ?? 0`
 
 **没应改**：
 - 「以 t 建表、用 s 抵消」与反过来等价，不必切换
@@ -74,15 +82,17 @@ https://leetcode.cn/problems/valid-anagram/  ·  难度：Easy  ·  pattern：ar
 3. **最便宜的反例**：长度不等 → 直接 `false`（先判它，能省掉很多调试）
 4. **结构选择**：字符集已知且小 → 定长数组；字符集任意 → `Map`；只问「出现过没有」→ `Set`
 5. **边界**：`("", "")` → `true`（都空也算同量同种类）；完全相同 → `true`；大小写敏感
-6. **反例对照**：`("aab","abb")`（种类同、个数不同 —— 只比集合会错）· `("aacc","ccac")`（第二个 a 在表里找不到 → 立刻 false）
-7. **TS 关联**：[PF-0001](../../docs/knowledge/language/PF-0001-map-has-get-narrowing.md)（`get` 可能返回 `undefined`，显式分流）
+6. **反例对照**：`("aab","abb")`（种类同、个数不同 —— 只比集合会错）· `("aacc","ccac")`（第二个 a 在表里找不到 → 立刻 false）· **`("aaab","baaa")`**（同一字符要减多次 —— **抓「忘写回」的用例**）
+7. **计数写回的坑**：[PF-0004](../../docs/knowledge/language/PF-0004-map-value-is-a-copy.md) —— `get` 拿的是副本，`cnt--` 不改表，必须 `set` 回去
+8. **TS 关联**：[PF-0001](../../docs/knowledge/language/PF-0001-map-has-get-narrowing.md)（`get` 可能返回 `undefined`，显式分流）
 
-**复习时要达到**：闭卷写出计数表版（`Map` 或定长数组都行），并说清「为什么开头判长度是必要的优化」「什么情况下该用定长数组而不是 Map」。
+**复习时要达到**：闭卷写出计数表版（`Map` 或定长数组都行），并说清「为什么开头判长度是必要的优化」「什么情况下该用定长数组而不是 Map」「为什么抵消完要写回表」。
+→ ✅ **r1 已达标**（写出来了，还踩了一个真坑并自己修掉）
 
-> 透明说明：本份测试断言（8 例）由 agent 在转正时代写，用户未逐条确认；`--first` 也由 agent 代传（Session 2 裸写当时即 AC）。r1 复习时请以自己的话复述边界与反例。
+> 透明说明：本份测试断言（**现 10 例**）由 agent 代写；`--first` 也由 agent 代传（之前裸写时已 AC）。r1 复习时请以自己的话复述边界与反例。
 
 ## 复习记录
 
 | 日期 | 第几次 | 是否闭卷写出 | 备注 |
 |------|--------|-------------|------|
-|      | 1      |             |      |
+| 2026-10-10 | 1 | ✅ 是（未计时） | 补上了「先判长度」；**写出「忘写回计数」的 bug**，靠自造用例 `("aaab","baaa")` 抓出来 → 立卡 PF-0004 |

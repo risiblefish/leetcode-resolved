@@ -33,4 +33,12 @@ describe("0242 有效的字母异位词 / Valid Anagram", () => {
   it("反例：`aacc` vs `ccac`（s 想要两个 a，但 t 里只有一个 → 第二次拿 a 就该在表里找不到）", () => {
     expect(solve("aacc", "ccac")).toBe(false);
   });
+
+  it("反例：`aabb` vs `bbaa`（计数必须真的减下去）", () => {
+    expect(solve("aabb", "bbaa")).toBe(true);
+  });
+
+  it("反例：`aaab` vs `baaa`（第一次减到 2 时不写回，最后就会误判 false）", () => {
+    expect(solve("aaab", "baaa")).toBe(true);
+  });
 });
