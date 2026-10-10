@@ -24,7 +24,7 @@ https://leetcode.cn/problems/contains-duplicate/  ·  难度：Easy  ·  pattern
 
 - [x] `npm test` 全绿：9 个用例（3 示例 + 2 边界 + 4 反例）
 - [x] `npm run typecheck` 无错
-- [x] LeetCode 提交 Accepted（Session 2 当场裸写即 AC；本份走转正流程）
+- [x] LeetCode 提交 Accepted（之前裸写时已 AC；这次走完正式流程）
 - [x] 本文档「思路 / 结果 / 复盘」填完
 - [x] `npm run solve -- 217 --first`（自动 commit，计入进度与复习）
 
@@ -45,7 +45,7 @@ https://leetcode.cn/problems/contains-duplicate/  ·  难度：Easy  ·  pattern
 
 ## 提交结果
 
-- 是否一次过：**是**（Session 2 裸写 AC）
+- 是否一次过：**是**（之前裸写时 AC）
 - 耗时（分钟）：未单独计时（转正，`--min` 未传）
 - 复杂度：时间 **O(n)** / 空间 **O(n)**（`Set` 版；r1 复习时从排序版换掉的）
 
@@ -88,7 +88,7 @@ https://leetcode.cn/problems/contains-duplicate/  ·  难度：Easy  ·  pattern
 **复习时要达到**：闭卷直接写 `Set` 版（O(n)），并能说清「排序法为什么不算达标」；再顺口说出「什么时候反而该用排序」。
 → ✅ **r1 已达标**（38 秒，`has` / `add` 顺序正确，`[0,0]` 这种 0 值边界也没被哨兵写法定偏）
 
-> 透明说明：本份测试断言（9 例）由 agent 在转正时代写，用户未逐条确认；`--first` 也由 agent 代传（Session 2 裸写当时即 AC）。r1 复习时请以自己的话复述边界与反例。
+> 透明说明：本份测试断言（9 例）由 agent 代写；`--first` 也由 agent 代传（之前裸写时即 AC）。r1 复习时请以自己的话复述边界与反例。
 
 ## 复习记录
 

@@ -114,6 +114,7 @@ Agent 每次调水位 / 换难度，必须在 OVERVIEW 和每份开场**说清�
 - 类型收窄 / 控制流分析 → [PF-0001](ts/docs/knowledge/language/PF-0001-map-has-get-narrowing.md)
 - 变量绑定 const/let/readonly（含 Java `final` 对照）→ [PF-0002](ts/docs/knowledge/language/PF-0002-const-let-vs-java-final.md)
 - 明确赋值 / 类型推断（`let x;` 不是 Java 的 `int x;`）→ [PF-0003](ts/docs/knowledge/language/PF-0003-no-late-assignment-in-strict-ts.md)
+- 值语义 / 引用语义（`Map.get` 拿到的是副本，改它不会改表）→ [PF-0004](ts/docs/knowledge/language/PF-0004-map-value-is-a-copy.md)
 
 **未覆盖**（可以刻意在后续题目里暴露）：
 
@@ -133,7 +134,7 @@ Agent 每次调水位 / 换难度，必须在 OVERVIEW 和每份开场**说清�
 
 **当前主练**：数组与哈希（`array-hash`）
 **水位**：L1（L2 边缘）—— 正式 **8/15**，草稿区已清空（`ts/src/` 只剩 `types.ts`）
-**累计 TS 卡**：3 张（PF-0001 / PF-0002 / PF-0003）
+**累计 TS 卡**：4 张（PF-0001 / PF-0002 / PF-0003 / PF-0004）
 **待复习**：8 道 —— ⚠️ **逾期 1 天**：#1 + #121（r1，到期 2026-10-09）；#136 + #169 + #448 + #242 + #217 + #350（r1，到期 2026-10-11）
 **今天已开**：2 份（`ts/docs/daily/2026-10-10.md`）
 
@@ -196,4 +197,5 @@ Agent 每次调水位 / 换难度，必须在 OVERVIEW 和每份开场**说清�
 | 2026-10-10 | **代码存放契约写入 `AGENTS.md` §3.1**（两区：`ts/src/` 草稿区 vs `ts/problems/` 正式区；转正 = 移动 + 删副本，绝不两边维护）+ `ts/README.md` / `ts/docs/README.md` 同步标注；修正上一轮误删 `ts/src/{217,242,350}.ts` 的判断（已恢复） |
 | 2026-10-10 | **转正 3 道草稿**（#242 / #217 / #350）：建正式目录 → 搬进 `solution.ts` → 真断言测试（+24 例，共 57）→ `notes.md` → `solve --first` → **删 `ts/src/` 副本**（草稿区清空，只剩 `types.ts`）；array-hash 正式进度 5/15 → **8/15** |
 | 2026-10-10 | **闭卷重写 3 道**（#136 / #169 / #448）并走完流程：真断言测试 + `notes.md` + `solve`；修掉假绿（补 #0001/#0121 断言）；沉淀 PF-0003；水位保持 L1 |
+| 2026-10-10 | 新增 [PF-0004](ts/docs/knowledge/language/PF-0004-map-value-is-a-copy.md)：`Map.get` 拿到的是**值的副本**，改它不会改表（#242 r1 复习时踩的坑：忘把减完的计数写回 → 靠自造用例 `("aaab","baaa")` 抓出） |
 | 2026-10-10 | **文档去黑话**：daily / OVERVIEW 不再出现 `Session N` 与 commit 哈希，改成「第 N 份」+ 直接给命令；`day.mjs` 标题同步；规则写进 `AGENTS.md` §1.5 |

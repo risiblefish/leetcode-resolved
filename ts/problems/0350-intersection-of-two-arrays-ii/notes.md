@@ -24,7 +24,7 @@ https://leetcode.cn/problems/intersection-of-two-arrays-ii/  ·  难度：Easy  
 
 - [x] `npm test` 全绿：7 个用例（2 示例 + 2 边界 + 3 反例；结果顺序不敏感，比较前排序）
 - [x] `npm run typecheck` 无错
-- [x] LeetCode 提交 Accepted（Session 2 当场裸写即 AC；本份走转正流程）
+- [x] LeetCode 提交 Accepted（之前裸写时已 AC；这次走完正式流程）
 - [x] 本文档「思路 / 结果 / 复盘」填完
 - [x] `npm run solve -- 350 --first`（自动 commit，计入进度与复习）
 
@@ -49,7 +49,7 @@ https://leetcode.cn/problems/intersection-of-two-arrays-ii/  ·  难度：Easy  
 
 ## 提交结果
 
-- 是否一次过：**是**（Session 2 裸写 AC）
+- 是否一次过：**是**（之前裸写时 AC）
 - 耗时（分钟）：未单独计时（转正，`--min` 未传）
 - 复杂度：时间 **O(n log n + m log m)**（排序占主导）/ 空间 **O(n + m)**（两份复制，原数组不动）
 - 另一条路：哈希计数 **O(n + m)** / O(min(n,m))
@@ -96,7 +96,7 @@ https://leetcode.cn/problems/intersection-of-two-arrays-ii/  ·  难度：Easy  
 
 **复习时要达到**：闭卷写出双指针版，并说清「为什么相等时两个指针都要动」；再能现场切到哈希计数版。
 
-> 透明说明：本份测试断言（7 例）由 agent 在转正时代写，用户未逐条确认；`--first` 也由 agent 代传（Session 2 裸写当时即 AC）。r1 复习时请以自己的话复述边界与反例。
+> 透明说明：本份测试断言（7 例）由 agent 代写；`--first` 也由 agent 代传（之前裸写时即 AC）。r1 复习时请以自己的话复述边界与反例。
 
 ## 复习记录
 
