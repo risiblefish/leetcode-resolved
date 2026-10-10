@@ -1,6 +1,6 @@
 # 预习卡 · 二分查找
 
-> 类型：`binary-search`  ·  随时回看：`npm run learn -- binary-search`
+> **知识块**：算法 · 套路卡（pattern primer）　|　**pattern**：`binary-search`　|　回看：`npm run learn -- binary-search`
 
 ## 它是什么
 

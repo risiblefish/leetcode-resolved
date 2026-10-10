@@ -56,7 +56,7 @@ Agent 读你的信号，调整当前类型的难度梯度：
 
 1. **AC/WA/TLE** — `git log` 的 solve/review 提交
 2. **代码质量** — agent 读 `ts/problems/<id>/solution.ts`：一遍过？冗余？边界？复杂度？
-3. **讨论质量** — agent 读 `ts/docs/daily/*.md` 反馈区 + `ts/docs/pitfalls/`：讲得清本质？卡表层还是深层？
+3. **讨论质量** — agent 读 `ts/docs/daily/*.md` 反馈区 + `ts/docs/knowledge/`（算法卡 + TS 卡）：讲得清本质？卡表层还是深层？
 4. **跨期一致性** — git log 的 review 时间戳 + 复习结果（闭卷能重写？）
 5. **你的主观收尾** — 一字反馈：**爽 / 一般 / 卡**
 
@@ -111,9 +111,9 @@ Agent 每次调水位 / 换难度，必须在 OVERVIEW 和 Session 开场**说�
 
 **已覆盖**（有卡片沉淀）：
 
-- 类型收窄 / 控制流分析 → [PF-0001](ts/docs/pitfalls/PF-0001-map-has-get-narrowing.md)
-- 变量绑定 const/let/readonly（含 Java `final` 对照）→ [PF-0002](ts/docs/pitfalls/PF-0002-const-let-vs-java-final.md)
-- 明确赋值 / 类型推断（`let x;` 不是 Java 的 `int x;`）→ [PF-0003](ts/docs/pitfalls/PF-0003-no-late-assignment-in-strict-ts.md)
+- 类型收窄 / 控制流分析 → [PF-0001](ts/docs/knowledge/language/PF-0001-map-has-get-narrowing.md)
+- 变量绑定 const/let/readonly（含 Java `final` 对照）→ [PF-0002](ts/docs/knowledge/language/PF-0002-const-let-vs-java-final.md)
+- 明确赋值 / 类型推断（`let x;` 不是 Java 的 `int x;`）→ [PF-0003](ts/docs/knowledge/language/PF-0003-no-late-assignment-in-strict-ts.md)
 
 **未覆盖**（可以刻意在后续题目里暴露）：
 
@@ -183,7 +183,7 @@ Agent 每次调水位 / 换难度，必须在 OVERVIEW 和 Session 开场**说�
 - 本文件在 Session 收尾时由 agent 刷新
 - 不手改（想调整路径规划或水位分档可以手改）
 - 想看会话历史：`ts/docs/daily/`
-- 想看 TS 坑点卡：`ts/docs/pitfalls/`
+- 想看知识库：`ts/docs/knowledge/`（`algorithm/` 算法套路卡 + drill · `language/` TS 坑点卡）
 - 项目愿景与长期验收：`ROADMAP.md`
 - Agent 契约（新会话读）：`AGENTS.md`
 
@@ -195,4 +195,5 @@ Agent 每次调水位 / 换难度，必须在 OVERVIEW 和 Session 开场**说�
 |---|---|
 | 2026-10-08 | 建立本文件；废弃 STATE.md / ts/PROGRESS.md；心流 + 二维水位模型落地；**Session 1** (#1 + #121) solve 完成；**Session 2** 追加 (#169 + #136 带新套路)；`day.mjs` 支持同日 Session 追加 |
 | 2026-10-08 | **Session 2 裸写延伸 6 道**（#169 #136 #242 #217 #350 #448）全 AC 但未走流程；XOR + Boyer-Moore 原理落档到 pattern-array-hash.md 番外；Session 2 收尾更新至真实状态；拉临时分支 `wip/handoff-20261008` 用于换电脑交接 |
-| 2026-10-10 | **Session 3（补齐欠账，`ts/docs/daily/2026-10-10.md`）**：番外 C · 原地标记 补卡；#136 / #169 / #448 闭卷重写 + scaffold + 真断言测试 + solve（r1 到期 2026-10-11）；**修掉假绿**（补 #0001 / #0121 断言，全仓 33 例 0 skipped）；沉淀 **PF-0003**；删除裸文件 `ts/src/{136,169,448}.ts`；水位保持 L1 |
+| 2026-10-10 | **知识库重组**（用户要求）：`ts/docs/tasks/` + `ts/docs/pitfalls/` → **`ts/docs/knowledge/{algorithm,language}/`**（按算法/语言两条独立轴分库）；每份卡加「知识块」标识；`task.mjs` 输出目录同步；全仓引用与相对链接更新；`docs/guides/*` 陈旧 `STATE.md` 引用改指 `OVERVIEW.md`；`docs/agent-memory/` 标为冻结快照 |
+| 2026-10-10 | 收尾：Session 3（补齐欠账）—— #136/#169/#448 闭卷重写 + scaffold + 真断言测试 + solve；修掉假绿（补 #0001/#0121 断言）；沉淀 PF-0003；水位保持 L1 |

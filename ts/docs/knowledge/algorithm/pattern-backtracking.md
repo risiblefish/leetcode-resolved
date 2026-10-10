@@ -1,6 +1,6 @@
 # 预习卡 · 回溯
 
-> 类型：`backtracking`  ·  随时回看：`npm run learn -- backtracking`
+> **知识块**：算法 · 套路卡（pattern primer）　|　**pattern**：`backtracking`　|　回看：`npm run learn -- backtracking`
 
 ## 它是什么
 

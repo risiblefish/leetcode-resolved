@@ -1,6 +1,6 @@
 # 手写 drill · 手写二分模板（精确 / 左边界 / 右边界）
 
-> 类型：手写基本功（闭卷）  ·  归属 pattern：binary-search
+> **知识块**：算法 · 手写基本功（drill，闭卷）　|　**归属 pattern**：binary-search
 
 ## 要点
 

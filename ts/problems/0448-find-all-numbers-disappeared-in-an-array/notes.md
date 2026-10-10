@@ -18,7 +18,7 @@ https://leetcode.cn/problems/find-all-numbers-disappeared-in-an-array/  ·  难�
   - 有重复元素时返回下标还是值
   - TS 里字符串不可变，改字符要先拆成数组
   - Map 的键是值语义（对象当键要注意引用）
-- **本题专属（非哈希套路）**：原地标记 in-place marking —— 见 `ts/docs/tasks/pattern-array-hash.md` 番外 C
+- **本题专属（非哈希套路）**：原地标记 in-place marking —— 见 `ts/docs/knowledge/algorithm/pattern-array-hash.md` 番外 C
 
 ## 目标（Definition of Done）
 

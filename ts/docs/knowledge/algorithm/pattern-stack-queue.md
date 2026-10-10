@@ -1,6 +1,6 @@
 # 预习卡 · 栈与队列
 
-> 类型：`stack-queue`  ·  随时回看：`npm run learn -- stack-queue`
+> **知识块**：算法 · 套路卡（pattern primer）　|　**pattern**：`stack-queue`　|　回看：`npm run learn -- stack-queue`
 
 ## 它是什么
 

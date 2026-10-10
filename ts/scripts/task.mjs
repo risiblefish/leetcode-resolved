@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
- * 生成 task 文档（手写 drill / 类型预习卡）。
+ * 生成 task 文档（手写 drill / 类型套路卡）。
  * 做题份的文档由 new.mjs 生成到 problems/<编号>-<slug>/notes.md。
+ * 输出目录：docs/knowledge/algorithm/（知识库·算法侧）
  *
  * 用法：
  *   npm run task                 # 生成全部 drill + 预习卡文档
@@ -14,7 +15,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const tsRoot = join(__dirname, "..");
-const docsDir = join(tsRoot, "docs", "tasks");
+const docsDir = join(tsRoot, "docs", "knowledge", "algorithm");
 const dataDir = join(tsRoot, "data");
 
 const syllabus = JSON.parse(readFileSync(join(dataDir, "syllabus.json"), "utf8"));
@@ -74,7 +75,7 @@ function rel(p) {
 function drillDoc(d) {
   return `# 手写 drill · ${d.title}
 
-> 类型：手写基本功（闭卷）  ·  归属 pattern：${d.pattern}
+> **知识块**：算法 · 手写基本功（drill，闭卷）　|　**归属 pattern**：${d.pattern}
 
 ## 要点
 
@@ -104,7 +105,7 @@ function patternDoc(pat) {
   const pr = pat.primer ?? {};
   return `# 预习卡 · ${pat.name}
 
-> 类型：\`${pat.id}\`  ·  随时回看：\`npm run learn -- ${pat.id}\`
+> **知识块**：算法 · 套路卡（pattern primer）　|　**pattern**：\`${pat.id}\`　|　回看：\`npm run learn -- ${pat.id}\`
 
 ## 它是什么
 

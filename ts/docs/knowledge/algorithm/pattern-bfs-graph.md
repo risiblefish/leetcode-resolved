@@ -1,6 +1,6 @@
 # 预习卡 · BFS 与网格图
 
-> 类型：`bfs-graph`  ·  随时回看：`npm run learn -- bfs-graph`
+> **知识块**：算法 · 套路卡（pattern primer）　|　**pattern**：`bfs-graph`　|　回看：`npm run learn -- bfs-graph`
 
 ## 它是什么
 

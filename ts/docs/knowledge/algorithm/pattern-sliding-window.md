@@ -1,6 +1,6 @@
 # 预习卡 · 滑动窗口
 
-> 类型：`sliding-window`  ·  随时回看：`npm run learn -- sliding-window`
+> **知识块**：算法 · 套路卡（pattern primer）　|　**pattern**：`sliding-window`　|　回看：`npm run learn -- sliding-window`
 
 ## 它是什么
 

@@ -1,6 +1,6 @@
 # 预习卡 · 树与递归
 
-> 类型：`tree-recursion`  ·  随时回看：`npm run learn -- tree-recursion`
+> **知识块**：算法 · 套路卡（pattern primer）　|　**pattern**：`tree-recursion`　|　回看：`npm run learn -- tree-recursion`
 
 ## 它是什么
 

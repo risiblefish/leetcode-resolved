@@ -1,6 +1,6 @@
 # 手写 drill · 手写快速排序（分治 + partition）
 
-> 类型：手写基本功（闭卷）  ·  归属 pattern：advanced-mixed
+> **知识块**：算法 · 手写基本功（drill，闭卷）　|　**归属 pattern**：advanced-mixed
 
 ## 要点
 

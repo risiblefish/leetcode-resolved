@@ -1,6 +1,6 @@
 # 预习卡 · 综合冲刺与高频
 
-> 类型：`advanced-mixed`  ·  随时回看：`npm run learn -- advanced-mixed`
+> **知识块**：算法 · 套路卡（pattern primer）　|　**pattern**：`advanced-mixed`　|　回看：`npm run learn -- advanced-mixed`
 
 ## 它是什么
 

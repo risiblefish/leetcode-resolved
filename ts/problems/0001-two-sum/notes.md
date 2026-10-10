@@ -39,7 +39,7 @@ https://leetcode.cn/problems/two-sum/  ·  难度：Easy  ·  pattern：array-ha
 算法本身没卡（Java 时代做过几十次）。卡在 **TS 类型**：`seen.get(another)` 的返回类型是 `number | undefined`，即使先调了 `has` 判空，类型仍不收窄 → 将 `number | undefined` 赋给 `number[]` 报错。
 
 **根因**：TS 的类型收窄只认「对变量本身的判断」，不认「对同一对象的另一个方法调用」。
-**已落卡**：[PF-0001](../../docs/pitfalls/PF-0001-map-has-get-narrowing.md)
+**已落卡**：[PF-0001](../../docs/knowledge/language/PF-0001-map-has-get-narrowing.md)
 
 ## 提交结果
 

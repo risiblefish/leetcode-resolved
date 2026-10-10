@@ -1,6 +1,6 @@
 # 预习卡 · 堆与贪心
 
-> 类型：`heap-greedy`  ·  随时回看：`npm run learn -- heap-greedy`
+> **知识块**：算法 · 套路卡（pattern primer）　|　**pattern**：`heap-greedy`　|　回看：`npm run learn -- heap-greedy`
 
 ## 它是什么
 

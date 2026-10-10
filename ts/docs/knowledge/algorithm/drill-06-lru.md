@@ -1,6 +1,6 @@
 # 手写 drill · 手写 LRU 缓存（哈希 + 双向链表）
 
-> 类型：手写基本功（闭卷）  ·  归属 pattern：advanced-mixed
+> **知识块**：算法 · 手写基本功（drill，闭卷）　|　**归属 pattern**：advanced-mixed
 
 ## 要点
 

@@ -1,6 +1,6 @@
 # 手写 drill · 手写链表反转（迭代 + 递归）
 
-> 类型：手写基本功（闭卷）  ·  归属 pattern：linked-list
+> **知识块**：算法 · 手写基本功（drill，闭卷）　|　**归属 pattern**：linked-list
 
 ## 要点
 

@@ -1,15 +1,18 @@
-# task 文档 — 学习记录 + 复习标准
+# 算法侧 · 套路卡 + 手写 drill
 
+> **知识块**：算法　|　上层索引：[`../README.md`](../README.md)　|　姊妹库：[`../language/`](../language/)（TS 语言）
+>
 > **解决的问题**：不是「做了多少题」，而是「**做到什么程度才算过、我卡在哪、下次怎么复习**」。
-> 每个手写 drill、每个类型的预习卡、每道题都有一份文档：做的时候留白，做完回填，形成可对照的**参考标准**。
+> 每个手写 drill、每个类型的套路卡都有一份文档：做的时候留白，做完回填，形成可对照的**参考标准**。
 
 ## 文档在哪
 
 | 类型 | 文档位置 | 生成方式 |
 |------|----------|----------|
-| 手写 drill | `docs/tasks/drill-<NN>-<名字>.md` | `npm run task` / `npm run task -- <drill-id>` |
-| 类型预习卡 | `docs/tasks/pattern-<id>.md` | 同上 |
+| 手写 drill | `docs/knowledge/algorithm/drill-<NN>-<名字>.md` | `npm run task` / `npm run task -- <drill-id>` |
+| 类型套路卡 | `docs/knowledge/algorithm/pattern-<id>.md` | 同上 |
 | 做题 | `problems/<编号>-<slug>/notes.md` | `npm run new -- ...` 或 `npm run next -- --scaffold` |
+| TS 语言坑点 | `docs/knowledge/language/PF-<4位编号>-<slug>.md` | 收尾时手写（见 [../language/README.md](../language/README.md)） |
 
 > 常用：**用户同意后**用 `npm run day` 起今日任务文档，再 `npm run day -- --units N` 调量；只想看题目用 `npm run next`。
 > 建做题目录：`npm run next -- --scaffold` 或逐个 `npm run new -- ...`。
@@ -72,7 +75,7 @@ npm run solve -- <题号> [--first] --min N     # 计进度 + 排下次复习
 | [drill-05-mergesort](drill-05-mergesort.md) | 待做 |
 | [drill-06-lru](drill-06-lru.md) | 待做 |
 
-**类型预习卡（13）**
+**类型套路卡（13）**
 
 | 文档 | 文档 | 文档 |
 |------|------|------|

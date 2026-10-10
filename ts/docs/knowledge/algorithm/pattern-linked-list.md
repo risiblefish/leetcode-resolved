@@ -1,6 +1,6 @@
 # 预习卡 · 链表
 
-> 类型：`linked-list`  ·  随时回看：`npm run learn -- linked-list`
+> **知识块**：算法 · 套路卡（pattern primer）　|　**pattern**：`linked-list`　|　回看：`npm run learn -- linked-list`
 
 ## 它是什么
 

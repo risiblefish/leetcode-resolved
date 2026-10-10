@@ -1,6 +1,6 @@
 # 手写 drill · 手写小顶堆 + 堆排序
 
-> 类型：手写基本功（闭卷）  ·  归属 pattern：heap-greedy
+> **知识块**：算法 · 手写基本功（drill，闭卷）　|　**归属 pattern**：heap-greedy
 
 ## 要点
 

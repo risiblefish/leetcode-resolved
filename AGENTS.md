@@ -54,7 +54,7 @@
 
 1. **AC/WA/TLE** — git log 的 solve/review 提交
 2. **代码质量** — 读 `ts/problems/<id>/solution.ts`：一遍过？冗余？边界？复杂度？
-3. **讨论质量** — 读 `ts/docs/daily/*.md` 反馈区 + `ts/docs/pitfalls/`：讲得清本质？卡表层还是深层？
+3. **讨论质量** — 读 `ts/docs/daily/*.md` 反馈区 + `ts/docs/knowledge/`（算法卡 + TS 卡）：讲得清本质？卡表层还是深层？
 4. **跨期一致性** — git log 的 review 时间戳 + 复习结果
 5. **用户主观收尾** — 一字反馈：**爽 / 一般 / 卡**
 
@@ -116,7 +116,7 @@
 
 讨论中碰到「我以为 X，TS 说 Y」的反直觉问题（典型例：`Map.has` 判空后 `.get()` 仍是 `V | undefined`），**不要只口头讲清楚**，落成 pitfall 卡：
 
-- **位置**：`ts/docs/pitfalls/PF-<4位编号>-<slug>.md`，索引 `ts/docs/pitfalls/README.md`
+- **位置**：`ts/docs/knowledge/language/PF-<4位编号>-<slug>.md`，索引 `ts/docs/knowledge/language/README.md`（知识库总索引：`ts/docs/knowledge/README.md`）
 - **时机**：**Session 收尾时统一整理**，不中途打断；现场只在 daily 反馈区写一句「疑问 + 我以为 + 实际 + TODO: PF」
 - **什么值得立卡**：反直觉 + 下次还会撞；一问就通的不立
 - **固定结构**：现象 → 一句话根因 → 修法（≥2 条）→ 自测反问 → 延伸
@@ -161,8 +161,9 @@
 | `docs/guides/` | 操作指南：起 task（`start-task.md`）/ 封版 commit（`commit-guide.md`） |
 | `.agents/skills/daily-study/SKILL.md` | 会话 SOP（开场/中场/收尾） |
 | `ts/docs/daily/<日期>.md` | **Session 文档**（`npm run day` 生成）：主题 / 讲解 / 题目 / 反馈 / 收尾 |
-| `ts/docs/pitfalls/` | **TS 坑点卡**（一坑一卡）+ 索引 README |
-| `ts/docs/tasks/` | 类型预习卡 + 手写 drill 的学习记录（`npm run task` 生成） |
+| `ts/docs/knowledge/` | **知识库（两块独立）**：算法侧 + TS 语言侧。怎么分、怎么维护见 `knowledge/README.md` |
+| `ts/docs/knowledge/algorithm/` | **算法侧**：套路卡 `pattern-*.md` + 手写 drill `drill-*.md`（`npm run task` 生成） |
+| `ts/docs/knowledge/language/` | **TS 语言侧**：坑点卡 `PF-<4位编号>-<slug>.md`（一坑一卡）+ 索引 README |
 | `ts/data/syllabus.json` | 课程大纲：13 类型预习卡 + 6 手写 drill + 必做题（可策展修改） |
 | `ts/data/plan.json` | 分库计划（`npm run plan` 生成，勿手改） |
 | `ts/data/problems.json` | 真实题库 3288 道（用 `npm run sync` 重建） |
@@ -174,6 +175,7 @@
 **已废弃**（git 历史保留）：
 - `STATE.md` → 功能并入 `OVERVIEW.md`
 - `ts/PROGRESS.md` → 功能并入 `OVERVIEW.md`（`npm run dash` 命令待重构）
+- `ts/docs/tasks/` + `ts/docs/pitfalls/` → 已迁入 `ts/docs/knowledge/{algorithm,language}/`（2026-10-10，引用已全部更新）
 
 ---
 

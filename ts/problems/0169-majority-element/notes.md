@@ -18,7 +18,7 @@ https://leetcode.cn/problems/majority-element/  ·  难度：Easy  ·  pattern�
   - 有重复元素时返回下标还是值
   - TS 里字符串不可变，改字符要先拆成数组
   - Map 的键是值语义（对象当键要注意引用）
-- **本题专属（非哈希套路）**：Boyer-Moore 投票法 —— 见 `ts/docs/tasks/pattern-array-hash.md` 番外 B
+- **本题专属（非哈希套路）**：Boyer-Moore 投票法 —— 见 `ts/docs/knowledge/algorithm/pattern-array-hash.md` 番外 B
 
 ## 目标（Definition of Done）
 
@@ -50,7 +50,7 @@ https://leetcode.cn/problems/majority-element/  ·  难度：Easy  ·  pattern�
 `candidate` 是「内容」，`i` 是「进度」，两者不是一个量纲。
 
 **根因**：Java 的 `int candidate;` 直觉在 TS 不成立 —— TS 没有「先声明后赋值」的免费午餐。
-**已落卡**：[PF-0003](../../docs/pitfalls/PF-0003-no-late-assignment-in-strict-ts.md)
+**已落卡**：[PF-0003](../../docs/knowledge/language/PF-0003-no-late-assignment-in-strict-ts.md)
 
 **反例（BM 照妖镜，已写进测试）**：`[1,2,2,2,2]`（错版→1）、`[9,1,9,1,9,1,9]`（错版→undefined）、`[1,9,9,9,9]`（错版→1）。
 注意：官方示例 `[3,2,3]`、`[2,2,1,1,2,2,1]` **恰好都能骗过错版** —— 这就是为什么必须自己造反例。

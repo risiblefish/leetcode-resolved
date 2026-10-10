@@ -1,6 +1,6 @@
 # 预习卡 · 数组与哈希
 
-> 类型：`array-hash`  ·  随时回看：`npm run learn -- array-hash`
+> **知识块**：算法 · 套路卡（pattern primer）　|　**pattern**：`array-hash`　|　回看：`npm run learn -- array-hash`
 
 ## 它是什么
 

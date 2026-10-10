@@ -1,6 +1,6 @@
 # 预习卡 · 双指针
 
-> 类型：`two-pointers`  ·  随时回看：`npm run learn -- two-pointers`
+> **知识块**：算法 · 套路卡（pattern primer）　|　**pattern**：`two-pointers`　|　回看：`npm run learn -- two-pointers`
 
 ## 它是什么
 

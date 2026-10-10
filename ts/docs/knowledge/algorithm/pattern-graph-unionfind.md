@@ -1,6 +1,6 @@
 # 预习卡 · 图进阶与并查集
 
-> 类型：`graph-unionfind`  ·  随时回看：`npm run learn -- graph-unionfind`
+> **知识块**：算法 · 套路卡（pattern primer）　|　**pattern**：`graph-unionfind`　|　回看：`npm run learn -- graph-unionfind`
 
 ## 它是什么
 

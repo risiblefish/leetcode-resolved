@@ -1,5 +1,7 @@
-# TS 踩坑卡（Pitfalls）
+# TS 语言侧 · 踩坑卡（Pitfalls）
 
+> **知识块**：TS 语言　|　上层索引：[`../README.md`](../README.md)　|　姊妹库：[`../algorithm/`](../algorithm/)（算法套路）
+>
 > 练习中遇到的「反直觉 / 容易再踩」的 TS 问题，一坑一卡。
 > 卡片是**知识点维度**，不是题目维度；一张卡可能被多道题触发。
 >
@@ -8,7 +10,8 @@
 
 ## 结构
 
-- 文件名：`PF-<4位编号>-<slug>.md`
+- 位置：`docs/knowledge/language/`
+- 文件名：`PF-<4位编号>-<slug>.md`（编号全局递增，**不重用、不重排**，旧编号是稳定 ID）
 - 必填 front matter：`id` / `title` / `tags` / `source` / `created`
 - 固定小节：**现象 → 一句话根因 → 修法（≥2 条）→ 自测反问 → 延伸**
 

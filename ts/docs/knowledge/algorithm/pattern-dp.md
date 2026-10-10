@@ -1,6 +1,6 @@
 # 预习卡 · 动态规划（拆分推进）
 
-> 类型：`dp`  ·  随时回看：`npm run learn -- dp`
+> **知识块**：算法 · 套路卡（pattern primer）　|　**pattern**：`dp`　|　回看：`npm run learn -- dp`
 
 ## 它是什么
 

@@ -74,5 +74,5 @@ LeetCode TS **不是**第四条赛道，而是主线 `memo-palace`「TS 手写�
 | `OVERVIEW.md` | 决策模型 / 水位图 / 当前位置 / 下一份建议 | **每次会话必读** |
 | `AGENTS.md` | AI 契约（会话协议 / 写题纪律 / Pitfall 机制） | AI 自动加载 |
 | `ts/docs/daily/` | 每份 Session 的记录（主题 / 讨论 / 收尾） | 回溯时看 |
-| `ts/docs/pitfalls/` | TS 反直觉问题沉淀卡 | 复习 TS / 想不起某个概念时 |
+| `ts/docs/knowledge/` | 知识库：`algorithm/` 算法套路卡 + 手写 drill · `language/` TS 反直觉坑点卡 | 复习套路 / 想不起某个概念时 |
 | `.agents/skills/daily-study/SKILL.md` | 会话 SOP（开场/中场/收尾） | AI 加载 |

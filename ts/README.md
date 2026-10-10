@@ -1,6 +1,6 @@
 # TS 刷题工作区
 
-一年养成计划见仓库根目录 [`../ROADMAP.md`](../ROADMAP.md)；当前进度见 [`../STATE.md`](../STATE.md)；**AI 接手协议见 [`../AGENTS.md`](../AGENTS.md)**。
+一年养成计划见仓库根目录 [`../ROADMAP.md`](../ROADMAP.md)；当前进度（水位 / 位置 / 下一份）见 [`../OVERVIEW.md`](../OVERVIEW.md)；**AI 接手协议见 [`../AGENTS.md`](../AGENTS.md)**。
 
 > **按类型分库，不按日期、不设题量上限**：题按类型（数组 / 链表 / DP …）分库并**由易到难**排列（`data/plan.json`）。每类先「必做」策展题，再「备选」无限加练；你按当天精力决定做几道，保底 `dailyMin` 道。
 
@@ -45,7 +45,9 @@ ts/
   data/plan.json          类型分库计划（npm run plan 生成，无题量上限）
   data/progress.json      手动勾掉的清单（预习卡 / 手写 drill）
   docs/daily/             今日任务文档（每次会话一份）
-  docs/tasks/             task 文档（学习记录 + 复习标准）
+  docs/knowledge/         知识库（两块独立）：algorithm/ 算法 · language/ TS 语言
+  docs/knowledge/algorithm/  算法侧：pattern-*.md 套路卡 + drill-*.md 手写基本功
+  docs/knowledge/language/   TS 语言侧：PF-*.md 坑点卡
   docs/README.md          文档地图
   problems/<id>-<slug>/   solution.ts / solution.test.ts / notes.md / meta.json
   scripts/                next / plan / learn / done / task / new / solve / dash / sync-data / lib

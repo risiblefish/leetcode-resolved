@@ -15,7 +15,7 @@ commit 前先问「现在提交吗？」，得到明确同意才提交。**不�
 
 - 今日 `ts/docs/daily/<日期>.md`：「复盘 & 对计划的调整」已回填。
 - 每题 `notes.md`：思路 / 卡点 / 结果 / AI 复盘 / 可改进点。
-- `STATE.md`：阶段 / 当前类型 / 累计 / 下一步。
+- `OVERVIEW.md`：水位 / 近期信号 / 当前位置 / 下一份建议已刷新。
 - `ROADMAP.md`：**仅在路线真的变了**时改；没变就不动。
 - **文档没同步 → 不许 commit。**
 
@@ -30,7 +30,7 @@ commit 前先问「现在提交吗？」，得到明确同意才提交。**不�
 1. 问用户「现在提交吗」，得到同意（门槛 0）。
 2. 确认文档已同步（门槛 1）+ 验收通过（门槛 2）。
 3. `git status` + `git diff` 通读本次改动。
-4. **文档 + 代码一个 commit**（daily 文档 / notes / `ROADMAP.md` / `STATE.md` 与代码一起提）。
+4. **文档 + 代码一个 commit**（daily 文档 / notes / `ROADMAP.md` / `OVERVIEW.md` 与代码一起提）。
 5. message 格式：`study(ts): <日期> <今日主题>`
    - 例：`study(ts): 2026-10-05 数组与哈希 · 两数之和`
    - 单题由 `npm run solve` 自动生成：`solve(ts): 0001 two-sum Easy` / `review(ts): 0001 two-sum (r1)`。
@@ -40,7 +40,7 @@ commit 前先问「现在提交吗？」，得到明确同意才提交。**不�
 
 - [ ] 今日 daily 复盘已填
 - [ ] notes.md 留白已填
-- [ ] `STATE.md` 已更新
+- [ ] `OVERVIEW.md` 已刷新
 - [ ] `ROADMAP.md`（如路线有变）
 - [ ] `npm test` + `npm run typecheck` 通过
 - [ ] 已问用户并获同意

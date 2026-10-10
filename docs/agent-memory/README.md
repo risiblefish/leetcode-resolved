@@ -1,14 +1,20 @@
 # Agent Memory · 记忆与设置（可搬运）
 
+> ⚠️ **本目录是冻结快照，已落后于仓库现况（勿当资料读了不改）**：
+> - 快照时间：`93adb8c`（2026-10-08 落地 TS 训练场骨架时导出）
+> - 其后 live 版本已大改：`STATE.md` **已废弃**（功能并入 `OVERVIEW.md`）；`ts/docs/tasks/` + `ts/docs/pitfalls/` 已迁为 `ts/docs/knowledge/{algorithm,language}/`；会话 SOP 改为「二维水位 + 份制」
+> - **要接手会话请读仓库根 `AGENTS.md` / `OVERVIEW.md`**，不要读本目录的副本
+> - 本目录只在「搬到没有 git 历史的新环境」时才用；除非真要做搬运，**不必维护、不必同步**
+
 > 本目录是「AI 会话记忆 + 工作设置」的**可搬运快照**，用于在另一台机器 / 另一个环境里恢复同一套工作方式。
-> **只读副本**：源头仍以仓库根 `AGENTS.md` / `STATE.md` / `ROADMAP.md`、`.agents/skills/`、`docs/guides/` 为准。
+> **只读副本**：源头仍以仓库根 `AGENTS.md` / `OVERVIEW.md` / `ROADMAP.md`、`.agents/skills/`、`docs/guides/` 为准。
 
 ## 一、文件对照（搬到新环境时放哪）
 
 | 本目录 | 新环境放置位置 | 作用 |
 |---|---|---|
 | `AGENTS.md` | 仓库根 `AGENTS.md` | 会话记忆录，AI 每次会话自动加载 |
-| `STATE.md` | 仓库根 `STATE.md` | 当前指针：阶段 / 当前类型 / 卡点 / 下一步 |
+| `STATE.md` | ~~仓库根 `STATE.md`~~（**已废弃**，改为 `OVERVIEW.md`） | 历史快照，仅参考 |
 | `ROADMAP.md` | 仓库根 `ROADMAP.md` | 一年路线（给人类看） |
 | `skills/daily-study/SKILL.md` | `.agents/skills/daily-study/SKILL.md` | 每日学习会话 SOP（开场 / 中场 / 收尾） |
 | `guides/README.md` | `docs/guides/README.md` | 操作指南索引 |
@@ -24,5 +30,5 @@
 
 ## 三、维护方式
 
-- 本目录是**手动快照**（非脚本生成）。
-- 当根目录记忆文件、skill 或 guides 更新后，请同步覆盖这里的副本，避免两处漂移。
+- 本目录是**手动快照**（非脚本生成），**且已冻结不再同步**（见顶部警告）。
+- 想恢复「可搬运」状态：在确认 live 文件稳定后，用 `cp` 覆盖这里的副本（别忘了把 `STATE.md` 换成 `OVERVIEW.md`）。
