@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 /**
- * 生成 / 追加「本份 Session 文档」`ts/docs/daily/<YYYY-MM-DD>.md`。
+ * 生成 / 追加「本份学习文档」`ts/docs/daily/<YYYY-MM-DD>.md`。
  *
- * - 当日文件不存在 → 创建完整文档（含 Session 1 + 讲解区 + 后续必做 + 收尾）
- * - 当日文件已存在 → 追加 Session N 到文末（轻量：不重复讲解；切 pattern 由 AI 补讲解）
+ * - 当日文件不存在 → 创建完整文档（含第 1 份 + 讲解区 + 后续必做 + 收尾）
+ * - 当日文件已存在 → 追加「第 N 份」到文末（轻量：不重复讲解；切 pattern 由 AI 补讲解）
+ *
+ * 文档用语：只用「第 N 份」——不写 Session、不写 commit 哈希、不写需要背景才能懂的编号。
  * - --force → 覆盖整个文件重建
  *
  * 用法：
@@ -55,13 +57,13 @@ const path = join(dir, `${today}.md`);
 
 let mode;
 if (existsSync(path) && !force) {
-  // 已有文件 → 追加 Session N
+  // 已有文件 → 追加「第 N 份」
   const existing = readFileSync(path, "utf8");
-  const sessionMarks = existing.match(/^## Session \d+/gm) || [];
-  // 若原文件没有 "## Session N" 标记（旧结构），视为 Session 1，追加为 Session 2
+  // 兼容旧结构（旧文档写的是 "## Session N"）
+  const sessionMarks = existing.match(/^## (?:Session \d+|第 \d+ 份)/gm) || [];
   const nextN = sessionMarks.length === 0 ? 2 : sessionMarks.length + 1;
   writeFileSync(path, existing.trimEnd() + "\n\n" + renderSession(nextN));
-  mode = `追加 Session ${nextN}`;
+  mode = `追加第 ${nextN} 份`;
 } else {
   writeFileSync(path, renderInitial());
   mode = force && existsSync(path) ? "覆盖重建" : "新建";
@@ -74,19 +76,19 @@ console.log(`  本份新题 ${selected.length} 道 · 本类型后续预览 ${pr
 console.log("  下一步：AI 读 OVERVIEW / 最近 daily / git log，补全「选题依据」「本份目标」「主题/讲解」「识别信号」。");
 
 /**
- * 完整文档（首个 Session，含文件头 + 讲解区）。
+ * 完整文档（第一份，含文件头 + 讲解区）。
  */
 function renderInitial() {
   const L = [];
   const weekday = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"][new Date(`${today}T00:00:00`).getDay()];
-  L.push(`# Session · ${today} ${weekday}`);
+  L.push(`# ${today}（${weekday}）`);
   L.push("");
-  L.push(`> 本文件记录 ${today} 这一天的所有 Session（按起始顺序追加）。多次 \`npm run day\` 会追加 Session 2 / 3 ……到文末；要覆盖整个文件加 \`--force\`。`);
-  L.push(`> AI 补全「选题依据 / 本份目标 / 主题 / 讲解」，你练完回填反馈，AI 收尾时刷新 OVERVIEW。`);
+  L.push("> 一天可以写多份：再跑一次 `npm run day` 会在文末追加「第 2 份」。要覆盖整个文件加 `--force`。");
+  L.push(`> 每份就是「一次坐下来练的一批题」：AI 补全「选题依据 / 本份目标 / 主题 / 讲解」，你练完回填反馈。`);
   L.push(`> 现状：累计 **${solvedIds.size} 道** · 已内化 ${masteredCount} · 本份类型 **${currentPattern.name}**`);
   L.push("");
 
-  L.push("## Session 1");
+  L.push("## 第 1 份");
   L.push("");
 
   pushSessionBody(L, { headingLevel: 3, includeTeaching: true });
@@ -94,13 +96,13 @@ function renderInitial() {
 }
 
 /**
- * 追加的 Session（轻量，不重复讲解）。
+ * 追加的一份（轻量，不重复讲解）。
  */
 function renderSession(n) {
   const L = [];
   L.push("---");
   L.push("");
-  L.push(`## Session ${n}`);
+  L.push(`## 第 ${n} 份`);
   L.push("");
   L.push(`> 本份类型 **${currentPattern.name}**（${currentPattern.id}）。切类型的话让 AI 在「本份学习内容」小节补讲解。`);
   L.push("");
@@ -110,7 +112,7 @@ function renderSession(n) {
 }
 
 /**
- * 共用的 Session 主体。
+ * 共用的份主体。
  */
 function pushSessionBody(L, { headingLevel, includeTeaching }) {
   const h = "#".repeat(headingLevel);

@@ -32,3 +32,4 @@
 
 > 每天的学习流程见 `.agents/skills/daily-study/SKILL.md`；知识库怎么分、怎么维护见 [`knowledge/README.md`](knowledge/README.md)，会话文档详见 [`daily/README.md`](daily/README.md)。
 > 起 task / 封版 commit 清单见 [`../../docs/guides/`](../../docs/guides/)。
+> **代码住哪（唯一规则）**：`ts/src/<id>.ts` = 草稿区（收件箱，不进复习曲线）；`ts/problems/<id>-<slug>/` = 正式区（进复习曲线）。转正 = 移动 + 删副本，见 `AGENTS.md` §3.1。

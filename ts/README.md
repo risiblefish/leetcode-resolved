@@ -38,7 +38,8 @@ npm run dash
 
 ```
 ts/
-  src/types.ts            ListNode / TreeNode / 转换辅助
+  src/<id>.ts             草稿区（收件箱）：随手写的稿；转正后移动到 problems/ 并删掉本处
+  src/types.ts            ListNode / TreeNode / 转换辅助（基础设施，非草稿，不删）
   data/problems.json      真实题库（3288 道免费题，leetcode.cn 同步）
   data/tags.json          官方标签 → 题目映射
   data/syllabus.json      课程大纲：13 类型预习卡 + 6 手写 drill + 必做题
@@ -49,7 +50,7 @@ ts/
   docs/knowledge/algorithm/  算法侧：pattern-*.md 套路卡 + drill-*.md 手写基本功
   docs/knowledge/language/   TS 语言侧：PF-*.md 坑点卡
   docs/README.md          文档地图
-  problems/<id>-<slug>/   solution.ts / solution.test.ts / notes.md / meta.json
+  problems/<id>-<slug>/   【正式区】solution.ts / solution.test.ts / notes.md / meta.json
   scripts/                next / plan / learn / done / task / new / solve / dash / sync-data / lib
   contest.json            周赛记录（周赛开始后手工追加）
   NEXT.md                 下一批题（自动生成）
