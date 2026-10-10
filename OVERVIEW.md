@@ -91,7 +91,7 @@ Agent 每次调水位 / 换难度，必须在 OVERVIEW 和 Session 开场**说�
 
 | 类别 | 水位 | 必做进度 | 近期信号 |
 |---|---|---|---|
-| 数组与哈希 `array-hash` | **L1** | 2/15 | #1 一遍过（let→const 瑕疵）；#121 顺序正确、命名贴题；**已 solve commit，2026-10-09 r1 到期** |
+| 数组与哈希 `array-hash` | **L1** | 2/15 正式 + 6 裸写 | #1 / #121 已 solve commit；**Session 2 延伸裸写 6 道**（#169 #136 #242 #217 #350 #448 全 AC，代码在 `ts/src/<id>.ts`，未走 scaffold / solve，**未入复习循环**）；**本份核心目标 2/2 未达**（#169 用哈希不是 Boyer-Moore、#136 用排序不是 XOR） |
 | 双指针 `two-pointers` | L0 | 0/? | 未开始 |
 | 滑动窗口 `sliding-window` | L0 | 0/? | 未开始 |
 | 二分 `binary-search` | L0 | 0/? | 未开始 |
@@ -131,31 +131,38 @@ Agent 每次调水位 / 换难度，必须在 OVERVIEW 和 Session 开场**说�
 ## 五、当前位置 & 下一份建议
 
 **当前主练**：数组与哈希（`array-hash`）
-**水位**：L1（2/15）
+**水位**：L1（2/15 正式 + 6 裸写待补流程）
 **累计 TS 卡**：2 张
 **待复习**：2 道（2026-10-09 r1：#1 + #121）
-**本天已开 Session**：2 份
+**本天已开 Session**：2 份（Session 2 有裸写延伸，见下）
 
-### 下一份建议（**Session 2 已追加，进行中**）
+### 当前阻塞点（换电脑重开会话必读）
 
-**已排进 `ts/docs/daily/2026-10-08.md` 末尾 Session 2**：
+**Session 2 之后用户延伸裸写了 6 道**，现在是「半完成」状态：
 
-- **#169** 多数元素 / Majority Element（Easy · 必做）—— 带回 **Boyer-Moore 投票法**
-- **#136** 只出现一次的数字 / Single Number（Easy · 必做）—— 带回 **XOR 异或技巧**
+| 题 | AC | 走法 | 问题 | 文件 |
+|---|---|---|---|---|
+| #169 | ✓ | 哈希计数 | **本份目标是 Boyer-Moore，偷懒写哈希了** | `ts/src/169.ts` |
+| #136 | ✓ | 排序+找孤岛 | **本份目标是 XOR，完全没碰** | `ts/src/136.ts` |
+| #242 | ✓ | Map 加减抵消 | 解法 OK，没走 scaffold | `ts/src/242.ts` |
+| #217 | ✓ | 排序找相邻 | 可改 Set O(n)；没走 scaffold | `ts/src/217.ts` |
+| #350 | ✓ | 排序双指针 | 解法 OK；没走 scaffold | `ts/src/350.ts` |
+| #448 | ✓ | Set + 遍历 | **有经典「原地标记」O(1) 空间解未带回** | `ts/src/448.ts` |
 
-**选题依据**：
-- array-hash L1，近期信号稳 → 水位维持不升不降，难度档 Easy 不变
-- Session 1 用户反馈「Easy 没学到新东西」→ 这两道是自带新套路的高质量 Easy
-- 跳过 #242/#217「哈希计数」重复模板的题（跟 #1 重合度高）
+**已处理**：
 
-**本份目标**：
-- AC 两道
-- 带回 Boyer-Moore + XOR 两条新算法套路
-- 可选：#169 改泛型 `<T>` 版本（TS 泛型入门）
+- ✅ XOR + Boyer-Moore 原理落档到 `ts/docs/tasks/pattern-array-hash.md` 底部「番外」章节
+- ✅ Session 2 文档收尾已更新（反馈与讨论 · 水位判断正在其中）
 
-**启动**：打开 `ts/docs/daily/2026-10-08.md` 滑到 Session 2 → `npm run new -- 169 ...` → 写 solution → AC → `npm run solve -- 169 --first --min <耗时>`。
+**未处理（下一份要做）**：
 
----
+1. 读完预习卡「番外 A · XOR」→ **闭卷**重写 #136 → `npm run new -- 136 single-number Easy array-hash` → `npm run solve -- 136 --first --min <耗时>`
+2. 读完预习卡「番外 B · Boyer-Moore」→ **闭卷**重写 #169 → scaffold + solve
+3. 学「原地标记法」（数值范围 1..n，用符号当标记位）→ **闭卷**重写 #448 → scaffold + solve
+4. ☆可选：#217 / #350 走正式 scaffold（是否重写看心情；解法没大问题，没入复习循环是唯一损失）
+5. ☆可选：#242 小优化（先判 `s.length !== t.length`、`s[i]` 替 `s.charAt(i)`）+ scaffold
+
+**不建议**：直接把 `ts/src/*.ts` 裸写解法照搬到 scaffold 里跑 solve——这样 r1 复习时你会重复一次次优解，强化错误肌肉记忆。
 
 ## 六、路径规划（粗粒度，不绑日期）
 
@@ -187,3 +194,4 @@ Agent 每次调水位 / 换难度，必须在 OVERVIEW 和 Session 开场**说�
 | 日期 | 事件 |
 |---|---|
 | 2026-10-08 | 建立本文件；废弃 STATE.md / ts/PROGRESS.md；心流 + 二维水位模型落地；**Session 1** (#1 + #121) solve 完成；**Session 2** 追加 (#169 + #136 带新套路)；`day.mjs` 支持同日 Session 追加 |
+| 2026-10-08 | **Session 2 裸写延伸 6 道**（#169 #136 #242 #217 #350 #448）全 AC 但未走流程；XOR + Boyer-Moore 原理落档到 pattern-array-hash.md 番外；Session 2 收尾更新至真实状态；拉临时分支 `wip/handoff-20261008` 用于换电脑交接 |
