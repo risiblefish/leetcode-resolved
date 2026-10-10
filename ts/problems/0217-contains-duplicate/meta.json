@@ -12,6 +12,9 @@
   "status": "solved",
   "solvedOn": "2026-10-10",
   "firstTry": true,
-  "timeSpentMin": 0,
-  "complexity": ""
+  "timeSpentMin": 1,
+  "complexity": "",
+  "reviews": [
+    "2026-10-10"
+  ]
 }

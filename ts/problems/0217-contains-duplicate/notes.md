@@ -47,8 +47,7 @@ https://leetcode.cn/problems/contains-duplicate/  ·  难度：Easy  ·  pattern
 
 - 是否一次过：**是**（Session 2 裸写 AC）
 - 耗时（分钟）：未单独计时（转正，`--min` 未传）
-- 复杂度：时间 **O(n log n)** / 空间 **O(n)**（复制了数组）
-- ⚠️ 本题理论最优：时间 **O(n) / 空间 O(n)** 的 `Set` 版
+- 复杂度：时间 **O(n)** / 空间 **O(n)**（`Set` 版；r1 复习时从排序版换掉的）
 
 ## AI 复盘（AC 之后也值得看）
 
@@ -58,7 +57,7 @@ https://leetcode.cn/problems/contains-duplicate/  ·  难度：Easy  ·  pattern
 - 边界选得全：空数组、单元素、`0` 是合法值、负数、重复出现在两端
 
 **可改进（重要）**：
-- **换 `Set` 版**：本题只问「有没有重复」，用 `Set` 边扫边查就是 O(n)：
+- **换 `Set` 版** ✅ **r1 已做到**（2026-10-10，38 秒，闭卷一次写对）：本题只问「有没有重复」，用 `Set` 边扫边查就是 O(n)：
 
   ```ts
   const seen = new Set<number>();
@@ -87,6 +86,7 @@ https://leetcode.cn/problems/contains-duplicate/  ·  难度：Easy  ·  pattern
 6. **TS 关联**：`Set` 是值语义、`has` 命中后无需再取值（所以没有 PF-0001 那个 `undefined` 问题）
 
 **复习时要达到**：闭卷直接写 `Set` 版（O(n)），并能说清「排序法为什么不算达标」；再顺口说出「什么时候反而该用排序」。
+→ ✅ **r1 已达标**（38 秒，`has` / `add` 顺序正确，`[0,0]` 这种 0 值边界也没被哨兵写法定偏）
 
 > 透明说明：本份测试断言（9 例）由 agent 在转正时代写，用户未逐条确认；`--first` 也由 agent 代传（Session 2 裸写当时即 AC）。r1 复习时请以自己的话复述边界与反例。
 
@@ -94,4 +94,4 @@ https://leetcode.cn/problems/contains-duplicate/  ·  难度：Easy  ·  pattern
 
 | 日期 | 第几次 | 是否闭卷写出 | 备注 |
 |------|--------|-------------|------|
-|      | 1      |             | 待换 Set O(n) 版 |
+| 2026-10-10 | 1 | ✅ 是（38 秒） | 首版排序 → **r1 换成 `Set` O(n)**；`for...of` + `has`/`add` 顺序正确 |
