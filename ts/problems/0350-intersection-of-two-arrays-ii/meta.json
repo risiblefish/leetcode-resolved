@@ -1,0 +1,17 @@
+{
+  "id": 350,
+  "slug": "intersection-of-two-arrays-ii",
+  "title": "两个数组的交集 II",
+  "titleEn": "Intersection of Two Arrays II",
+  "url": "https://leetcode.cn/problems/intersection-of-two-arrays-ii/",
+  "difficulty": "Easy",
+  "patterns": [
+    "array-hash"
+  ],
+  "source": "new",
+  "status": "solved",
+  "solvedOn": "2026-10-10",
+  "firstTry": true,
+  "timeSpentMin": 0,
+  "complexity": ""
+}
