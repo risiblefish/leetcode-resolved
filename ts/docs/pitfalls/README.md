@@ -23,6 +23,7 @@
 |---|---|---|---|
 | [PF-0001](./PF-0001-map-has-get-narrowing.md) | Map.has 判空无法让 .get() 的 undefined 消失 | type-narrowing, strict-mode, map-set | 2026-10-08 · #1 two-sum |
 | [PF-0002](./PF-0002-const-let-vs-java-final.md) | TS 的 const/let 和 Java 的 final 怎么对应 | variable-binding, immutability, java-vs-ts | 2026-10-08 · #1 two-sum review |
+| [PF-0003](./PF-0003-no-late-assignment-in-strict-ts.md) | TS 没有「先声明后赋值」的免费午餐（strict 下 `let x;` 就是 undefined） | strict-mode, type-inference, java-vs-ts, definite-assignment | 2026-10-10 · #169 majority-element |
 
 ## 标签表（出现一次就登记一次，便于以后按标签复习）
 
@@ -32,3 +33,5 @@
 - `variable-binding`：变量绑定（const/let/var）
 - `immutability`：不可变性（readonly / as const / Object.freeze）
 - `java-vs-ts`：Java 经验容易误导的对比点
+- `type-inference`：类型推断（演化型 any / 字面量收窄 / typeof）
+- `definite-assignment`：明确赋值断言 `let x!: T`、`strictPropertyInitialization`

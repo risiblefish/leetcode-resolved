@@ -21,11 +21,14 @@ https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/  ·  难度：Easy
 
 ## 目标（Definition of Done）
 
-- [ ] `npm test` 全绿：示例 + ≥1 边界 + ≥1 反例
-- [ ] `npm run typecheck` 无错
-- [ ] LeetCode 提交 Accepted
-- [ ] 本文档「思路 / 结果 / 复盘」填完
-- [ ] `npm run solve -- 121 [--first] --min <耗时>`（自动 commit，计入进度与复习）
+- [x] `npm test` 全绿：7 个用例（2 示例 + 2 边界 + 3 反例）
+- [x] `npm run typecheck` 无错
+- [x] LeetCode 提交 Accepted
+- [x] 本文档「思路 / 结果 / 复盘」填完
+- [x] `npm run solve -- 121 --first`（已 commit：`solve(ts): 0121 best-time-to-buy-and-sell-stock Easy`）
+
+> ⚠️ 补记（2026-10-10）：上面第 1 条**当时并未真正满足** —— `solution.test.ts` 一直是 `it.todo` 空壳，
+> 而 `vitest run --passWithNoTests` 不会因此失败（假绿）。断言于 2026-10-10 补齐。
 
 ## 我的思路（先写再做，哪怕写错）
 

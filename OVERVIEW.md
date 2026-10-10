@@ -91,7 +91,7 @@ Agent 每次调水位 / 换难度，必须在 OVERVIEW 和 Session 开场**说�
 
 | 类别 | 水位 | 必做进度 | 近期信号 |
 |---|---|---|---|
-| 数组与哈希 `array-hash` | **L1** | 2/15 正式 + 6 裸写 | #1 / #121 已 solve commit；**Session 2 延伸裸写 6 道**（#169 #136 #242 #217 #350 #448 全 AC，代码在 `ts/src/<id>.ts`，未走 scaffold / solve，**未入复习循环**）；**本份核心目标 2/2 未达**（#169 用哈希不是 Boyer-Moore、#136 用排序不是 XOR） |
+| 数组与哈希 `array-hash` | **L1** | 5/15 正式 + 3 裸露待补 | `#1 #121 #136 #169 #448` 已 solve commit（**r1 到期 2026-10-11**）；**Session 3 补齐 3 道欠账**：闭卷重写 XOR / Boyer-Moore / 原地标记，全部带真断言测试（33 例）+ 沉淀 PF-0003；`#242 / #217 / #350` 仍为裸写待 scaffold；**水位保持 L1**（本轮是重写已有 AC 的题，不算新套路落地） |
 | 双指针 `two-pointers` | L0 | 0/? | 未开始 |
 | 滑动窗口 `sliding-window` | L0 | 0/? | 未开始 |
 | 二分 `binary-search` | L0 | 0/? | 未开始 |
@@ -113,15 +113,16 @@ Agent 每次调水位 / 换难度，必须在 OVERVIEW 和 Session 开场**说�
 
 - 类型收窄 / 控制流分析 → [PF-0001](ts/docs/pitfalls/PF-0001-map-has-get-narrowing.md)
 - 变量绑定 const/let/readonly（含 Java `final` 对照）→ [PF-0002](ts/docs/pitfalls/PF-0002-const-let-vs-java-final.md)
+- 明确赋值 / 类型推断（`let x;` 不是 Java 的 `int x;`）→ [PF-0003](ts/docs/pitfalls/PF-0003-no-late-assignment-in-strict-ts.md)
 
 **未覆盖**（可以刻意在后续题目里暴露）：
 
 - 泛型（函数泛型 / 约束 `extends` / 推断）
 - 工具类型（`Pick` / `Omit` / `Partial` / `Record` / `ReturnType` / `Awaited`）
 - 字面量类型 + `as const`
-- 类型谓词 `is` / 断言 `as` / 非空断言 `!`
+- 类型谓词 `is` / 断言 `as` / 非空断言 `!`（`!` 已在 #1 与 #169 出现过，但未系统化）
 - 索引签名 / 映射类型 / 条件类型
-- 可选属性 / 可缺失 / `noUncheckedIndexedAccess`
+- 可选属性 / 可缺失 / `noUncheckedIndexedAccess`（已发现：strict **不包含**它，`nums[-1]` 静默，见番外 C）
 - 异步 / `Promise<T>` 类型
 - 枚举 `enum` vs 字面量联合（为什么联合更好）
 - `unknown` vs `any` vs `never`
@@ -131,39 +132,37 @@ Agent 每次调水位 / 换难度，必须在 OVERVIEW 和 Session 开场**说�
 ## 五、当前位置 & 下一份建议
 
 **当前主练**：数组与哈希（`array-hash`）
-**水位**：L1（2/15 正式 + 6 裸写待补流程）
-**累计 TS 卡**：2 张
-**待复习**：2 道（2026-10-09 r1：#1 + #121）
-**本天已开 Session**：2 份（Session 2 有裸写延伸，见下）
+**水位**：L1（正式 5/15 + 3 道裸露待补流程）
+**累计 TS 卡**：3 张（PF-0001 / PF-0002 / PF-0003）
+**待复习**：5 道 —— ⚠️ **逾期 1 天**：#1 + #121（r1，到期 2026-10-09）；#136 + #169 + #448（r1，到期 2026-10-11）
+**本天已开 Session**：1 份（`ts/docs/daily/2026-10-10.md` · Session 3 补齐 3 道欠账）
 
-### 当前阻塞点（换电脑重开会话必读）
+### 当前待办（换电脑重开会话必读）
 
-**Session 2 之后用户延伸裸写了 6 道**，现在是「半完成」状态：
+**Session 3（2026-10-10）已完成的东西**：
 
-| 题 | AC | 走法 | 问题 | 文件 |
-|---|---|---|---|---|
-| #169 | ✓ | 哈希计数 | **本份目标是 Boyer-Moore，偷懒写哈希了** | `ts/src/169.ts` |
-| #136 | ✓ | 排序+找孤岛 | **本份目标是 XOR，完全没碰** | `ts/src/136.ts` |
-| #242 | ✓ | Map 加减抵消 | 解法 OK，没走 scaffold | `ts/src/242.ts` |
-| #217 | ✓ | 排序找相邻 | 可改 Set O(n)；没走 scaffold | `ts/src/217.ts` |
-| #350 | ✓ | 排序双指针 | 解法 OK；没走 scaffold | `ts/src/350.ts` |
-| #448 | ✓ | Set + 遍历 | **有经典「原地标记」O(1) 空间解未带回** | `ts/src/448.ts` |
+| 题 | 首版（当时 AC） | 本份（闭卷重写） | 状态 |
+|---|---|---|---|
+| #136 | 排序 + 找孤岛 | **XOR** O(n)/O(1) | ✅ scaffold + 6 例测试 + solve |
+| #169 | 哈希计数 | **Boyer-Moore** O(n)/O(1) | ✅ scaffold + 7 例测试（含 3 组反例）+ solve |
+| #448 | Set + 遍历 | **原地标记** O(n)/O(1) | ✅ scaffold + 7 例测试 + solve |
 
-**已处理**：
+同时修掉的流程漏洞（重要）：
 
-- ✅ XOR + Boyer-Moore 原理落档到 `ts/docs/tasks/pattern-array-hash.md` 底部「番外 A / B」
-- ✅ 「原地标记法」补齐学习卡（同文件「番外 C」，含三前提 / #442 完整例 / TS 越界坑 / 自测反问）
-- ✅ Session 2 文档收尾已更新（反馈与讨论 · 水位判断正在其中）
+- ✅ **`npm test` 以前是假绿** —— #0001 / #0121 的测试是 `it.todo` 空壳，而 `--passWithNoTests` 不会失败。**已补真断言**，全仓 33 例真实通过、0 skipped
+- ✅ 三道的 `notes.md` 都写了「钩子 + 标准要点」（r1 复习时的提取清单）
+- ✅ 裸文件 `ts/src/{136,169,448}.ts` 已删（git 历史保留）
 
-**未处理（下一份要做）**：
+**仍未处理（下一份建议顺序）**：
 
-1. 读完预习卡「番外 A · XOR」→ **闭卷**重写 #136 → `npm run new -- 136 single-number Easy array-hash` → `npm run solve -- 136 --first --min <耗时>`
-2. 读完预习卡「番外 B · Boyer-Moore」→ **闭卷**重写 #169 → scaffold + solve
-3. 读预习卡「番外 C · 原地标记」→ **闭卷**重写 #448（重点：两个循环的分工，别在第一个循环里找答案）→ scaffold + solve
-4. ☆可选：#217 / #350 走正式 scaffold（是否重写看心情；解法没大问题，没入复习循环是唯一损失）
-5. ☆可选：#242 小优化（先判 `s.length !== t.length`、`s[i]` 替 `s.charAt(i)`）+ scaffold
+1. **先补逾期复习**：#1 + #121 的 r1（逾期 1 天）→ 先看各自 `notes.md` 的「标准要点」，再**闭卷重写** → `npm run solve -- 1 --min <耗时>`（此命令会记为 `review(ts): ... (r1)`，从实际回刷日重新计时）
+2. 把 3 道裸写（#242 / #217 / #350）走正式 scaffold + solve（清掉沙盒）：
+   - #242 先做小优化：先判 `s.length !== t.length`、`s[i]` 替 `s.charAt(i)`
+   - #217 可改 Set O(n)（现在的排序是 O(n log n)）
+   - #350 解法无大问题，直接搬
+3. 然后才排新题：#53 / #56（Medium，难度梯度升档）
 
-**不建议**：直接把 `ts/src/*.ts` 裸写解法照搬到 scaffold 里跑 solve——这样 r1 复习时你会重复一次次优解，强化错误肌肉记忆。
+**不建议**：把 `ts/src/{242,217,350}.ts` 裸写解法直接照搬到 scaffold 里跑 solve——这样 r1 复习时你会重复一次次优解，强化错误肌肉记忆。
 
 ## 六、路径规划（粗粒度，不绑日期）
 
@@ -196,3 +195,4 @@ Agent 每次调水位 / 换难度，必须在 OVERVIEW 和 Session 开场**说�
 |---|---|
 | 2026-10-08 | 建立本文件；废弃 STATE.md / ts/PROGRESS.md；心流 + 二维水位模型落地；**Session 1** (#1 + #121) solve 完成；**Session 2** 追加 (#169 + #136 带新套路)；`day.mjs` 支持同日 Session 追加 |
 | 2026-10-08 | **Session 2 裸写延伸 6 道**（#169 #136 #242 #217 #350 #448）全 AC 但未走流程；XOR + Boyer-Moore 原理落档到 pattern-array-hash.md 番外；Session 2 收尾更新至真实状态；拉临时分支 `wip/handoff-20261008` 用于换电脑交接 |
+| 2026-10-10 | **Session 3（补齐欠账，`ts/docs/daily/2026-10-10.md`）**：番外 C · 原地标记 补卡；#136 / #169 / #448 闭卷重写 + scaffold + 真断言测试 + solve（r1 到期 2026-10-11）；**修掉假绿**（补 #0001 / #0121 断言，全仓 33 例 0 skipped）；沉淀 **PF-0003**；删除裸文件 `ts/src/{136,169,448}.ts`；水位保持 L1 |
