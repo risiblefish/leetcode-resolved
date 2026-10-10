@@ -1,0 +1,17 @@
+{
+  "id": 217,
+  "slug": "contains-duplicate",
+  "title": "存在重复元素",
+  "titleEn": "Contains Duplicate",
+  "url": "https://leetcode.cn/problems/contains-duplicate/",
+  "difficulty": "Easy",
+  "patterns": [
+    "array-hash"
+  ],
+  "source": "new",
+  "status": "solved",
+  "solvedOn": "2026-10-10",
+  "firstTry": true,
+  "timeSpentMin": 0,
+  "complexity": ""
+}
