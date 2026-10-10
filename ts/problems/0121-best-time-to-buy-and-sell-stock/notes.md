@@ -73,4 +73,4 @@ https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/  ·  难度：Easy
 
 | 日期 | 第几次 | 是否闭卷写出 | 备注 |
 |------|--------|-------------|------|
-|      | 1      |             |      |
+| 2026-10-10 | 1 | ✅ 是（2 分 32 秒） | 一次写对，顺序铁律（先算收益、再更新最低）没倒；变量名 `day` / `curMaxProfit` 比 `i` / `best` 更可读 |
