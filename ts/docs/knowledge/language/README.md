@@ -28,6 +28,7 @@
 | [PF-0002](./PF-0002-const-let-vs-java-final.md) | TS 的 const/let 和 Java 的 final 怎么对应 | variable-binding, immutability, java-vs-ts | 2026-10-08 · #1 two-sum review |
 | [PF-0003](./PF-0003-no-late-assignment-in-strict-ts.md) | TS 没有「先声明后赋值」的免费午餐（strict 下 `let x;` 就是 undefined） | strict-mode, type-inference, java-vs-ts, definite-assignment | 2026-10-10 · #169 majority-element |
 | [PF-0004](./PF-0004-map-value-is-a-copy.md) | `Map.get` 拿到的是值本身，不是通往表内的钥匙（改它不会改表） | map-set, value-semantics, java-vs-ts | 2026-10-10 · #242 valid-anagram（r1） |
+| [PF-0005](./PF-0005-new-array-is-any.md) | `new Array(n)` 是 `any[]`，strict 一个错都不报（`.fill()` 也救不了） | array-lib, any, type-inference, strict-mode | 2026-10-11 · #53 maximum-subarray |
 
 ## 标签表（出现一次就登记一次，便于以后按标签复习）
 
@@ -40,3 +41,5 @@
 - `type-inference`：类型推断（演化型 any / 字面量收窄 / typeof）
 - `definite-assignment`：明确赋值断言 `let x!: T`、`strictPropertyInitialization`
 - `value-semantics`：值语义 / 引用语义（`Map.get` 拿到的是副本还是引用、对象按引用传）
+- `array-lib`：内置数组 API 的类型行为（`new Array` / `fill` / `Array.from` / 稀疏数组）
+- `any`：静默 `any` / `any` 传染 / 怎么用探针抓出来
