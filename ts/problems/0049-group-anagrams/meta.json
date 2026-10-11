@@ -1,0 +1,17 @@
+{
+  "id": 49,
+  "slug": "group-anagrams",
+  "title": "字母异位词分组",
+  "titleEn": "Group Anagrams",
+  "url": "https://leetcode.cn/problems/group-anagrams/",
+  "difficulty": "Medium",
+  "patterns": [
+    "array-hash"
+  ],
+  "source": "new",
+  "status": "solved",
+  "solvedOn": "2026-10-11",
+  "firstTry": true,
+  "timeSpentMin": 0,
+  "complexity": ""
+}
