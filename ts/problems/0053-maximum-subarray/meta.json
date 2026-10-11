@@ -1,0 +1,17 @@
+{
+  "id": 53,
+  "slug": "maximum-subarray",
+  "title": "最大子数组和",
+  "titleEn": "Maximum Subarray",
+  "url": "https://leetcode.cn/problems/maximum-subarray/",
+  "difficulty": "Medium",
+  "patterns": [
+    "array-hash"
+  ],
+  "source": "new",
+  "status": "solved",
+  "solvedOn": "2026-10-11",
+  "firstTry": true,
+  "timeSpentMin": 0,
+  "complexity": ""
+}
