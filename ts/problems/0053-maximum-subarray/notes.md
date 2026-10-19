@@ -98,3 +98,4 @@ https://leetcode.cn/problems/maximum-subarray/  ·  难度：Medium  ·  pattern
 | 日期 | 第几次 | 是否闭卷写出 | 备注 |
 |------|--------|-------------|------|
 | 2026-10-11 | 1 | ✅ 是（未计时） | 闭卷 AC；dp 数组版状态定义准确、初值 `nums[0]` 正确；`new Array(n)` 静默 any（→ PF-0005）；r1 要达到 O(1) 滚动版 |
+| 2026-10-13 | 2 | ✅ 是（r1 复习） | **自己察觉首版 dp 数组冗余** —— 「`sum[i]` 只用到 `sum[i-1]`，用一个变量就够」；但稿里仍用了数组才问 AI，AI 确认后压成 O(1) 滚动版并覆盖 solution.ts。顺口问出一个新坑：**`sum[i] = ...` 没指定长度为啥不报错？** → JS 数组动态扩容 + TS 未开 `noUncheckedIndexedAccess`（纯常识，未立 PF）|

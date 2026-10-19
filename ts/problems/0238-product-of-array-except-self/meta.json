@@ -1,0 +1,17 @@
+{
+  "id": 238,
+  "slug": "product-of-array-except-self",
+  "title": "除了自身以外数组的乘积",
+  "titleEn": "Product of Array Except Self",
+  "url": "https://leetcode.cn/problems/product-of-array-except-self/",
+  "difficulty": "Medium",
+  "patterns": [
+    "array-hash"
+  ],
+  "source": "new",
+  "status": "solved",
+  "solvedOn": "2026-10-19",
+  "firstTry": true,
+  "timeSpentMin": 0,
+  "complexity": ""
+}

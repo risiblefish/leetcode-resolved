@@ -83,7 +83,7 @@ https://leetcode.cn/problems/group-anagrams/  ·  难度：Medium  ·  pattern�
 4. **三条 key 路线**：排序 `O(m log m)`（好写）｜26 字母计数 `O(m)`（更快）｜质数乘积（会溢出，仅作了解）
 5. **边界**：空字符串（key 也是 `""`）、单字符、同一个串出现多次（同桶多个元素）、空输入 → `[]`
 6. **反例**：`["aab","abb"]` 必须**分成两组**（抓「排序 key 写错/只比长度」）；`["ab","abc"]` 不是异位词
-7. **TS 关联**：`[...str].sort().join("")` 而不是 `str.split("")` 也好，但注意 `toString()` 是 `join(",")`；[PF-0004](../../docs/knowledge/language/PF-0004-map-value-is-a-copy.md)（值是数组时 `push` 能改到表里，值是原始值时不能）
+7. **TS 关联**：`[...str].sort().join("")` 而不是 `str.split("")` 也好，但注意 `toString()` 是 `join(",")`；[PF-0004](../../docs/knowledge/language/PF-0004-map-value-is-a-copy.md)（值是数组时 `push` 能改到表里，值是原始值时不能）；[PF-0007](../../docs/knowledge/language/PF-0007-type-position-empty-tuple.md)（泛型里 value 类型要写 `string[]`，别写 `[]`——那是空元组）
 8. **复习时要达到**：闭卷写出排序 key 版 + 说清「为什么可以用排序后的串当 key」；能口头给出计数 key 版
 
 > 透明说明：本份测试断言（7 例）由 agent 代写；`--first` 也由 agent 代传（闭卷时已 AC）。r1 复习时请以自己的话复述边界与反例。
@@ -93,3 +93,4 @@ https://leetcode.cn/problems/group-anagrams/  ·  难度：Medium  ·  pattern�
 | 日期 | 第几次 | 是否闭卷写出 | 备注 |
 |------|--------|-------------|------|
 | 2026-10-11 | 1 | ✅ 是（未计时） | 闭卷 AC；排序后当 key + 桶 push（用 `has`+`get!`，靠「值是数组」生效）；agent 规范化为 `?? []` |
+| 2026-10-13 | 2 | ✅ 是（r1 复习） | 一次 AC，这次主动用 `?? []` + 显式 `set` 回去（吸收 r1 的「读-改-写」建议），没再踩 PF-0004。**新疑问：`Map<string, []>()` 为啥报错？** —— 一开始写成 value 类型 `[]`，被 TS 当成**空元组**（元素类型 `never`），`push` 立爆 → 立卡 [PF-0007](../../docs/knowledge/language/PF-0007-type-position-empty-tuple.md)（类型位 vs 值位）|

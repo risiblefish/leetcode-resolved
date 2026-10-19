@@ -84,7 +84,7 @@ https://leetcode.cn/problems/valid-anagram/  ·  难度：Easy  ·  pattern：ar
 5. **边界**：`("", "")` → `true`（都空也算同量同种类）；完全相同 → `true`；大小写敏感
 6. **反例对照**：`("aab","abb")`（种类同、个数不同 —— 只比集合会错）· `("aacc","ccac")`（第二个 a 在表里找不到 → 立刻 false）· **`("aaab","baaa")`**（同一字符要减多次 —— **抓「忘写回」的用例**）
 7. **计数写回的坑**：[PF-0004](../../docs/knowledge/language/PF-0004-map-value-is-a-copy.md) —— `get` 拿的是副本，`cnt--` 不改表，必须 `set` 回去
-8. **TS 关联**：[PF-0001](../../docs/knowledge/language/PF-0001-map-has-get-narrowing.md)（`get` 可能返回 `undefined`，显式分流）
+8. **TS 关联**：[PF-0001](../../docs/knowledge/language/PF-0001-map-has-get-narrowing.md)（`get` 可能返回 `undefined`，显式分流）· [PF-0006](../../docs/knowledge/language/PF-0006-string-is-immutable-no-sort.md)（走排序路线时不能直接 `s.sort()`，必须拆数组）
 
 **复习时要达到**：闭卷写出计数表版（`Map` 或定长数组都行），并说清「为什么开头判长度是必要的优化」「什么情况下该用定长数组而不是 Map」「为什么抵消完要写回表」。
 → ✅ **r1 已达标**（写出来了，还踩了一个真坑并自己修掉）
@@ -96,3 +96,4 @@ https://leetcode.cn/problems/valid-anagram/  ·  难度：Easy  ·  pattern：ar
 | 日期 | 第几次 | 是否闭卷写出 | 备注 |
 |------|--------|-------------|------|
 | 2026-10-10 | 1 | ✅ 是（未计时） | 补上了「先判长度」；**写出「忘写回计数」的 bug**，靠自造用例 `("aaab","baaa")` 抓出来 → 立卡 PF-0004 |
+| 2026-10-13 | 2 | ✅ 是（r1 复习） | 换「排序后比字符串」路线（`[...s].sort().toString() === [...t].sort().toString()`）；一次 AC，PF-0004 的坑没再踩。**新疑问：直接 `s.sort()` 为何报错？** → 字符串 primitive 且不可变、`.sort()` 挂在 `Array.prototype` 上，必须拆数组 → 立卡 [PF-0006](../../docs/knowledge/language/PF-0006-string-is-immutable-no-sort.md)。另：`.toString()` 这里恰好 = `.join(",")`，单字符元素下与 `.join("")` 等价，但依赖它是脆的（场景一换就撞键），标准写法用 `.join("")` |
